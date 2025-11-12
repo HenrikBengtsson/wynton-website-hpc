@@ -1,0 +1,269 @@
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "UCSF Wynton HPC Cluster"
+  site-url: "https://wynton.ucsf.edu/hpc/"
+  repo-url: "https://github.com/ucsf-wynton/wynton-website-hpc"
+  repo-actions: [edit, issue]
+  
+  navbar:
+    background: primary
+    logo: assets/ico/favicon.ico
+    left:
+      - text: "Status"
+        href: hpc/status/index.qmd
+      - text: "Get Started"
+        menu:
+          - text: "1. Login & Logout"
+            href: hpc/get-started/access-cluster.qmd
+          - text: "2. Development / Prototyping"
+            href: hpc/get-started/development-prototyping.qmd
+          - text: "3. 'Hello World' Job"
+            href: hpc/get-started/hello-world-job.qmd
+          - text: "4. Good Practices"
+            href: hpc/get-started/good-practices.qmd
+          - text: "5. 2FA Registration"
+            href: hpc/get-started/duo-signup.qmd
+          - text: "6. Wynton Protected Quickstart"
+            href: hpc/get-started/protected-quickstart.qmd
+      - text: "Software"
+        menu:
+          - text: "Core Software"
+            href: hpc/software/core-software.qmd
+          - text: "Software Collections (SCL)"
+            href: hpc/software/scl.qmd
+          - text: "Software Modules"
+            href: hpc/software/software-modules.qmd
+          - text: "Software Repositories"
+            href: hpc/software/software-repositories.qmd
+          - text: "Linux Containers (Apptainer/Singularity)"
+            href: hpc/software/apptainer.qmd
+          - text: "SBGrid Software (restricted access)"
+            href: hpc/software/sbgrid.qmd
+          - text: "Missing Software?"
+            href: hpc/software/missing-software.qmd
+          - text: "Migration to Rocky 8 Linux (Nov 2023)"
+            href: hpc/software/rocky-8-linux.qmd
+      - text: "SGE"
+        menu:
+          - text: "Submit Jobs"
+            href: hpc/scheduler/submit-jobs.qmd
+          - text: "List Jobs"
+            href: hpc/scheduler/list-jobs.qmd
+          - text: "Kill Jobs"
+            href: hpc/scheduler/kill-jobs.qmd
+          - text: "Job Summary"
+            href: hpc/scheduler/job-summary.qmd
+          - text: "Useful Env. Variables"
+            href: hpc/scheduler/envvars.qmd
+          - text: "Use Local Scratch"
+            href: hpc/scheduler/using-local-scratch.qmd
+          - text: "Available Queues"
+            href: hpc/scheduler/queues.qmd
+          - text: "Job Email Notifications"
+            href: hpc/scheduler/email-notifications.qmd
+          - text: "GPU Scheduling"
+            href: hpc/scheduler/gpu.qmd
+          - text: "Advanced Usage"
+            href: hpc/scheduler/advanced-usage.qmd
+      - text: "File Transfers"
+        menu:
+          - text: "Secure Copy File Transfers"
+            href: hpc/transfers/files-and-directories.qmd
+          - text: "Globus File Transfers"
+            href: hpc/transfers/globus.qmd
+          - text: "Globus File Sharing"
+            href: hpc/transfers/globus-sharing.qmd
+          - text: "UCSF Box"
+            href: hpc/transfers/ucsf-box.qmd
+          - text: "Windows-Unix File Transfers"
+            href: hpc/transfers/dos2unix.qmd
+          - text: "rclone (mount Wynton file system locally)"
+            href: hpc/transfers/rclone.qmd
+      - text: "How To"
+        menu:
+          - text: "Work with MATLAB"
+            href: hpc/howto/matlab.qmd
+          - text: "Work with Python"
+            href: hpc/howto/python.qmd
+          - text: "Work with Jupyter Notebook"
+            href: hpc/howto/jupyter.qmd
+          - text: "Work with R"
+            href: hpc/howto/r.qmd
+          - text: "Work with RStudio"
+            href: hpc/howto/rstudio.qmd
+          - text: "Work with Conda"
+            href: hpc/howto/conda.qmd
+          - text: "Stage Conda Environment to Local Disk"
+            href: hpc/howto/conda-stage.qmd
+          - text: "Install Software from Source"
+            href: hpc/howto/install-from-source.qmd
+          - text: "File Sizes and Disk Quotas"
+            href: hpc/howto/storage-size.qmd
+          - text: "Adjust Group Disk Quota"
+            href: hpc/howto/group-quota.qmd
+          - text: "Find Files"
+            href: hpc/howto/find-files.qmd
+          - text: "Log in without Password"
+            href: hpc/howto/log-in-without-pwd.qmd
+          - text: "Change & Verify Password"
+            href: hpc/howto/change-pwd.qmd
+          - text: "GUIs (X2Go & X11)"
+            href: hpc/howto/gui-x11fwd.qmd
+          - text: "JupyterHub Server (DISCONTINUED)"
+            href: hpc/howto/jupyterhub.qmd
+      - text: "Support"
+        menu:
+          - text: "Support Channels"
+            href: hpc/support/index.qmd
+          - text: "Frequently Asked Questions"
+            href: hpc/support/faq.qmd
+      - text: "About"
+        menu:
+          - text: "Specifications"
+            href: hpc/about/specs.qmd
+          - text: "Available GPUs"
+            href: hpc/about/gpus.qmd
+          - text: "News"
+            href: hpc/about/news.qmd
+          - text: "Pricing: Extra Storage"
+            href: hpc/about/pricing-storage.qmd
+          - text: "Pricing: Extra Compute (CPU & GPU)"
+            href: hpc/about/pricing-compute.qmd
+          - text: "---"
+          - text: "Wynton Protected (P3 Data)"
+            href: hpc/about/wynton-protected.qmd
+          - text: "Join ♡"
+            href: hpc/about/join.qmd
+          - text: "Contributing Member Shares"
+            href: hpc/about/shares.qmd
+          - text: "---"
+          - text: "Governance"
+            href: hpc/about/governance.qmd
+          - text: "User Agreement"
+            href: hpc/about/user-agreement.qmd
+          - text: "How to Cite"
+            href: hpc/about/citation.qmd
+          - text: "---"
+          - text: "Contact"
+            href: hpc/about/contact.qmd
+
+  page-footer:
+    left: |
+      <a href="https://www.ucsf.edu/">UCSF</a> :: 
+      <a href="https://wynton.ucsf.edu/">Wynton</a> :: 
+      <a href="/hpc/">Wynton HPC</a>
+    right: |
+      <a href="{{< meta repo-url >}}/commits/master/docs/{{< meta source-file >}}">Change log</a> :: 
+      <a href="{{< meta repo-url >}}/tree/master/docs/{{< meta source-file >}}">Contribute</a>
+
+format:
+  html:
+    theme: 
+      light: [cosmo, custom.scss]
+    css: 
+      - assets/css/this_site.css
+      - assets/css/broadcast.css
+      - assets/css/checkbox-toggle.css
+    toc: true
+    toc-depth: 3
+    code-copy: true
+    code-overflow: wrap
+    
+metadata:
+  cluster:
+    name: "Wynton HPC"
+    nickname: "Wynton"
+    version: "1.1"
+    domain: "wynton.ucsf.edu"
+    email_support: "wynton-support@ucsf.edu"
+    email_storage: "wynton-storage@ucsf.edu"
+    email_compute: "wynton-compute@ucsf.edu"
+    email_password: "wynton-password@ucsf.edu"
+  
+  user:
+    name: "alice"
+    email: "alice.aliceson@ucsf.edu"
+    home: "/wynton/home/boblab/alice"
+    labfolder: "/wynton/group/boblab"
+  
+  path:
+    global_root: "/wynton"
+    global_scratch: "/wynton/scratch"
+    cbi_software: "/wynton/home/cbi/shared/software"
+  
+  login:
+    name: "log2"
+    hostname: "log2.wynton.ucsf.edu"
+    ip: "169.230.79.12"
+  
+  devel:
+    name: "dev2"
+    hostname: "dev2.wynton.ucsf.edu"
+    ip: "172.26.44.132"
+  
+  transfer:
+    name: "dt2"
+    hostname: "dt2.wynton.ucsf.edu"
+    ip: "169.230.79.22"
+  
+  login1:
+    name: "log1"
+    hostname: "log1.wynton.ucsf.edu"
+    ip: "169.230.79.11"
+  
+  login2:
+    name: "log2"
+    hostname: "log2.wynton.ucsf.edu"
+    ip: "169.230.79.12"
+  
+  transfer1:
+    name: "dt1"
+    hostname: "dt1.wynton.ucsf.edu"
+    ip: "169.230.79.21"
+  
+  transfer2:
+    name: "dt2"
+    hostname: "dt2.wynton.ucsf.edu"
+    ip: "169.230.79.22"
+  
+  dev1:
+    name: "dev1"
+    hostname: "dev1.wynton.ucsf.edu"
+    ip: "172.26.44.131"
+  
+  dev2:
+    name: "dev2"
+    hostname: "dev2.wynton.ucsf.edu"
+    ip: "172.26.44.132"
+  
+  dev3:
+    name: "dev3"
+    hostname: "dev3.wynton.ucsf.edu"
+    ip: "172.26.44.133"
+  
+  gpudev1:
+    name: "gpudev1"
+    hostname: "gpudev1.wynton.ucsf.edu"
+    ip: "172.26.44.141"
+  
+  globus:
+    name: "UCSF Wynton HPC"
+    uuid: "68f06816-cd00-4bf3-ae1f-0597a07ed118"
+  
+  globus-protected:
+    name: "UCSF Wynton PDT"
+    uuid: "ef126934-6f8a-4af8-81cd-d5b0b7afe51f"
+  
+  globus-box:
+    name: "UCSF Wynton HPC Box"
+    uuid: "98d778c4-75a9-4d8d-8baa-68f71d6568c0"
+  
+  organization:
+    name: "Wynton"
+    url: "https://wynton.ucsf.edu/"
+
+filters:
+  - quarto
