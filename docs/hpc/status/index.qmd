@@ -17,20 +17,20 @@ title: Wynton HPC Status
 </ul>
 <div class="tab-content" style="margin-top: 1ex;">
   <div id="by-day" class="tab-pane fade in active">
-    <img src="https://raw.githubusercontent.com/UCSF-HPC/wynton-slash/master/wynton/docs/status/figures/queues-day.png" alt="queues usage during the last day"/><br>
-    <img src="https://raw.githubusercontent.com/UCSF-HPC/wynton-slash/master/wynton/docs/status/figures/gpuq-day.png" alt="GPU queues usage during the last day"/><br>
+  <img src="https://raw.githubusercontent.com/UCSF-HPC/wynton-slash/master/wynton/docs/status/figures/queues-day.png" alt="queues usage during the last day"/><br>
+  <img src="https://raw.githubusercontent.com/UCSF-HPC/wynton-slash/master/wynton/docs/status/figures/gpuq-day.png" alt="GPU queues usage during the last day"/><br>
   </div>
   <div id="by-week" class="tab-pane fade in">
-    <img src="https://raw.githubusercontent.com/UCSF-HPC/wynton-slash/master/wynton/docs/status/figures/queues-week.png" alt="queues usage during the last week"/><br>
-    <img src="https://raw.githubusercontent.com/UCSF-HPC/wynton-slash/master/wynton/docs/status/figures/gpuq-week.png" alt="GPU queues usage during the last week"/><br>
+  <img src="https://raw.githubusercontent.com/UCSF-HPC/wynton-slash/master/wynton/docs/status/figures/queues-week.png" alt="queues usage during the last week"/><br>
+  <img src="https://raw.githubusercontent.com/UCSF-HPC/wynton-slash/master/wynton/docs/status/figures/gpuq-week.png" alt="GPU queues usage during the last week"/><br>
   </div>
   <div id="by-month" class="tab-pane fade in">
-    <img src="https://raw.githubusercontent.com/UCSF-HPC/wynton-slash/master/wynton/docs/status/figures/queues-month.png" alt="queues usage during the last month"/><br>
-    <img src="https://raw.githubusercontent.com/UCSF-HPC/wynton-slash/master/wynton/docs/status/figures/gpuq-month.png" alt="GPU queues usage during the last month"/><br>
+  <img src="https://raw.githubusercontent.com/UCSF-HPC/wynton-slash/master/wynton/docs/status/figures/queues-month.png" alt="queues usage during the last month"/><br>
+  <img src="https://raw.githubusercontent.com/UCSF-HPC/wynton-slash/master/wynton/docs/status/figures/gpuq-month.png" alt="GPU queues usage during the last month"/><br>
   </div>
   <div id="by-year" class="tab-pane fade in">
-    <img src="https://raw.githubusercontent.com/UCSF-HPC/wynton-slash/master/wynton/docs/status/figures/queues-year.png" alt="queues usage during the last year"/><br>
-    <img src="https://raw.githubusercontent.com/UCSF-HPC/wynton-slash/master/wynton/docs/status/figures/gpuq-year.png" alt="GPU queues usage during the last year"/><br>
+  <img src="https://raw.githubusercontent.com/UCSF-HPC/wynton-slash/master/wynton/docs/status/figures/queues-year.png" alt="queues usage during the last year"/><br>
+  <img src="https://raw.githubusercontent.com/UCSF-HPC/wynton-slash/master/wynton/docs/status/figures/gpuq-year.png" alt="GPU queues usage during the last year"/><br>
   </div>
 </div>
 
@@ -42,21 +42,21 @@ Last known heartbeat: <span id="last-heartbeat">Loading…</span>
 
   <div class="status-panel" style="border: 1px solid #dec000; padding: 2ex; margin-bottom: 2ex;">
    <div style="font-size: 150%; font-weight: bold;">
-    <span>/wynton/scratch/ lagginess</span><span style="float: right;"></span>
+  <span>/wynton/scratch/ lagginess</span><span style="float: right;"></span>
    </div>
    <div id="BeeGFSLoad_devX__wynton_scratch_hb"></div>
   </div>
 
   <div class="status-panel" style="border: 1px solid #dec000; padding: 2ex; margin-bottom: 2ex;">
    <div style="font-size: 150%; font-weight: bold;">
-    <span>/wynton/home/ lagginess</span><span style="float: right;"></span>
+  <span>/wynton/home/ lagginess</span><span style="float: right;"></span>
    </div>
    <div id="BeeGFSLoad_devX__wynton_home_cbi_hb"></div>
   </div>
 
   <div class="status-panel" style="border: 1px solid #dec000; padding: 2ex; margin-bottom: 2ex;">
    <div style="font-size: 150%; font-weight: bold;">
-    <span>/wynton/group/ lagginess</span><span style="float: right;"></span>
+  <span>/wynton/group/ lagginess</span><span style="float: right;"></span>
    </div>
    <div id="BeeGFSLoad_devX__wynton_group_cbi_hb"></div>
   </div>
