@@ -6,7 +6,8 @@ website:
   title: "UCSF Wynton HPC Cluster"
   site-url: "https://wynton.ucsf.edu/hpc/"
   repo-url: "https://github.com/ucsf-wynton/wynton-website-hpc"
-  repo-actions: [edit, issue]
+  repo-branch: master
+  repo-subdir: docs
   
   navbar:
     background: "#ffdd00"
@@ -168,7 +169,9 @@ format:
       - hpc/assets/css/checkbox-toggle.css
       - hpc/assets/css/docsearch.css
       - hpc/assets/css/quarto-customizations.css
-    include-in-header: _includes/ucsf-banner-header.html
+    include-in-header: 
+      - _includes/ucsf-banner-header.html
+      - _includes/footer-links.html
     toc: false
     toc-depth: 3
     code-copy: true

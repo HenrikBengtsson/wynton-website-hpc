@@ -73,6 +73,6 @@ maxNumCompThreads(nslots);              % number of cores MATLAB may use
 and then launch your MATLAB script _without_ option `-singleCompThread`, e.g. `matlab -batch "my_script"`.
 
 
-[built-in environment module]: {{ '/hpc/software/software-repositories.html' | relative_url }}
-[specify the number of CPU cores]: {{ '/hpc/scheduler/submit-jobs.html' | relative_url }}
+[built-in environment module]: /hpc/software/software-repositories.html
+[specify the number of CPU cores]: /hpc/scheduler/submit-jobs.html
 

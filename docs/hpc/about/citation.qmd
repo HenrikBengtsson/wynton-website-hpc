@@ -19,12 +19,12 @@ Below are a few examples on how to give details on the {{< meta cluster.name >}}
 > {{< meta cluster.name >}} is a distributed high-performance computing cluster with nodes
 > in many different data centers on the UCSF campus.  All {{< meta cluster.name >}} sites are
 > connected by multiple 40 Gbps network connections.  {{< meta cluster.name >}} currently
-> contains {{ site.data.specs.nodes }} nodes with over
-> {{ site.data.specs.physical_cores }} CPU cores.
-> RAM in the nodes ranges from {{ site.data.specs.ram_min }} to
-> {{ site.data.specs.ram_max }} GiB with an average RAM-to-core ratio of over 10 GiB.
-> There are also {{ site.data.specs.gpu_nodes}} nodes containing a total of
-> {{ site.data.specs.gpus }} GPUs.
+> contains 482 nodes with over
+> 17496 CPU cores.
+> RAM in the nodes ranges from 48 to
+> 1512 GiB with an average RAM-to-core ratio of over 10 GiB.
+> There are also 61 nodes containing a total of
+> 235 GPUs.
 > Storage is provided by a parallel filesystem providing 400 TB of mirrored
 > home space and 500 TB of global scratch space.
 >
@@ -43,6 +43,6 @@ Below are a few examples on how to give details on the {{< meta cluster.name >}}
 > UCSF.  The cluster is run as a co-op, with access for all and priority
 > given to those who have contributed funds or hardware.  Support is
 > also provided by UCSF Research IT.  The cluster currently consists of
-> {{ site.data.specs.nodes }} nodes with {{ site.data.specs.physical_cores }} cores.
-> Each node has at least {{ site.data.specs.ram_min }} GiB of RAM and
-> total home storage is {{ site.data.specs.home_size_total }} TiB.
+> 482 nodes with 17496 cores.
+> Each node has at least 48 GiB of RAM and
+> total home storage is 770 TiB.
