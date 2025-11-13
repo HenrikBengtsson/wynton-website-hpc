@@ -19,22 +19,6 @@ HB 2019-04-29: This works but is a bit tedious to write and read; maybe this
                this is neater when done in Hugo(?).  Let's wait and see. If
                not, we might wanna consider Rmarkdown to generate this info.
 {% endcomment %}
-{% assign pu_add_label = "2.2 GHz Opteron 6174 CPU" %}
-{% assign pu_add = 1.6 %}
-{% assign slots_add = 12 %}
-{% assign pu_times = 4 %}
-{% assign pu_delta = pu_add | times: pu_times %}
-{% assign slots_delta = slots_add | times: pu_times %}
-{% assign pu_total_0 = site.data.specs.pu_total | minus: pu_delta %}
-{% assign slots_total_0 = site.data.specs.member_q_total | minus: slots_delta %}
-{% assign pu_delta_share = pu_delta | divided_by: pu_total_0 %}
-{% assign slots_delta_share = pu_delta_share | times: slots_total_0 %}
-{% assign pu_0 = 16.3 %}
-{% assign pu_1 = pu_0 | plus: pu_delta %}
-{% assign pu_1_share = pu_1 | divided_by: pu_total_0 %}
-{% assign slots_1 = pu_1_share | times: slots_total_0 %}
-
-
 Currently, the {{< meta cluster.name >}} cluster has in total _member.q<sub>total</sub>_ = {{ site.data.specs.member_q_total }} slots available on the member.q queue.  Jobs on the _member.q_ queue will launch and finish sooner than jobs on the communal, lower-priority _long.q_ queue.  A member.q job will have higher-priority on the CPU than a long.q job in case they run on the same compute node.   It is only contributing members who have access to the member.q queue - non-contributing members will only have access to [queues](/hpc/scheduler/queues.html) such as the long.q queue.  **Contributors get _non-expiring, lifetime access_ to a  number of these member.q slots in proportion to their hardware contribution to the cluster.**  The number of member.q slots a particular hardware contribution, which can be monetary(\*) or physical(\*), adds, is based on how much compute power the contribution adds to the cluster.
 The amount of compute power that contributed hardware adds is based on benchmarking(\*), which result in a _processing-unit score_ (PU) for the contribution.  Currently, there are in total _PU<sub>total</sub>_ = {{ site.data.specs.pu_total }} _contributed_ processing units on {{< meta cluster.name >}}.
 
