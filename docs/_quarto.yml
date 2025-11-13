@@ -171,6 +171,9 @@ format:
     include-in-header: 
       - _includes/ucsf-banner-header.html
       - _includes/footer-links.html
+    include-before-body:
+      - text: |
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     toc: false
     toc-depth: 3
     code-copy: true
