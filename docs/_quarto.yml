@@ -164,9 +164,12 @@ format:
     theme: 
       light: [cosmo, custom.scss]
     css: 
-      - assets/css/this_site.css
-      - assets/css/broadcast.css
-      - assets/css/checkbox-toggle.css
+      - hpc/assets/css/ucsf-banners.css
+      - hpc/assets/css/bootstrap.min.css
+      - hpc/assets/css/this_site.css
+      - hpc/assets/css/broadcast.css
+      - hpc/assets/css/checkbox-toggle.css
+      - hpc/assets/css/docsearch.css
     toc: true
     toc-depth: 3
     code-copy: true
