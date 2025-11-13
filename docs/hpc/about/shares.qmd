@@ -1,4 +1,4 @@
-{{< include warning-hold-on-compute-requests.md >}}
+{{< include warning-hold-on-compute-requests.qmd >}}
 
 <div class="alert alert-info" role="alert" markdown="1">
 **Contributions to the {{< meta cluster.name >}} environment are non-expiring, e.g. contribute once and keep it for life!**

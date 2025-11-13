@@ -1,4 +1,4 @@
-{{< include _includes/banner-phi-freeze.md >}}
+{{< include ../../_includes/banner-phi-freeze.md >}}
 
 # Wynton PHI
 

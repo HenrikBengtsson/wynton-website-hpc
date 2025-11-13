@@ -1,4 +1,4 @@
-{{< include warning-hold-on-compute-requests.md >}}
+{{< include warning-hold-on-compute-requests.qmd >}}
 
 # Pricing for Extra Compute
 
