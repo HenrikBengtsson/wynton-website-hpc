@@ -32,7 +32,7 @@ The website provides dynamic summaries of data that are produced on regular basi
 
 ## Technical details
 
-This website is built upon [Jekyll](https://jekyllrb.com/), where content is mostly written in [Markdown](https://en.wikipedia.org/wiki/Markdown) and rendered by Jekyll into HTML.  The user interface and its style is handled mainly by JavaScript and CSS.
+This website is built upon [Quarto](https://quarto.org/), where content is mostly written in [Markdown](https://en.wikipedia.org/wiki/Markdown) and rendered by Quarto into HTML.  The user interface and its style is handled mainly by JavaScript and CSS.
 
 * <https://github.com/ucsf-wynton/wynton-website-hpc/>:
   - The source Git repository for the website
@@ -50,37 +50,31 @@ To get a local copy of this repos, do:
 ```sh
 $ cd /path/to/my/repositories
 $ git clone https://github.com/ucsf-wynton/wynton-website-hpc.git
-$ cd wynton
+$ cd wynton-website-hpc
 $ pwd
-/path/to/my/repositories/wynton
+/path/to/my/repositories/wynton-website-hpc
 ```
 
 To launch a localhost instance of the website, do:
 
 ```sh
-$ ## Make sure to have 'bundle' on the PATH, e.g.
-$ ## export PATH="$HOME/.gem/ruby/2.5.0/bin:$PATH"
-
 $ cd docs
-$ bundle exec jekyll serve --port 4001
-Configuration file: /home/alice/wynton/docs/_config.yml
-            Source: /home/alice/wynton/docs
-       Destination: /home/alice/wynton/docs/_site
- Incremental build: disabled. Enable with --incremental
-      Generating... 
-                    done in 0.94 seconds.
- Auto-regeneration: enabled for '/home/alice/wynton/docs'
-    Server address: http://127.0.0.1:4001
-  Server running... press ctrl-c to stop.
+$ quarto preview
+Preparing to preview
+[1/94] hpc/openings/index.qmd
+[2/94] hpc/scheduler/kill-jobs.qmd
+...
+Browse at http://localhost:4200/
+GET: /
 ```
 
-and then open <http://127.0.0.1:4001> in the web browser.  Note that Jekyll monitors all files and if one of them is updated, then Jekyll will instantaneously re-render the corresponding HTML file.  There is no need to relaunch Jekyll or by other means manually re-render files.  For instance, if there has been updates made to the git repository, doing:
+and then open <http://localhost:4200> in the web browser.  Note that Quarto monitors all files and if one of them is updated, then Quarto will instantaneously re-render the corresponding HTML file.  There is no need to relaunch Quarto or by other means manually re-render files.  For instance, if there has been updates made to the git repository, doing:
 
 ```sh
 $ git pull
 ```
 
-will pull down those updates locally and Jekyll will automatically re-render the HTML website.
+will pull down those updates locally and Quarto will automatically re-render the HTML website.
 
 
 
@@ -133,4 +127,4 @@ To run these tests locally, install [markdown-link-check](https://github.com/tco
 
 ## Installation
 
-To preview this website on your local computer, install Jekyll following the instructions in `INSTALL.md`. Don't forget to set your `PATH` environment as instructed.
+To preview this website on your local computer, install Quarto following the instructions in `INSTALL.md`.

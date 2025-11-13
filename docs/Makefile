@@ -3,24 +3,10 @@ SHELL=bash
 
 include Makefile.checks
 
-# Examples:
-# export JEKYLL_HOST=selfhost; make serve 
-# JEKYLL_HOST=selfhost make serve 
-# make serve JEKYLL_HOST=selfhost
-JEKYLL_HOST:=${JEKYLL_HOST}
-
-JEKYLL_OPTS=
-ifeq ($(JEKYLL_HOST),selfhost)
-#JEKYLL_OPTS=--safe --baseurl '/hpc' --config _config.yml,_config_selfhost.yml
-JEKYLL_OPTS=--safe --config _config.yml,_config_selfhost.yml
-endif
-
 
 ## Requirements:
-## * See https://jekyllrb.com/docs/installation/;
-##   - Ruby Dev (e.g. sudo apt-get install ruby-dev)
-##   - RubyGems ('bundle', e.g. sudo apt install ruby-bundler)
-##   - Jekyll (e.g. gem install bundler jekyll github-pages)
+## * See https://quarto.org/docs/get-started/;
+##   - Quarto CLI (download from https://quarto.org/docs/download/)
 dynamic:
 	cd hpc/software; $(MAKE)
 
@@ -37,15 +23,20 @@ gitleaks:
 	cd .git/hooks; \
 	ln -s ../../.githooks/pre-commit .
 
-start:
-	bundle exec jekyll serve --port 4001 $(JEKYLL_OPTS) 2> ../jekyll.log &
+render:
+	quarto render
+
+preview:
+	quarto preview
+
+start: preview
 
 stop:
-	- pkill --echo --count --full jekyll
+	- pkill --echo --count --full quarto
 
 restart: stop start
 
-serve: start
+serve: preview
 
 wynton:
 	PAGES_REPO_NWO=UCSF-HPC/wynton jekyll build --incremental --destination ~/gitea/gitea/public/wynton-help
