@@ -159,8 +159,7 @@ website:
 
 format:
   html:
-    theme: 
-      light: [cosmo, custom.scss]
+    theme: cosmo
     css: 
       - hpc/assets/css/ucsf-banners.css
       - hpc/assets/css/bootstrap.min.css
