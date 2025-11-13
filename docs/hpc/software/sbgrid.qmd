@@ -1,11 +1,11 @@
 # SBGrid Software Collection
 
-<div class="alert alert-warning" role="alert" style="margin-top: 3ex" markdown="1">
+<div class="alert alert-warning" role="alert" style="margin-top: 3ex">
 Access to SBGrid software on {{< meta cluster.name >}} is limited to
 paying members of the SBGrid Consortium.
 </div>
 
-<div class="alert alert-warning" role="alert" style="margin-top: 3ex" markdown="1">
+<div class="alert alert-warning" role="alert" style="margin-top: 3ex">
 For bug reports related to SBGrid software, please use the [SBGrid's
 Report Software Bug form] The {{< meta cluster.nickname >}} sysadmins do
 not fix problems in SBGrid software.

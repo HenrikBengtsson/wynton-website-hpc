@@ -1,4 +1,4 @@
-<div class="alert alert-warning" role="alert" markdown="1">
+<div class="alert alert-warning" role="alert">
 
 2024-08-21: We no longer recommend using Anaconda or Miniconda that is
 distributed by Anaconda Inc., because of license issues. Anaconda

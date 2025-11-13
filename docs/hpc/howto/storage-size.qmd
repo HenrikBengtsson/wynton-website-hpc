@@ -73,7 +73,7 @@ quota you have and how much you currently consume.  Below sections
 give instructions how to check this for the different storage
 locations available.
 
-<div class="alert alert-warning" role="alert" markdown="1">
+<div class="alert alert-warning" role="alert">
 **Please, be patient!** If you remove files to clean up your quota, it
 might take up to ten minutes before these changes are seen with
 `beegfs-ctl --getquota ...`.  This is because BeeGFS updates the quota

@@ -83,7 +83,7 @@ Rscript my_script.R
 
 ## Installing R packages
 
-<div class="alert alert-info" role="alert" markdown="1">
+<div class="alert alert-info" role="alert">
 
 R 4.5.0 was released on 2025-04-11, R 4.5.1 on 2025-06-13 and R 4.5.2
 on 2025-10-31. Bioconductor 3.21 was release on 2024-04-16 and

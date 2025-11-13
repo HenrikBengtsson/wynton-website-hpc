@@ -6,7 +6,7 @@ context:
 # Delegated Subgroup Quota Management and Delegated Group User Management
 
 
-<div class="alert alert-warning" role="alert" markdown="1">
+<div class="alert alert-warning" role="alert">
 2022-09-02: The Quota Management Tool is still being developed. If you run into any problems, please email: [{{< meta cluster.email_support >}}](mailto::{{< meta cluster.email_support >}}).
 </div>
 
@@ -36,7 +36,7 @@ This will decrease the allocatedStorage in the parent group by the amount added 
 
 Delegated responsible parties are able to adjust the memberships of their delegated groups.
 
-<div class="alert alert-warning" role="alert" markdown="1">
+<div class="alert alert-warning" role="alert">
 Important note: There are two ways a user can be a member of a Unix group. By their default Unix group and by an explicit group membership. In most cases, on Wynton, group membership is a function of a user's default Unix group. This property can only be configured by the Wynton Sysadmins - it cannot be changed from the 'CGL Unix Group Maintenance' page. Usually Wynton users are only explicitly added to groups when they have secondary-group memberships in addition to their primary-group membership.
 </div>
 

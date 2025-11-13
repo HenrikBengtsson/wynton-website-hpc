@@ -1,6 +1,6 @@
 # Using rclone to mount `/wynton` filesystem
 
-<div class="alert alert-danger" role="alert" markdown="1">
+<div class="alert alert-danger" role="alert">
 
 2024-07-26: It appears that rclone over SFTP to Wynton is broken. If
 tried, an error 'Failed to create file system for "log1:": NewFs:

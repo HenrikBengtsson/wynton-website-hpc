@@ -33,7 +33,7 @@ In addition to the [core software] tools that are available by default, addition
 
 To get access to the software available in one or more of these repositories, load the repository using `module load <repos>` (on command line and in script).  After loading a software repository, all of its software tools are available as _environment modules_, that is, they can in turn be loaded using `module load <software>`.
 
-<div class="alert alert-info" role="alert" markdown="1"> 
+<div class="alert alert-info" role="alert"> 
 The names of software repositories are always capitalized (e.g. `CBI`
 and `Sali`) whereas the names of the software themselves are typically
 in all lower case (e.g. `r` and `bwa`).  This makes it easier to
@@ -64,7 +64,7 @@ $ Rscript --version
 R scripting front-end version 4.0.3 (2020-10-10)
 ```
 
-<div class="alert alert-warning" role="alert" markdown="1">
+<div class="alert alert-warning" role="alert">
 **For jobs, software modules need to be loaded in the submitted job script** - it is _not_ enough to load them in the terminal before submitting the job to the scheduler.
 </div>
 
@@ -75,7 +75,7 @@ module unload r
 ```
 
 <br>
-<div class="alert alert-warning" role="alert" markdown="1">
+<div class="alert alert-warning" role="alert">
 If you unload a _repository_, any of its software modules that are loaded will be _deactivated_ - they remain listed but act as they never have been loaded.  If you then reload the repository, such software modules will be activated again.
 </div>
 

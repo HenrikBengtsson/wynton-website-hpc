@@ -9,11 +9,11 @@ context:
 # {{< meta cluster.name >}} Credentials
 
 
-<div class="alert alert-warning" role="alert" markdown="1">
+<div class="alert alert-warning" role="alert">
 **Please wait 5-10 minutes before attempting to login with your new password.**  This is because it takes up to 10 minutes before your new password has propagated to all machines on the cluster.
 </div>
 
-<div class="alert alert-info" role="alert" markdown="1">
+<div class="alert alert-info" role="alert">
 We **strongly recommend** using a **password vault** application or website like the UCSF-provided [Keeper Password Vault] to generate and store your passwords.
 </div>
 
@@ -40,7 +40,7 @@ You can change your password before it expires using the 'RBVI Kerberos Web Inte
 
 5. Wait 10 minutes for your new password to propagate before using it
 
-<div class="alert alert-danger" role="alert" style="margin-top: 3ex" markdown="1">
+<div class="alert alert-danger" role="alert" style="margin-top: 3ex">
 2023-11-13: Changing password via the command line is not supported. You must change your password using the Wynton/RBVI password change website.
 </div>
 
@@ -81,7 +81,7 @@ site.cluster.email_password }}](mailto:{{ site.cluster.email_password
 support teams available to reset your password outside of regular
 business hours (Monday-Friday 08:00-17:00).
 
-<div class="alert alert-danger" role="alert" style="margin-top: 3ex" markdown="1">
+<div class="alert alert-danger" role="alert" style="margin-top: 3ex">
 **Account are personal and login credentials must not be shared with others**. If detected, access to the account will be automatically disabled.  It is still possible and easy for multiple users to share and collaborate on the same folders and scripts.  Don't hesitate to ask if you don't know how to do this - we're here to help.
 </div>
 

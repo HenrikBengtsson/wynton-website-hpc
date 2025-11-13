@@ -1,4 +1,4 @@
-<div class="alert alert-warning" role="alert" style="margin-top: 3ex" markdown="1">
+<div class="alert alert-warning" role="alert" style="margin-top: 3ex">
 **Do not request email notifications for large array jobs!**  If done, there will be email messages sent for _every single task_ in the job array.
 </div>
 
@@ -99,7 +99,7 @@ To send to multiple email addresses, use semicolon (`;`) to separate the address
 _Technical details_: When not specifying `-M`, the `To:` address used for these notifications will be `<username>@<hostname>`, where `<hostname>` is a {{< meta cluster.nickname >}} hostname, e.g. `alice@log1.wynton.ucsf.edu`.  That is a local address that only exists on the {{< meta cluster.nickname >}} cluster. Any message sent to this address is redirected to your Wynton-associated email address.  If you configure SGE to use another email address (e.g. `-M alice2@bobson.org`), then that will become the `To:` address.
 
 
-<div class="alert alert-danger" role="alert" style="margin-top: 3ex" markdown="1">
+<div class="alert alert-danger" role="alert" style="margin-top: 3ex">
 **Please do not specify `-m bea` in `~/.sge_request`** to make it the default for _all_ of your jobs. If done, you might end up producing thousands of email messages when you submit array jobs.
 </div>
 

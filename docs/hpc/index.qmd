@@ -1,6 +1,6 @@
 {{< include ../_includes/banner-phi-freeze.md >}}
 
-<div class="alert alert-info" role="alert" markdown="1">
+<div class="alert alert-info" role="alert">
 **NEWS**: (_For upcoming and current incidents, see the
 [Status](/hpc/status/index.html) page_)
 

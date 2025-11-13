@@ -106,42 +106,42 @@ Detailed statistics on the file-system load and other cluster metrics can be fou
 
 <div class="tab-content" style="margin-top: 1ex;">
 <div id="2025" class="tab-pane fadein active">
-<section markdown="1">
+<section>
 {{< include incidents-2025.qmd >}}
 </section>
 </div>
 <div id="2024" class="tab-pane fade">
-<section markdown="1">
+<section>
 {{< include incidents-2024.qmd >}}
 </section>
 </div>
 <div id="2023" class="tab-pane fade">
-<section markdown="1">
+<section>
 {{< include incidents-2023.qmd >}}
 </section>
 </div>
 <div id="2022" class="tab-pane fade">
-<section markdown="1">
+<section>
 {{< include incidents-2022.qmd >}}
 </section>
 </div>
 <div id="2021" class="tab-pane fade">
-<section markdown="1">
+<section>
 {{< include incidents-2021.qmd >}}
 </section>
 </div>
 <div id="2020" class="tab-pane fade">
-<section markdown="1">
+<section>
 {{< include incidents-2020.qmd >}}
 </section>
 </div>
 <div id="2019" class="tab-pane fade">
-<section markdown="1">
+<section>
 {{< include incidents-2019.qmd >}}
 </section>
 </div>
 <div id="2018" class="tab-pane fade">
-<section markdown="1">
+<section>
 {{< include incidents-2018.qmd >}}
 </section>
 </div>

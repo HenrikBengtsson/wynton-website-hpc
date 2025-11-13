@@ -1,4 +1,4 @@
-<div class="alert alert-danger" role="alert" markdown="1">
+<div class="alert alert-danger" role="alert">
 **2025-01-15: Temporary Hold on Storage and Compute Requests**
 
 As Wynton continues to expand, we are approaching the limits of space,

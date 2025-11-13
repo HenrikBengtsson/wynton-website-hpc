@@ -4,7 +4,7 @@ context:
   - login
 ---
 
-<div id="wifi-alert" class="alert alert-warning" role="alert" style="margin-top: 3ex; font-size: 200%; display: none" markdown="1">
+<div id="wifi-alert" class="alert alert-warning" role="alert" style="margin-top: 3ex; font-size: 200%; display: none">
 ⚠️ **Warning: You appear to be connected to one of the UCSF WiFi:s -
 'UCSFguest', 'UCSFhousing' or UCSF 'eduroam'. If you are on
 'UCSFguest' or UCSF 'eduroam', you will _not_ be able to reach Wynton
@@ -14,11 +14,11 @@ to switch to another WiFi such as 'UCSFwpa' or 'UCSFhousing', or
 connect to the UCSF VPN, before trying again.
 </div>
 
-<div class="alert alert-danger" role="alert" style="margin-top: 3ex" markdown="1">
+<div class="alert alert-danger" role="alert" style="margin-top: 3ex">
 **Account are personal and login credentials must not be shared with others**. If detected, access to the account will be automatically disabled.  It is still possible and easy for multiple users to share and collaborate on the same folders and scripts.  Don't hesitate to ask if you don't know how to do this - we're here to help.
 </div>
 
-<div class="alert alert-warning" role="alert" style="margin-top: 3ex" markdown="1">
+<div class="alert alert-warning" role="alert" style="margin-top: 3ex">
 **Access to {{< meta cluster.name >}} from outside of the UCSF network requires two-factor authentication (2FA).**
 If you are on the UCSF VPN, you have already authenticated and no further 2FA is required.
 In all other cases, you will be prompted to authenticate through a Wynton-specific 2FA method when SSH:ing directly to the cluster.  See [Two-Factor Authentication for SSH](/hpc/get-started/duo-signup.html) for instructions.
@@ -52,7 +52,7 @@ The instructions below requires that you:
 Users on Linux, macOS, and MS Windows have an SSH client built-in, which is available from the terminal as `ssh`. We will use that one in all our examples. You can also use other SSH clients if you prefer, include [PuTTY] on MS Windows. If you choose to use another SSH client, consult that program's documentation for further instructions. Another alternative, which some might find easier, is to connect to the cluster using the [X2Go] software.
 
 
-<div class="alert alert-warning" role="alert" style="margin-top: 3ex; font-size: 150%;" markdown="1">
+<div class="alert alert-warning" role="alert" style="margin-top: 3ex; font-size: 150%;">
   
   **Problem logging in?**  It might be that you have a Protected account,
   but you try to log into a regular login node.  Set the following
@@ -72,7 +72,7 @@ Users on Linux, macOS, and MS Windows have an SSH client built-in, which is avai
 
 ## Instructions
 
-<div class="alert alert-info" role="alert" markdown="1">
+<div class="alert alert-info" role="alert">
 **If this is the first time you access {{< meta cluster.name >}} and you are outside of the UCSF network, we recommend that you first log onto the UCSF VPN before continuing below.**  This avoids having to deal with {{< meta cluster.nickname >}}'s two-factor authentication that is otherwise required when accessing the cluster from outside of the UCSF.  Note that this advice is just to get you started.  In the long run, you do not want to be on the very bandwidth-limited UCSF VPN if you are transferring large amounts of files to and from Wynton to your local machine.
 </div>
 
@@ -103,7 +103,7 @@ all, but the system will still receive what you type, so just press
 
 If you get `Permission denied, please try again.` when you enter your password, make sure you use the correct {{< meta cluster.name >}} username (case sensitive) and the correct password.
 
-<div class="alert alert-info" role="alert" markdown="1">
+<div class="alert alert-info" role="alert">
 It is possible to set up password-less authentication via a public-private SSH key pair.  For details, see the how-to page [Log in without Password].
 </div>
 
@@ -125,7 +125,7 @@ Connection to {{< meta login.hostname >}} closed.
 
 An alternative is to press <kbd>Ctrl-D</kbd> (sends "End-Of-File" [EOF]) at the command-line prompt.
 
-<div class="alert alert-warning" role="alert" style="margin-top: 3ex" markdown="1">
+<div class="alert alert-warning" role="alert" style="margin-top: 3ex">
 Any shell session that has been idle for more than eight hours will timeout and exit automatically.
 </div>
 

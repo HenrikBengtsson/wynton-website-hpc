@@ -77,11 +77,11 @@ The scheduler will launch this jobs on the first available compute node with tha
 
 _TIPS_: Add `qstat -j $JOB_ID` to the end of your script to find out how much memory and CPU time your job needed.  See [Job Summary] page for more details.
 
-<div class="alert alert-warning" role="alert" markdown="1">
+<div class="alert alert-warning" role="alert">
 A job that consumes more memory than requested may be terminated by the administrators and in the future possibly automatically by the scheduler.  Because of this, you may request a bit more memory in order to give your job some leeway.
 </div>
 
-<div class="alert alert-warning" role="alert" markdown="1">
+<div class="alert alert-warning" role="alert">
 Note that `-l mem_free=size` specifies _memory per slot_, not per job.
 </div>
 
@@ -89,7 +89,7 @@ Note that `-l mem_free=size` specifies _memory per slot_, not per job.
 
 ## Specifying (maximum) run time [`-l h_rt=<time>`]
 
-<div class="alert alert-info" role="alert" markdown="1">
+<div class="alert alert-info" role="alert">
 Specifying the run time will shorten the queuing time - significantly so for short running jobs.
 </div>
 
@@ -99,7 +99,7 @@ By specifying the how long each job will take, the better the scheduler can mana
 qsub -cwd -l mem_free=2G -l h_rt=00:03:00 script.sh
 ```
 
-<div class="alert alert-warning" role="alert" markdown="1">
+<div class="alert alert-warning" role="alert">
 If not specified, the default run time is 14 days, i.e. the maximum allowed.  If your job will run more quickly than that, a more accurate estimate will help the scheduler plan better.  Note, though, that jobs are killed if they hit the run time request, so be sure to leave some leeway in your request.
 </div>
 
@@ -114,11 +114,11 @@ qsub -cwd -l scratch=200G script.sh
 
 Your job is only guaranteed the amount of available scratch space that you request _when it is launched_.  For more information and best practices, see [Using Local /scratch on Compute Nodes](/hpc/scheduler/using-local-scratch.html).
 
-<div class="alert alert-warning" role="alert" markdown="1">
+<div class="alert alert-warning" role="alert">
 Please specify `-l scratch=size` when using local `/scratch` and please [clean up afterward](using-local-scratch.html). This maximizes the chance for compute nodes having enough available space, reduces the queuing times, and minimizes the risk for running out of local scratch.
 </div>
 
-<div class="alert alert-warning" role="alert" markdown="1">
+<div class="alert alert-warning" role="alert">
 Note that `-l scratch=size` specifies _space per job_, not per slot.
 </div>
 
@@ -159,7 +159,7 @@ bwa aln -t "${NSLOTS:-1}" ...
 
 By using `${NSLOTS:-1}`, instead of just `${NSLOTS}`, this script will fall back to use a single thread if `NSLOTS` is not set, e.g. when running the script on your local computer.
 
-<div class="alert alert-danger" role="alert" markdown="1">
+<div class="alert alert-danger" role="alert">
 **Do not use more cores than requested!** - a common reason for compute nodes being clogged up and jobs running slowly.  A typically mistake is to hard-code the number of cores in the script and then request a different number when submitting the job - using `NSLOTS` avoids this problem.  Another problem is software that by default use all of the machine's cores - make sure to control for this, e.g. use dedicated command-line option or environment variable for that software.  One such environment variable is `OMP_NUM_THREADS`.  For bash scripts, use `export OMP_NUM_THREADS=${NSLOTS:-1}`.
 </div>
 
@@ -229,11 +229,11 @@ qsub -pe mpi_onehost 40 hybrid_mpi.sh
 
 _Note_: When working with MPI, it is important to use the exact same version as was used to built the software using MPI.  Because of this, we always specify the full `mpi/<version>` path.
 
-<div class="alert alert-warning" role="alert" markdown="1">
+<div class="alert alert-warning" role="alert">
 Note that mpi-8 jobs must request a multiple of exactly eight (8) slots.  If `NSLOTS` is not a multiple of eight, then the job will be stuck in the queue forever and never run.
 </div>
 
-<div class="alert alert-warning" role="alert" markdown="1">
+<div class="alert alert-warning" role="alert">
 2023-01-23: Due to an SGE issue, you _must not_ use `NHOSTS` as in `mpirun -np $NHOSTS ...`. If done, you might overuse one node and underuse another, when requesting 16 or more slots. Until resolved, please use the `mpirun -np $(wc -l < "$PE_HOSTFILE") ...` solution instead.
 </div>
 
