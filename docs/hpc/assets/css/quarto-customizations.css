@@ -1,0 +1,57 @@
+/* Add UCSF banner above navbar */
+.navbar::before {
+    content: '';
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 40px;
+    background: #052049;
+    z-index: 1031;
+}
+
+/* Adjust navbar position to be below UCSF banner */
+.navbar {
+    position: fixed;
+    top: 40px;
+    background-color: #ffdd00 !important;
+    border-color: #dec000 !important;
+}
+
+/* Add proper spacing for body content */
+body {
+    padding-top: 100px; /* 40px UCSF banner + 60px navbar */
+}
+
+/* Style navbar text */
+.navbar-nav .nav-link {
+    color: #555 !important;
+    text-decoration: none !important;
+}
+
+.navbar-nav .nav-link:hover {
+    background-color: #e6c700 !important;
+    color: #000 !important;
+}
+
+.navbar-title {
+    color: #555 !important;
+    text-decoration: none !important;
+}
+
+/* Position the UCSF banner content */
+.top-banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1032;
+    background: #052049;
+    height: 40px;
+}
+
+/* Hide the banner from body content area */
+main .top-banner {
+    display: none;
+}

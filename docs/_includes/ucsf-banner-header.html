@@ -1,0 +1,32 @@
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Create UCSF banner element
+  var banner = document.createElement('div');
+  banner.className = 'top-banner logo';
+  banner.innerHTML = `
+    <div class="inner">
+      <div>
+        <div class="logo"></div>
+        <a class="logotype" href="https://www.ucsf.edu/">
+          <span>University of California San Francisco</span>
+        </a>
+      </div>
+      <div class="nav">
+        <ul class="top-banner-menu">
+          <li><a href="https://www.ucsf.edu/about">About UCSF</a></li>
+          <li><a href="https://www.ucsf.edu/search">Search UCSF</a></li>
+        </ul>
+      </div>
+    </div>
+  `;
+  
+  // Insert banner before navbar
+  var body = document.body;
+  var navbar = document.querySelector('.navbar');
+  if (navbar && navbar.parentNode) {
+    navbar.parentNode.insertBefore(banner, navbar);
+  } else {
+    body.insertBefore(banner, body.firstChild);
+  }
+});
+</script>
