@@ -155,9 +155,6 @@ website:
       <a href="https://www.ucsf.edu/">UCSF</a> :: 
       <a href="https://wynton.ucsf.edu/">Wynton</a> :: 
       <a href="/hpc/">Wynton HPC</a>
-    right: |
-      <a href="{{< meta repo-url >}}/commits/master/docs/{{< meta source-file >}}">Change log</a> :: 
-      <a href="{{< meta repo-url >}}/tree/master/docs/{{< meta source-file >}}">Contribute</a>
 
 format:
   html:
@@ -172,7 +169,7 @@ format:
       - hpc/assets/css/docsearch.css
       - hpc/assets/css/quarto-customizations.css
     include-in-header: _includes/ucsf-banner-header.html
-    toc: true
+    toc: false
     toc-depth: 3
     code-copy: true
     code-overflow: wrap

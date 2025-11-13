@@ -68,10 +68,25 @@ main .top-banner {
     display: none;
 }
 
-/* Style the footer with yellow background */
+/* Decrease left and right margins to at most 5% */
+.page-columns {
+    max-width: 100%;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+main.content {
+    max-width: 100%;
+}
+
+.page-layout-article .page-columns {
+    max-width: 100%;
+}
+
+/* Style the footer (no yellow background per original Jekyll site) */
 .nav-footer {
-    background-color: #ffdd00;
-    border-top: 1px solid #dec000;
+    background-color: #ffffff;
+    border-top: 1px solid #e5e5e5;
     padding: 1.5em 0;
 }
 
