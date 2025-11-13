@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.554">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>UCSF Wynton HPC Cluster</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="assets/css/this_site.css">
+<link rel="stylesheet" href="assets/css/broadcast.css">
+<link rel="stylesheet" href="assets/css/checkbox-toggle.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../assets/ico/favicon.ico" alt="" class="navbar-logo">
+    </a>
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">UCSF Wynton HPC Cluster</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../hpc/status/index.html"> 
+<span class="menu-text">Status</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-get-started" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Get Started</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-get-started">    
+        <li>
+    <a class="dropdown-item" href="../../hpc/get-started/access-cluster.html">
+ <span class="dropdown-text">1. Login &amp; Logout</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/get-started/development-prototyping.html">
+ <span class="dropdown-text">2. Development / Prototyping</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/get-started/hello-world-job.html">
+ <span class="dropdown-text">3. ‘Hello World’ Job</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/get-started/good-practices.html">
+ <span class="dropdown-text">4. Good Practices</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/get-started/duo-signup.html">
+ <span class="dropdown-text">5. 2FA Registration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/get-started/protected-quickstart.html">
+ <span class="dropdown-text">6. Wynton Protected Quickstart</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-software" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Software</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-software">    
+        <li>
+    <a class="dropdown-item" href="../../hpc/software/core-software.html">
+ <span class="dropdown-text">Core Software</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/software/scl.html">
+ <span class="dropdown-text">Software Collections (SCL)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/software/software-modules.html">
+ <span class="dropdown-text">Software Modules</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/software/software-repositories.html">
+ <span class="dropdown-text">Software Repositories</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/software/apptainer.html">
+ <span class="dropdown-text">Linux Containers (Apptainer/Singularity)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/software/sbgrid.html">
+ <span class="dropdown-text">SBGrid Software (restricted access)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/software/missing-software.html">
+ <span class="dropdown-text">Missing Software?</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/software/rocky-8-linux.html">
+ <span class="dropdown-text">Migration to Rocky 8 Linux (Nov 2023)</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-sge" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">SGE</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-sge">    
+        <li>
+    <a class="dropdown-item" href="../../hpc/scheduler/submit-jobs.html">
+ <span class="dropdown-text">Submit Jobs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/scheduler/list-jobs.html">
+ <span class="dropdown-text">List Jobs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/scheduler/kill-jobs.html">
+ <span class="dropdown-text">Kill Jobs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/scheduler/job-summary.html">
+ <span class="dropdown-text">Job Summary</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/scheduler/envvars.html">
+ <span class="dropdown-text">Useful Env. Variables</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/scheduler/using-local-scratch.html">
+ <span class="dropdown-text">Use Local Scratch</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/scheduler/queues.html">
+ <span class="dropdown-text">Available Queues</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/scheduler/email-notifications.html">
+ <span class="dropdown-text">Job Email Notifications</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/scheduler/gpu.html">
+ <span class="dropdown-text">GPU Scheduling</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/scheduler/advanced-usage.html">
+ <span class="dropdown-text">Advanced Usage</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-file-transfers" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">File Transfers</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-file-transfers">    
+        <li>
+    <a class="dropdown-item" href="../../hpc/transfers/files-and-directories.html">
+ <span class="dropdown-text">Secure Copy File Transfers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/transfers/globus.html">
+ <span class="dropdown-text">Globus File Transfers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/transfers/globus-sharing.html">
+ <span class="dropdown-text">Globus File Sharing</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/transfers/ucsf-box.html">
+ <span class="dropdown-text">UCSF Box</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/transfers/dos2unix.html">
+ <span class="dropdown-text">Windows-Unix File Transfers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/transfers/rclone.html">
+ <span class="dropdown-text">rclone (mount Wynton file system locally)</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-how-to" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">How To</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-how-to">    
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/matlab.html">
+ <span class="dropdown-text">Work with MATLAB</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/python.html">
+ <span class="dropdown-text">Work with Python</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/jupyter.html">
+ <span class="dropdown-text">Work with Jupyter Notebook</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/r.html">
+ <span class="dropdown-text">Work with R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/rstudio.html">
+ <span class="dropdown-text">Work with RStudio</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/conda.html">
+ <span class="dropdown-text">Work with Conda</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/conda-stage.html">
+ <span class="dropdown-text">Stage Conda Environment to Local Disk</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/install-from-source.html">
+ <span class="dropdown-text">Install Software from Source</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/storage-size.html">
+ <span class="dropdown-text">File Sizes and Disk Quotas</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/group-quota.html">
+ <span class="dropdown-text">Adjust Group Disk Quota</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/find-files.html">
+ <span class="dropdown-text">Find Files</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/log-in-without-pwd.html">
+ <span class="dropdown-text">Log in without Password</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/change-pwd.html">
+ <span class="dropdown-text">Change &amp; Verify Password</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/gui-x11fwd.html">
+ <span class="dropdown-text">GUIs (X2Go &amp; X11)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/jupyterhub.html">
+ <span class="dropdown-text">JupyterHub Server (DISCONTINUED)</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-support" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Support</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-support">    
+        <li>
+    <a class="dropdown-item" href="../../hpc/support/index.html">
+ <span class="dropdown-text">Support Channels</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/support/faq.html">
+ <span class="dropdown-text">Frequently Asked Questions</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-about" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">About</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-about">    
+        <li>
+    <a class="dropdown-item" href="../../hpc/about/specs.html">
+ <span class="dropdown-text">Specifications</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/about/gpus.html">
+ <span class="dropdown-text">Available GPUs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/about/news.html">
+ <span class="dropdown-text">News</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/about/pricing-storage.html">
+ <span class="dropdown-text">Pricing: Extra Storage</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/about/pricing-compute.html">
+ <span class="dropdown-text">Pricing: Extra Compute (CPU &amp; GPU)</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="../../hpc/about/wynton-protected.html">
+ <span class="dropdown-text">Wynton Protected (P3 Data)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/about/join.html">
+ <span class="dropdown-text">Join ♡</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/about/shares.html">
+ <span class="dropdown-text">Contributing Member Shares</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="../../hpc/about/governance.html">
+ <span class="dropdown-text">Governance</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/about/user-agreement.html">
+ <span class="dropdown-text">User Agreement</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/about/citation.html">
+ <span class="dropdown-text">How to Cite</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="../../hpc/about/contact.html">
+ <span class="dropdown-text">Contact</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#two-factor-authentication-for-ssh" id="toc-two-factor-authentication-for-ssh" class="nav-link active" data-scroll-target="#two-factor-authentication-for-ssh">Two-Factor Authentication for SSH</a>
+  <ul class="collapse">
+  <li><a href="#requirements" id="toc-requirements" class="nav-link" data-scroll-target="#requirements">Requirements</a></li>
+  <li><a href="#example-authentication-with-a-duo-push" id="toc-example-authentication-with-a-duo-push" class="nav-link" data-scroll-target="#example-authentication-with-a-duo-push">Example: Authentication with a Duo Push</a></li>
+  <li><a href="#registration-for-2fa-on" id="toc-registration-for-2fa-on" class="nav-link" data-scroll-target="#registration-for-2fa-on">Registration for 2FA on Wynton HPC</a>
+  <ul class="collapse">
+  <li><a href="#step-1-obtain-a-duo-registration-link" id="toc-step-1-obtain-a-duo-registration-link" class="nav-link" data-scroll-target="#step-1-obtain-a-duo-registration-link">Step 1: Obtain a Duo registration link</a></li>
+  <li><a href="#step-2-registration-of-your-duo-2fa" id="toc-step-2-registration-of-your-duo-2fa" class="nav-link" data-scroll-target="#step-2-registration-of-your-duo-2fa">Step 2: Registration of your Duo 2FA</a></li>
+  <li><a href="#step-3-verify-that-log-in-via-ssh-works" id="toc-step-3-verify-that-log-in-via-ssh-works" class="nav-link" data-scroll-target="#step-3-verify-that-log-in-via-ssh-works">Step 3: Verify that log in via SSH works</a></li>
+  </ul></li>
+  <li><a href="#examples-of-other-authentication-methods" id="toc-examples-of-other-authentication-methods" class="nav-link" data-scroll-target="#examples-of-other-authentication-methods">Examples of other authentication methods</a>
+  <ul class="collapse">
+  <li><a href="#example-authentication-via-a-phone-call" id="toc-example-authentication-via-a-phone-call" class="nav-link" data-scroll-target="#example-authentication-via-a-phone-call">Example: Authentication via a phone call</a></li>
+  <li><a href="#example-authentication-via-an-sms-passcode" id="toc-example-authentication-via-an-sms-passcode" class="nav-link" data-scroll-target="#example-authentication-via-an-sms-passcode">Example: Authentication via an SMS passcode</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/ucsf-wynton/wynton-website-hpc/edit/main/hpc/get-started/duo-signup.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ucsf-wynton/wynton-website-hpc/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+
+
+<section id="two-factor-authentication-for-ssh" class="level1">
+<h1>Two-Factor Authentication for SSH</h1>
+<p><strong>Access to Wynton HPC from outside of the UCSF network requires two-factor authentication (2FA).</strong> If you connecting via the UCSF campus network, 2FA is <em>not</em> required. Likewise, if you are on the UCSF VPN, you are already fully authenticated on the campus network and <em>no</em> further 2FA is needed to access Wynton HPC. In all other cases, you will be prompted to authenticate through a Wynton-specific 2FA method when SSH:ing directly to the cluster.</p>
+<section id="requirements" class="level2">
+<h2 class="anchored" data-anchor-id="requirements">Requirements</h2>
+<p>Similarly to the UCSF VPN, Wynton HPC requires two-factor authentication via the Duo 2FA system. Duo supports authentication via:</p>
+<ol type="1">
+<li><p>push confirmation in the <a href="https://duo.com/product/multi-factor-authentication-mfa/duo-mobile-app">Duo Mobile App</a>,</p></li>
+<li><p>a phone call, or</p></li>
+<li><p>SMS passcode.</p></li>
+</ol>
+<p>Known issues:</p>
+<ul>
+<li><p>It is not possible to register multiple authentication methods, e.g.&nbsp;multiple devices and phone numbers.</p></li>
+<li><p>If you wish to change your 2FA method, phone number, or SMS number, you will need to contact the <a href="../../hpc/support/index.html">Wynton HPC support staff</a> to reset your existing 2FA registration or resend the registration link.</p></li>
+<li><p>If you receive a message from Duo that you, “have been locked out due to excessive authentication failures,” you will need to contact the <a href="../../hpc/support/index.html">Wynton HPC support staff</a> to have your Duo account re-enabled.</p></li>
+<li><p>Support for hardware 2FA keys (e.g.&nbsp;YubiKey, Feitian, etc.) is limited and might not even work. For example, when registering a hardware key, that will be your only option. Also, if you have already registered your hardware 2FA key with UCSF (e.g.&nbsp;UCSF VPN), then that physical key can <em>not</em> be used with the Wynton 2FA system. This is also true if the hardware key supports two or more security keys (e.g.&nbsp;short press and long press on a YubiKey).</p></li>
+</ul>
+<p>Got a new smart phone? After installing the Duo Mobile App on the new device, you can transfer the Wynton 2FA credentials from your old phone to your new phone via ‘Connect a new phone’ in the Duo Mobile App’s ‘Settings’ on both devices.</p>
+</section>
+<section id="example-authentication-with-a-duo-push" class="level2">
+<h2 class="anchored" data-anchor-id="example-authentication-with-a-duo-push">Example: Authentication with a Duo Push</h2>
+<p>After having completed the 2FA registration (see below) for your account, you can access Wynton HPC via SSH from outside the UCSF network. A typical SSH login will then start by you authenticating yourself via 2FA as illustrated by:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">{local}$</span> ssh alice@log2.wynton.ucsf.edu</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">alice@log2.wynton.ucsf.edu</span> password:</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Duo</span> two-factor login for alice</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">Enter</span> a passcode or select one of the following options:</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a> <span class="ex">1.</span> Duo Push to XXX-XXX-9999</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a> <span class="ex">2.</span> Phone call to XXX-XXX-9999</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a> <span class="ex">3.</span> SMS passcodes to XXX-XXX-9999</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="ex">Passcode</span> or option <span class="er">(</span><span class="ex">1-3</span><span class="kw">)</span><span class="bu">:</span> 1</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="ex">Success.</span> Logging you in...</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="ex">Remember</span> connection authentication from 24.5.83.75 for 12 hours<span class="pp">?</span> <span class="pp">[</span><span class="ss">y/N</span><span class="pp">]</span> n</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="ex">Last</span> login: Tue Oct 13 11:56:19 2020 from 24.5.83.75</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="ex">Welcome</span> to the Wynton login nodes. <span class="pp">[</span><span class="ss">...</span><span class="pp">]</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="ex">[alice@log2]$</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>For examples on what it looks like when you authenticate via other options, see the examples below.</p>
+</section>
+<section id="registration-for-2fa-on" class="level2">
+<h2 class="anchored" data-anchor-id="registration-for-2fa-on">Registration for 2FA on Wynton HPC</h2>
+<p>In order to authenticate via 2FA, you will first have to register your Duo 2FA setup with Wynton HPC. Since they are different 2FA systems, you have to complete this registration regardless whether or not you have already registered Duo 2FA for the UCSF VPN. Below are detailed instructions on how to register 2FA for Wynton HPC.</p>
+<p><em>Comment</em>: If you are asked to ‘Please contact your help or support desk’ during the Duo 2FA registration, please contact the <a href="../../hpc/support/index.html">Wynton HPC support staff</a> (do <em>not</em> contact the UCSF IT Service Desk).</p>
+<div class="alert alert-warning" role="alert" style="margin-top: 3ex" data-markdown="1">
+<p>We recommend that you read through the below instructions before starting the registration. <strong>You can only register once and you cannot reconfigure your 2FA setup afterwards</strong>. The only way to update the settings is to contact the Wynton HPC support staff to reset your 2FA setup.</p>
+</div>
+<section id="step-1-obtain-a-duo-registration-link" class="level3">
+<h3 class="anchored" data-anchor-id="step-1-obtain-a-duo-registration-link">Step 1: Obtain a Duo registration link</h3>
+<p>In order to register with Duo 2FA, you need to obtain a registration link (URL) to your personal registration page. This is done by attempting to log into Wynton via SSH.</p>
+<p>If this is the first time you access Wynton HPC via SSH, then you will have to do two SSH logins - the first login is just a “trigger” and the second login one will display the registration URL. If you have priorly logged into to Wynton HPC, then you can skip to the second SSH-login instructions below.</p>
+<ol type="1">
+<li>SSH to log2.wynton.ucsf.edu using your Wynton username
+<ul>
+<li>If you are asked the question <code>Are you sure you want to continue connecting (yes/no/[fingerprint])?</code>, then answer <code>yes</code></li>
+<li>Enter your Wynton password</li>
+<li>The connection will be closed automatically. This is expected</li>
+</ul></li>
+<li>Again, SSH to log2.wynton.ucsf.edu using your Wynton username
+<ul>
+<li>Enter your Wynton password</li>
+<li>After entering you password, you should then see <strong>a message saying to enroll at a particular Duo URL</strong></li>
+<li>This will followed by a ‘Permission denied’. The connection will close. This is expected</li>
+</ul></li>
+<li>Go to the enrollment page by copying the URL into your web browser</li>
+</ol>
+<p>Here is what the above steps will look like:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">{local}$</span> ssh alice@log2.wynton.ucsf.edu</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">The</span> authenticity of host log2.wynton.ucsf.edu <span class="er">(</span><span class="ex">169.230.79.12</span><span class="kw">)</span> <span class="ex">can</span> not be established.</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">ECDSA</span> key fingerprint is SHA256:DrCbFJouT3pRHoPO6rzGNJxX4OOIBuLy/ZdxjIQrx3M.</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="ex">Are</span> you sure you want to continue connecting <span class="er">(</span><span class="ex">yes/no/[fingerprint]</span><span class="kw">)</span><span class="ex">?</span> yes</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="ex">Warning:</span> Permanently added log2.wynton.ucsf.edu,169.230.79.12 <span class="er">(</span><span class="ex">ECDSA</span><span class="kw">)</span> <span class="ex">to</span> the list of known hosts.</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="ex">Connection</span> closed by 169.230.79.12 port 22</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="ex">{local}$</span> ssh alice@log2.wynton.ucsf.edu</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="ex">alice@log2.wynton.ucsf.edu</span> password:</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="ex">Please</span> enroll at https://api-6747fbb1.duosecurity.com/portal<span class="pp">?</span>code=61c954f6d6124546<span class="kw">&amp;</span><span class="va">akey</span><span class="op">=</span>DBPXF7JZIKINNMVHIHZK</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="ex">Please</span> enroll at https://api-6747fbb1.duosecurity.com/portal<span class="pp">?</span>code=61c954f6d6124546<span class="kw">&amp;</span><span class="va">akey</span><span class="op">=</span>DBPXF7JZIKINNMVHIHZK</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="ex">Please</span> enroll at https://api-6747fbb1.duosecurity.com/portal<span class="pp">?</span>code=61c954f6d6124546<span class="kw">&amp;</span><span class="va">akey</span><span class="op">=</span>DBPXF7JZIKINNMVHIHZK</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="ex">alice@log2.wynton.ucsf.edu:</span> Permission denied <span class="er">(</span><span class="ex">publickey,gssapi-with-mic,keyboard-interactive</span><span class="kw">)</span><span class="bu">.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="step-2-registration-of-your-duo-2fa" class="level3">
+<h3 class="anchored" data-anchor-id="step-2-registration-of-your-duo-2fa">Step 2: Registration of your Duo 2FA</h3>
+<p>After copying &amp; pasting the registration link into your web browser, should end up on a page titled ‘Protect Your UCSF Account’ on ‘duosecurity.com’:</p>
+<ol type="1">
+<li><p>For security, verify that you are on the ‘duosecurity.com’ webpage</p></li>
+<li><p>Click the ‘Start setup’ button to begin the Duo 2FA registration</p></li>
+</ol>
+<section id="step-2a-what-type-of-device-are-you-adding" class="level4">
+<h4 class="anchored" data-anchor-id="step-2a-what-type-of-device-are-you-adding">Step 2a: What type of device are you adding</h4>
+<p>The first registration page will ask ‘What type of device are you adding?’:</p>
+<blockquote class="blockquote">
+<ul>
+<li>Mobile phone [recommended]</li>
+<li>Tablet (iPad, Nexus 7, etc.)</li>
+<li>Landline</li>
+<li>Security Key (YubiKey, Feitian, etc.)</li>
+<li>Touch ID</li>
+</ul>
+</blockquote>
+<ol type="1">
+<li>Select the type of device you are using;
+<ul>
+<li>‘Mobile phone’ is recommended. It allows you do authenticate with the Duo Mobile App, SMS, and phone calls</li>
+<li>We do <em>not</em> recommend using ‘Security Key’ because then you will not be able to use the ‘Mobile phone’ options. Also, if you have already registered your ‘Security Key’ for the UCSF VPN, it will <em>not</em> work with the Wynton HPC 2FA.</li>
+</ul></li>
+<li>Click the ‘Continue’ button</li>
+</ol>
+</section>
+<section id="step-2b-enter-your-phone-number" class="level4">
+<h4 class="anchored" data-anchor-id="step-2b-enter-your-phone-number">Step 2b: Enter your phone number</h4>
+<p>If you selected ‘Mobile phone’ for your device type, the next page will ask you to ‘Enter your phone number’:</p>
+<ol type="1">
+<li>Enter your phone number in the box</li>
+<li>A checkbox below the phone number will ask you to verify your number is correct</li>
+<li>Make sure the number is correct and check the box</li>
+<li>Click the ‘Continue’ button</li>
+</ol>
+</section>
+<section id="step-2c-enter-the-type-of-phone-of-you-have" class="level4">
+<h4 class="anchored" data-anchor-id="step-2c-enter-the-type-of-phone-of-you-have">Step 2c: Enter the type of phone of you have</h4>
+<p>The next page ‘What type of phone is this number?’ will ask you to select the type of phone:</p>
+<blockquote class="blockquote">
+<ul>
+<li>iPhone</li>
+<li>Android</li>
+<li>Windows Phone</li>
+<li>Other (and cell phones)</li>
+</ul>
+</blockquote>
+<ol type="1">
+<li><p>Select the type of phone you have</p></li>
+<li><p>Click the ‘Continue’ button</p></li>
+</ol>
+</section>
+<section id="step-2d-install-the-duo-mobile-app" class="level4">
+<h4 class="anchored" data-anchor-id="step-2d-install-the-duo-mobile-app">Step 2d: Install the Duo Mobile App</h4>
+<p>The next page ‘Install Duo Mobile’ will instruct you to install the Duo Mobile app on your device:</p>
+<ol type="1">
+<li>If you don’t already have the Duo Mobile App installed on your smart phone, please install it</li>
+<li>Verify that you can open the Duo Mobile App</li>
+<li>Click the ‘I have Duo Mobile installed’ button</li>
+</ol>
+</section>
+<section id="step-2e-activate-duo-mobile" class="level4">
+<h4 class="anchored" data-anchor-id="step-2e-activate-duo-mobile">Step 2e: Activate Duo Mobile</h4>
+<p>Follow the instructions on the ‘Activate Duo Mobile’ page:</p>
+<ol type="1">
+<li>Open the Duo Mobile App on your smart phone</li>
+<li>Tap the ‘+’ button</li>
+<li>Hold your phone’s camera up to scan the barcode presented in your computer’s web browser</li>
+<li>After scanning the barcode with the app on your phone, an entry titled ‘UCSF PharmChem’ should appear in the app</li>
+<li>Click the ‘Continue’ button</li>
+</ol>
+<p><em>Comment</em>: If you have problems scanning the barcode, there is also an option to receive a on-time activation link via email.</p>
+</section>
+<section id="step-2f-finish-enrollment" class="level4">
+<h4 class="anchored" data-anchor-id="step-2f-finish-enrollment">Step 2f: Finish enrollment</h4>
+<ol type="1">
+<li>Verify that the ‘My settings &amp; Devices’ lists your phone number</li>
+<li>Use the default ‘When I log in’ method</li>
+<li>Click the ‘Finish Enrollment’ button</li>
+</ol>
+<p><em>Note</em>: It does not matter which default ‘When I log in’ method you choose, you will still be prompted which one to use via the SSH login as with the default ‘Ask me to choose an authentication method’ option.</p>
+<p>This concludes the Duo 2FA registration. You can now close the web browser.</p>
+</section>
+</section>
+<section id="step-3-verify-that-log-in-via-ssh-works" class="level3">
+<h3 class="anchored" data-anchor-id="step-3-verify-that-log-in-via-ssh-works">Step 3: Verify that log in via SSH works</h3>
+<p>After having completed the above 2FA registration, you should be able to access Wynton HPC via SSH. As illustrated below, verify that this works by SSH:ing to a Wynton HPC login or data-transfer node using your Wynton username and:</p>
+<ol type="1">
+<li>Enter your Wynton password</li>
+<li>At the prompt, select a 2FA method, e.g.&nbsp;‘Duo Push’</li>
+<li>Open the Duo Mobile App and click the ‘Accept’ button</li>
+<li>The SSH session</li>
+</ol>
+<div class="sourceCode" id="cb3"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">{local}$</span> ssh alice@log2.wynton.ucsf.edu</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">alice@log2.wynton.ucsf.edu</span> password:</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Duo</span> two-factor login for alice</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="ex">Enter</span> a passcode or select one of the following options:</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a> <span class="ex">1.</span> Duo Push to XXX-XXX-9999</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a> <span class="ex">2.</span> Phone call to XXX-XXX-9999</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a> <span class="ex">3.</span> SMS passcodes to XXX-XXX-9999</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="ex">Passcode</span> or option <span class="er">(</span><span class="ex">1-3</span><span class="kw">)</span><span class="bu">:</span> 1</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="ex">Success.</span> Logging you in...</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="ex">Remember</span> connection authentication from 24.5.83.75 for 12 hours<span class="pp">?</span> <span class="pp">[</span><span class="ss">y/N</span><span class="pp">]</span> n</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="ex">Last</span> failed login: Wed Oct 14 13:34:11 PDT 2020 from 73.70.236.131 on ssh:notty</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="ex">There</span> was 2 failed login attempts since the last successful login.</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="ex">Welcome</span> to the Wynton login nodes. <span class="pp">[</span><span class="ss">...</span><span class="pp">]</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="ex">[alice@log2]$</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="examples-of-other-authentication-methods" class="level2">
+<h2 class="anchored" data-anchor-id="examples-of-other-authentication-methods">Examples of other authentication methods</h2>
+<section id="example-authentication-via-a-phone-call" class="level3">
+<h3 class="anchored" data-anchor-id="example-authentication-via-a-phone-call">Example: Authentication via a phone call</h3>
+<p>If you choose to authenticate via a phone call, below is what you will see. The phone call will be made momentarily to your registered phone number. Please listen to the prompt and follow the instructions. If you did not request a Duo 2FA phone call, hang up.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">{local}$</span> ssh alice@log2.wynton.ucsf.edu</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">alice@log2.wynton.ucsf.edu</span> password:</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Duo</span> two-factor login for alice</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="ex">Enter</span> a passcode or select one of the following options:</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a> <span class="ex">1.</span> Duo Push to XXX-XXX-9999</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a> <span class="ex">2.</span> Phone call to XXX-XXX-9999</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a> <span class="ex">3.</span> SMS passcodes to XXX-XXX-9999</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="ex">Passcode</span> or option <span class="er">(</span><span class="ex">1-3</span><span class="kw">)</span><span class="bu">:</span> 2</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="ex">Success.</span> Logging you in...</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="example-authentication-via-an-sms-passcode" class="level3">
+<h3 class="anchored" data-anchor-id="example-authentication-via-an-sms-passcode">Example: Authentication via an SMS passcode</h3>
+<p>If you choose to authenticate via an SMS passcode, below is what you will see. The passcode to be entered is sent momentarily to your registered mobile number as an SMS.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">{local}$</span> ssh alice@log2.wynton.ucsf.edu</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">alice@log2.wynton.ucsf.edu</span> password:</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Duo</span> two-factor login for alice</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="ex">Enter</span> a passcode or select one of the following options:</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a> <span class="ex">1.</span> Duo Push to XXX-XXX-9999</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a> <span class="ex">2.</span> Phone call to XXX-XXX-9999</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a> <span class="ex">3.</span> SMS passcodes to XXX-XXX-9999</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="ex">Passcode</span> or option <span class="er">(</span><span class="ex">1-3</span><span class="kw">)</span><span class="bu">:</span> 3</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="ex">Enter</span> a passcode or select one of the following options:</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a> <span class="ex">1.</span> Duo Push to XXX-XXX-9999</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a> <span class="ex">2.</span> Phone call to XXX-XXX-9999</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a> <span class="ex">3.</span> SMS passcodes to XXX-XXX-9999 <span class="er">(</span><span class="ex">next</span> code starts with: 1<span class="kw">)</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="ex">Passcode</span> or option <span class="er">(</span><span class="ex">1-3</span><span class="kw">)</span><span class="bu">:</span> 1443743</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="ex">Success.</span> Logging you in...</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/wynton\.ucsf\.edu\/hpc\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p><a href="https://www.ucsf.edu/">UCSF</a> :: <a href="https://wynton.ucsf.edu/">Wynton</a> :: <a href="../../hpc/">Wynton HPC</a></p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ucsf-wynton/wynton-website-hpc/edit/main/hpc/get-started/duo-signup.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ucsf-wynton/wynton-website-hpc/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>&lt;a href=“<strong>?meta:repo-url</strong>/commits/master/docs/<strong>?meta:source-file</strong>”&gt;Change log :: &lt;a href=“<strong>?meta:repo-url</strong>/tree/master/docs/<strong>?meta:source-file</strong>”&gt;Contribute</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

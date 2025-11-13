@@ -1,0 +1,1408 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.554">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>UCSF Wynton HPC Cluster</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="assets/css/this_site.css">
+<link rel="stylesheet" href="assets/css/broadcast.css">
+<link rel="stylesheet" href="assets/css/checkbox-toggle.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../assets/ico/favicon.ico" alt="" class="navbar-logo">
+    </a>
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">UCSF Wynton HPC Cluster</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../hpc/status/index.html"> 
+<span class="menu-text">Status</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-get-started" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Get Started</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-get-started">    
+        <li>
+    <a class="dropdown-item" href="../../hpc/get-started/access-cluster.html">
+ <span class="dropdown-text">1. Login &amp; Logout</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/get-started/development-prototyping.html">
+ <span class="dropdown-text">2. Development / Prototyping</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/get-started/hello-world-job.html">
+ <span class="dropdown-text">3. ‘Hello World’ Job</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/get-started/good-practices.html">
+ <span class="dropdown-text">4. Good Practices</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/get-started/duo-signup.html">
+ <span class="dropdown-text">5. 2FA Registration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/get-started/protected-quickstart.html">
+ <span class="dropdown-text">6. Wynton Protected Quickstart</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-software" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Software</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-software">    
+        <li>
+    <a class="dropdown-item" href="../../hpc/software/core-software.html">
+ <span class="dropdown-text">Core Software</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/software/scl.html">
+ <span class="dropdown-text">Software Collections (SCL)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/software/software-modules.html">
+ <span class="dropdown-text">Software Modules</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/software/software-repositories.html">
+ <span class="dropdown-text">Software Repositories</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/software/apptainer.html">
+ <span class="dropdown-text">Linux Containers (Apptainer/Singularity)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/software/sbgrid.html">
+ <span class="dropdown-text">SBGrid Software (restricted access)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/software/missing-software.html">
+ <span class="dropdown-text">Missing Software?</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/software/rocky-8-linux.html">
+ <span class="dropdown-text">Migration to Rocky 8 Linux (Nov 2023)</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-sge" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">SGE</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-sge">    
+        <li>
+    <a class="dropdown-item" href="../../hpc/scheduler/submit-jobs.html">
+ <span class="dropdown-text">Submit Jobs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/scheduler/list-jobs.html">
+ <span class="dropdown-text">List Jobs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/scheduler/kill-jobs.html">
+ <span class="dropdown-text">Kill Jobs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/scheduler/job-summary.html">
+ <span class="dropdown-text">Job Summary</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/scheduler/envvars.html">
+ <span class="dropdown-text">Useful Env. Variables</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/scheduler/using-local-scratch.html">
+ <span class="dropdown-text">Use Local Scratch</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/scheduler/queues.html">
+ <span class="dropdown-text">Available Queues</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/scheduler/email-notifications.html">
+ <span class="dropdown-text">Job Email Notifications</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/scheduler/gpu.html">
+ <span class="dropdown-text">GPU Scheduling</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/scheduler/advanced-usage.html">
+ <span class="dropdown-text">Advanced Usage</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-file-transfers" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">File Transfers</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-file-transfers">    
+        <li>
+    <a class="dropdown-item" href="../../hpc/transfers/files-and-directories.html">
+ <span class="dropdown-text">Secure Copy File Transfers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/transfers/globus.html">
+ <span class="dropdown-text">Globus File Transfers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/transfers/globus-sharing.html">
+ <span class="dropdown-text">Globus File Sharing</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/transfers/ucsf-box.html">
+ <span class="dropdown-text">UCSF Box</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/transfers/dos2unix.html">
+ <span class="dropdown-text">Windows-Unix File Transfers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/transfers/rclone.html">
+ <span class="dropdown-text">rclone (mount Wynton file system locally)</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-how-to" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">How To</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-how-to">    
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/matlab.html">
+ <span class="dropdown-text">Work with MATLAB</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/python.html">
+ <span class="dropdown-text">Work with Python</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/jupyter.html">
+ <span class="dropdown-text">Work with Jupyter Notebook</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/r.html">
+ <span class="dropdown-text">Work with R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/rstudio.html">
+ <span class="dropdown-text">Work with RStudio</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/conda.html">
+ <span class="dropdown-text">Work with Conda</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/conda-stage.html">
+ <span class="dropdown-text">Stage Conda Environment to Local Disk</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/install-from-source.html">
+ <span class="dropdown-text">Install Software from Source</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/storage-size.html">
+ <span class="dropdown-text">File Sizes and Disk Quotas</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/group-quota.html">
+ <span class="dropdown-text">Adjust Group Disk Quota</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/find-files.html">
+ <span class="dropdown-text">Find Files</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/log-in-without-pwd.html">
+ <span class="dropdown-text">Log in without Password</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/change-pwd.html">
+ <span class="dropdown-text">Change &amp; Verify Password</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/gui-x11fwd.html">
+ <span class="dropdown-text">GUIs (X2Go &amp; X11)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/jupyterhub.html">
+ <span class="dropdown-text">JupyterHub Server (DISCONTINUED)</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-support" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Support</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-support">    
+        <li>
+    <a class="dropdown-item" href="../../hpc/support/index.html">
+ <span class="dropdown-text">Support Channels</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/support/faq.html">
+ <span class="dropdown-text">Frequently Asked Questions</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-about" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">About</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-about">    
+        <li>
+    <a class="dropdown-item" href="../../hpc/about/specs.html">
+ <span class="dropdown-text">Specifications</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/about/gpus.html">
+ <span class="dropdown-text">Available GPUs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/about/news.html">
+ <span class="dropdown-text">News</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/about/pricing-storage.html">
+ <span class="dropdown-text">Pricing: Extra Storage</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/about/pricing-compute.html">
+ <span class="dropdown-text">Pricing: Extra Compute (CPU &amp; GPU)</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="../../hpc/about/wynton-protected.html">
+ <span class="dropdown-text">Wynton Protected (P3 Data)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/about/join.html">
+ <span class="dropdown-text">Join ♡</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/about/shares.html">
+ <span class="dropdown-text">Contributing Member Shares</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="../../hpc/about/governance.html">
+ <span class="dropdown-text">Governance</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/about/user-agreement.html">
+ <span class="dropdown-text">User Agreement</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/about/citation.html">
+ <span class="dropdown-text">How to Cite</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="../../hpc/about/contact.html">
+ <span class="dropdown-text">Contact</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#work-with-r" id="toc-work-with-r" class="nav-link active" data-scroll-target="#work-with-r">Work with R</a>
+  <ul class="collapse">
+  <li><a href="#accessing-r" id="toc-accessing-r" class="nav-link" data-scroll-target="#accessing-r">Accessing R</a></li>
+  <li><a href="#using-r-in-job-scripts" id="toc-using-r-in-job-scripts" class="nav-link" data-scroll-target="#using-r-in-job-scripts">Using R in job scripts</a></li>
+  <li><a href="#installing-r-packages" id="toc-installing-r-packages" class="nav-link" data-scroll-target="#installing-r-packages">Installing R packages</a>
+  <ul class="collapse">
+  <li><a href="#installing-an-r-package-from-cran" id="toc-installing-an-r-package-from-cran" class="nav-link" data-scroll-target="#installing-an-r-package-from-cran">Installing an R package from CRAN</a></li>
+  <li><a href="#installing-an-r-package-from-bioconductor" id="toc-installing-an-r-package-from-bioconductor" class="nav-link" data-scroll-target="#installing-an-r-package-from-bioconductor">Installing an R package from Bioconductor</a></li>
+  </ul></li>
+  <li><a href="#appendix" id="toc-appendix" class="nav-link" data-scroll-target="#appendix">Appendix</a>
+  <ul class="collapse">
+  <li><a href="#parallel-processing-in-r" id="toc-parallel-processing-in-r" class="nav-link" data-scroll-target="#parallel-processing-in-r">Parallel processing in R</a></li>
+  <li><a href="#packages-mass-and-matrix" id="toc-packages-mass-and-matrix" class="nav-link" data-scroll-target="#packages-mass-and-matrix">Packages MASS and Matrix</a></li>
+  <li><a href="#packages-relying-on-mpi" id="toc-packages-relying-on-mpi" class="nav-link" data-scroll-target="#packages-relying-on-mpi">Packages relying on MPI</a></li>
+  <li><a href="#packages-relying-on-jags" id="toc-packages-relying-on-jags" class="nav-link" data-scroll-target="#packages-relying-on-jags">Packages relying on JAGS</a></li>
+  <li><a href="#packages-relying-on-jq" id="toc-packages-relying-on-jq" class="nav-link" data-scroll-target="#packages-relying-on-jq">Packages relying on JQ</a></li>
+  <li><a href="#packages-requiring-extra-care" id="toc-packages-requiring-extra-care" class="nav-link" data-scroll-target="#packages-requiring-extra-care">Packages requiring extra care</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/ucsf-wynton/wynton-website-hpc/edit/main/hpc/howto/r.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ucsf-wynton/wynton-website-hpc/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+
+
+<section id="work-with-r" class="level1">
+<h1>Work with R</h1>
+<p>{% assign linux_distro = “rocky8” %}</p>
+<p>{% assign r_basename = “R-4.5.2-gcc13” %}</p>
+<p>{% assign r_libs_user = “4.5-CBI-gcc13” %}</p>
+<p>{% assign r_path = site.path.cbi_software | append: “/_” | append: linux_distro | append: “/” | append: r_basename %}</p>
+<p>{% assign r_libs_user_path = site.user.home | append: “R/” | append: linux_distro | append: “-x86_64-pc-linux-gnu-library” | append: “/” | append: r_libs_user %}</p>
+<!--
+```
+r_path='{{ r_path }}'
+r_libs_user_path='{{ r_libs_user_path }}'
+```
+-->
+<p>R is available on Wynton HPC via a [contributed environment module].</p>
+<section id="accessing-r" class="level2">
+<h2 class="anchored" data-anchor-id="accessing-r">Accessing R</h2>
+<p>To load the R module available in the [CBI software stack], do:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">[alice@dev2</span> ~]$ module load CBI</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">[alice@dev2</span> ~]$ module load r</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>which provides access to a modern version of R:</p>
+<!-- code-block label="r-one-plus-two" -->
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>[alice<span class="sc">@</span>dev2 <span class="sc">~</span>]<span class="sc">$</span> R </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>R version <span class="dv">4</span>.<span class="fl">5.2</span> (<span class="dv">2025-10-31</span>) <span class="sc">--</span> <span class="st">"[Not] Part in a Rumble"</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">Copyright</span> (C) <span class="dv">2025</span> The R Foundation <span class="cf">for</span> Statistical Computing</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>Platform<span class="sc">:</span> x86_64<span class="sc">-</span>pc<span class="sc">-</span>linux<span class="sc">-</span>gnu</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>R is free software and comes with ABSOLUTELY NO WARRANTY.</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>You are welcome to redistribute it under certain conditions.</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>Type <span class="st">'license()'</span> or <span class="st">'licence()'</span> <span class="cf">for</span> distribution details.</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  Natural language support but running <span class="cf">in</span> an English locale</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>R is a collaborative project with many contributors.</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>Type <span class="st">'contributors()'</span> <span class="cf">for</span> more information and</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="st">'citation()'</span> on how to cite R or R packages <span class="cf">in</span> publications.</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>Type <span class="st">'demo()'</span> <span class="cf">for</span> some demos, <span class="st">'help()'</span> <span class="cf">for</span> on<span class="sc">-</span>line help, or</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="st">'help.start()'</span> <span class="cf">for</span> an HTML browser interface to help.</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>Type <span class="st">'q()'</span> to quit R.</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="dv">1</span><span class="sc">+</span><span class="dv">2</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">3</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">quit</span>()</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>Save workspace image? [y<span class="sc">/</span>n<span class="sc">/</span>c]<span class="sc">:</span> n</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>[alice<span class="sc">@</span>dev2 <span class="sc">~</span>]<span class="sc">$</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>To use an older version of R, specify the version when you load R, e.g.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">[alice@dev2</span> ~]$ module load CBI</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">[alice@dev2</span> ~]$ module load r/3.5.3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="using-r-in-job-scripts" class="level2">
+<h2 class="anchored" data-anchor-id="using-r-in-job-scripts">Using R in job scripts</h2>
+<p>In order to run R in jobs, the above R environment module needs to be loaded just as when you run it interactively on a development node. For example, to run the <code>my_script.R</code> script, the job script should at a minimum contain:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#! /usr/bin/env bash</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#$ -S /bin/bash</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#$ -cwd</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load CBI</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load r</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> my_script.R</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="installing-r-packages" class="level2">
+<h2 class="anchored" data-anchor-id="installing-r-packages">Installing R packages</h2>
+<div class="alert alert-info" role="alert" data-markdown="1">
+<p>R 4.5.0 was released on 2025-04-11, R 4.5.1 on 2025-06-13 and R 4.5.2 on 2025-10-31. Bioconductor 3.21 was release on 2024-04-16 and Bioconductor 3.22 was release on 2024-10-30.</p>
+<p><a href="https://blog.wynton.ucsf.edu/posts/2025/10/r-4.5/">We have confirmed that more than 99% of the CRAN packages and more than 99% of the Bioconductor Software packages install out of the box when following the below instructions</a>. The packages that failed to install do so either because they depend on a system library that is not available on the cluster, or because they have bugs preventing them from being installed out of the box. If you need to install any of those, please reach out on one of the support channels.</p>
+</div>
+<p>The majority of R packages are available from <a href="https://cran.r-project.org/">CRAN</a> (Comprehensive R Archive Network). Another dominant repository of R packages is <a href="https://bioconductor.org/">Bioconductor</a>, which provides R packages with a focus on bioinformatics. Packages available from Bioconductor are not available on CRAN, and vice versa. At times, you will find online instructions for installing R packages hosted on, for instance, GitHub and GitLab. Before installing an R package from such sources, we highly recommend to install the package from CRAN or Bioconductor, if it is available there, because packages hosted on the latter are stable releases and often better tested.</p>
+<p>Before continuing, it is useful to understand where R packages looks for locally installed R packages. There are three locations that R considers:</p>
+<ol type="1">
+<li><p>Your personal R package library. This is located under <code>~/R/</code>, e.g.&nbsp;<code>~/R/{{ linux_distro }}-x86_64-pc-linux-gnu-library/{{    r_libs_user }}/</code></p></li>
+<li><p>(optional) A site-wide R package library (not used on {{ site.cluster.name }})</p></li>
+<li><p>The system-wide R package library part of the R installed, e.g.&nbsp;<code>{    r_path }/lib64/R/library</code></p></li>
+</ol>
+<p>For instance, when we try to load an R package:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">library</span>(datasets)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>R will search the above folders in order for R package ‘datasets’. When you start you fresh, the only R packages available to you are the ones installed in folder (3) - the system-wide library. The ‘datasets’ package comes with the R installation, so with a fresh setup, it will be loaded from the third location. As we will see below, when you install your own packages, they will all be installed into folder (1) - your personal library. The first time your run R, the personal library folder does not exists, so R will ask you whether or not you want to create that folder. If asked, you should always accept (answer ‘Yes’). If you had already created this folder, R will install into this folder without asking.</p>
+<p>Finally, R undergoes a <em>main</em> update once a year (around April and May). For example, R 4.5.0 was release in April 2025. The next main release will be R 4.6.0 a year later. Whenever the <code>y</code> component in R <code>x.y.z</code> version is increased, you will start out with an empty personal package folder specific for R <code>x.y</code> (regardless of <code>z</code>). This means that you will have to re-install all R packages you had installed during the year before the new main release came out. Yes, this can be tedious and can take quite some time but it will improve stability and yet allow the R developers to keep improving R. Of course, you can still keep using an older version of R and all the packages you have installed for that version - they will not be removed.</p>
+<section id="installing-an-r-package-from-cran" class="level3">
+<h3 class="anchored" data-anchor-id="installing-an-r-package-from-cran">Installing an R package from CRAN</h3>
+<p>Packages available on CRAN can be installed using the <code>install.packages()</code> function in R. The default behavior of R is to always ask you which one of the many CRAN mirrors you want to install from (their content is all identical). To avoid this question, tell R to always use the first one:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">chooseCRANmirror</span>(<span class="at">ind =</span> <span class="dv">1</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Now, in order to install, for instance, the <strong><a href="https://cran.r-project.org/package=zoo">zoo</a></strong> package available on CRAN, call:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">install.packages</span>(<span class="st">"zoo"</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>Warning <span class="cf">in</span> <span class="fu">install.packages</span>(<span class="st">"zoo"</span>) <span class="sc">:</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">'lib = "{{ r_path }}/lib64/R/library"'</span> is not writable</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>Would you like to use a personal library instead? (yes<span class="sc">/</span>No<span class="sc">/</span>cancel)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>We notice two things. First there is a warning mentioning that a “lib” folder was “not writable”. This is because your personal library folder did not yet exists and R tried to install to location (3) but failed (because you do not have write permission there). This is where R decided to ask you whether or not you want to install to a personal library. Answer ‘yes’:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>Would you like to use a personal library instead? (yes<span class="sc">/</span>No<span class="sc">/</span>cancel) yes</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>Would you like to create a personal library</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="st">'~/R/{{ linux_distro }}-x86_64-pc-linux-gnu-library/{{ r_libs_user }}'</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>to install packages into? (yes<span class="sc">/</span>No<span class="sc">/</span>cancel)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>R wants to make sure you are aware what is done, so it will, conservatively, also ask if you accept the default location. Answer ‘yes’ for this folder to be created. After this, the current and all future package installation in R will be installed into this folder without further questions asked. In this example, we will get:</p>
+<!-- code-block label="install-zoo" -->
+<div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>Would you like to create a personal library</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="st">'~/R/x86_64-pc-linux-gnu-library/{{ r_libs_user }}'</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>to install packages into? (yes<span class="sc">/</span>No<span class="sc">/</span>cancel) yes</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>trying URL <span class="st">'https://cloud.r-project.org/src/contrib/zoo_1.8-14.tar.gz'</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>Content type <span class="st">'application/x-gzip'</span> length <span class="dv">778426</span> <span class="fu">bytes</span> (<span class="dv">760</span> KB)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="sc">==</span><span class="er">================================================</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>downloaded <span class="dv">760</span> KB</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span> installing <span class="sc">*</span>source<span class="sc">*</span> package ‘zoo’ ...</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span> this is package ‘zoo’ version ‘<span class="fl">1.8</span><span class="dv">-14</span>’</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span> package ‘zoo’ successfully unpacked and MD5 sums checked</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span> using staged installation</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span> libs</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>using C compiler<span class="sc">:</span> ‘<span class="fu">gcc</span> (GCC) <span class="dv">13</span>.<span class="fl">3.1</span> <span class="dv">20240611</span> (Red Hat <span class="dv">13</span>.<span class="fl">3.1</span><span class="dv">-2</span>)’</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>gcc <span class="sc">-</span>std<span class="ot">=</span>gnu2x <span class="sc">-</span>I<span class="st">"{{ r_path }}/lib64/R/include"</span> <span class="sc">-</span>DNDEBUG <span class="sc">-</span>I..<span class="sc">/</span>inst<span class="sc">/</span>include  <span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>local<span class="sc">/</span>include    <span class="sc">-</span>fpic  <span class="sc">-</span>g <span class="sc">-</span>O2  <span class="sc">-</span>c coredata.c <span class="sc">-</span>o coredata.o</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>gcc <span class="sc">-</span>std<span class="ot">=</span>gnu2x <span class="sc">-</span>I<span class="st">"{{ r_path }}/lib64/R/include"</span> <span class="sc">-</span>DNDEBUG <span class="sc">-</span>I..<span class="sc">/</span>inst<span class="sc">/</span>include  <span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>local<span class="sc">/</span>include    <span class="sc">-</span>fpic  <span class="sc">-</span>g <span class="sc">-</span>O2  <span class="sc">-</span>c init.c <span class="sc">-</span>o init.o</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>gcc <span class="sc">-</span>std<span class="ot">=</span>gnu2x <span class="sc">-</span>I<span class="st">"{{ r_path }}/lib64/R/include"</span> <span class="sc">-</span>DNDEBUG <span class="sc">-</span>I..<span class="sc">/</span>inst<span class="sc">/</span>include  <span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>local<span class="sc">/</span>include    <span class="sc">-</span>fpic  <span class="sc">-</span>g <span class="sc">-</span>O2  <span class="sc">-</span>c lag.c <span class="sc">-</span>o lag.o</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>gcc <span class="sc">-</span>std<span class="ot">=</span>gnu2x <span class="sc">-</span>shared <span class="sc">-</span>L{{ r_path }}<span class="sc">/</span>lib64<span class="sc">/</span>R<span class="sc">/</span>lib <span class="sc">-</span>L<span class="sc">/</span>usr<span class="sc">/</span>local<span class="sc">/</span>lib64 <span class="sc">-</span>o zoo.so coredata.o init.o lag.o <span class="sc">-</span>L{{ r_path }}<span class="sc">/</span>lib64<span class="sc">/</span>R<span class="sc">/</span>lib <span class="sc">-</span>lR</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>installing to {{ r_libs_user_path }}<span class="sc">/</span><span class="dv">00</span>LOCK<span class="sc">-</span>zoo<span class="sc">/</span><span class="dv">00</span>new<span class="sc">/</span>zoo<span class="sc">/</span>libs</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span> R</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span> demo</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span> inst</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span> byte<span class="sc">-</span>compile and prepare package <span class="cf">for</span> lazy loading</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span> help</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span><span class="er">*</span> installing help indices</span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span> building package indices</span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span> installing vignettes</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span> testing <span class="cf">if</span> installed package can be loaded from temporary location</span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span> checking absolute paths <span class="cf">in</span> shared objects and dynamic libraries</span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span> testing <span class="cf">if</span> installed package can be loaded from final location</span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span> testing <span class="cf">if</span> installed package keeps a record of temporary installation path</span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span> <span class="fu">DONE</span> (zoo)</span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>The downloaded source packages are <span class="cf">in</span></span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>        <span class="st">'/scratch/alice/RtmpVm3e6t/downloaded_packages'</span></span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>If there is no mentioning of an “error” (a “warning” is ok in R but never an “error”), then the package was successfully installed. If you see <code>* DONE (zoo)</code> at the end, it means that the package was successfully installed. As with any other package in R, you can also verify that it is indeed installed by loading it, i.e.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">library</span>(zoo)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>Attaching package<span class="sc">:</span> <span class="st">'zoo'</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>The following objects are masked from <span class="st">'package:base'</span><span class="sc">:</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    as.Date, as.Date.numeric</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="updating-cran-packages" class="level4">
+<h4 class="anchored" data-anchor-id="updating-cran-packages">Updating CRAN packages</h4>
+<p>If a new version of one or more CRAN packages is released, they can be installed by calling:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">chooseCRANmirror</span>(<span class="at">ind =</span> <span class="dv">1</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">update.packages</span>()</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>...</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="installing-an-r-package-from-bioconductor" class="level3">
+<h3 class="anchored" data-anchor-id="installing-an-r-package-from-bioconductor">Installing an R package from Bioconductor</h3>
+<p>Per Bioconductor’s best practices, R packages from Bioconductor should be installed using <code>BiocManager::install()</code>. This is to guarantee maximum compatibility between all Bioconductor packages.</p>
+<section id="installing-biocmanager-once" class="level4">
+<h4 class="anchored" data-anchor-id="installing-biocmanager-once">Installing BiocManager (once)</h4>
+<p>If you already have <strong><a href="https://cran.r-project.org/package=BiocManager">BiocManager</a></strong> installed, you can skip this section. When you start out fresh, the package <strong>BiocManager</strong> is not installed meaning that calling <code>BiocManager::install()</code> will fail. We need to start by installing it from CRAN (sic!);</p>
+<!-- code-block label="install-BiocManager" -->
+<div class="sourceCode" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>e<span class="sc">&gt;</span> <span class="fu">install.packages</span>(<span class="st">"BiocManager"</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>Installing package into <span class="st">'{{ r_libs_user_path }}'</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>(as <span class="st">'lib'</span> is unspecified)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>trying URL <span class="st">'https://cloud.r-project.org/src/contrib/BiocManager_1.30.26.tar.gz'</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>Content type <span class="st">'application/x-gzip'</span> length <span class="dv">582690</span> <span class="fu">bytes</span> (<span class="dv">580</span> KB)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="sc">==</span><span class="er">================================================</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>downloaded <span class="dv">569</span> KB</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span> installing <span class="sc">*</span>source<span class="sc">*</span> package ‘BiocManager’ ...</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span> package ‘BiocManager’ successfully unpacked and MD5 sums checked</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span> using staged installation</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span> R</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span> inst</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span> byte<span class="sc">-</span>compile and prepare package <span class="cf">for</span> lazy loading</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span> help</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span><span class="er">*</span> installing help indices</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span> building package indices</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span> installing vignettes</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span> testing <span class="cf">if</span> installed package can be loaded from temporary location</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span> testing <span class="cf">if</span> installed package can be loaded from final location</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span> testing <span class="cf">if</span> installed package keeps a record of temporary installation path</span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span> <span class="fu">DONE</span> (BiocManager)</span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>The downloaded source packages are <span class="cf">in</span></span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>        <span class="st">'/scratch/alice/RtmpSRgaB4/downloaded_packages'</span></span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><em>Comment</em>: If this is the very first R package you installed, see above CRAN instructions for setting a default CRAN mirror and creating a personal library folder.</p>
+</section>
+<section id="installing-a-bioconductor-package" class="level4">
+<h4 class="anchored" data-anchor-id="installing-a-bioconductor-package">Installing a Bioconductor package</h4>
+<p>With <strong>BiocManager</strong> installed, we can now install any Bioconductor package. For instance, to install <strong><a href="https://bioconductor.org/packages/limma/">limma</a></strong>, and all of its dependencies, call:</p>
+<!-- code-block label="install-limma" -->
+<div class="sourceCode" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">"limma"</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>Bioconductor version <span class="fl">3.21</span> (BiocManager <span class="dv">1</span>.<span class="fl">30.26</span>), R <span class="dv">4</span>.<span class="fl">5.1</span> (<span class="dv">2025-06-13</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>Installing <span class="fu">package</span>(s) <span class="st">'limma'</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>trying URL <span class="st">'https://bioconductor.org/packages/3.21/bioc/src/contrib/limma_3.64.3.tar.gz'</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>Content type <span class="st">'application/x-gzip'</span> length <span class="dv">2846680</span> <span class="fu">bytes</span> (<span class="fl">2.7</span> MB)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="sc">==</span><span class="er">================================================</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>downloaded <span class="fl">2.7</span> MB</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span> installing <span class="sc">*</span>source<span class="sc">*</span> package ‘limma’ ...</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span> this is package ‘limma’ version ‘<span class="dv">3</span>.<span class="fl">64.3</span>’</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span> using staged installation</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span> libs</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>using C compiler<span class="sc">:</span> ‘<span class="fu">gcc</span> (GCC) <span class="dv">13</span>.<span class="fl">3.1</span> <span class="dv">20240611</span> (Red Hat <span class="dv">13</span>.<span class="fl">3.1</span><span class="dv">-2</span>)’</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>gcc <span class="sc">-</span>std<span class="ot">=</span>gnu2x <span class="sc">-</span>I<span class="st">"{{ r_path }}/lib64/R/include"</span> <span class="sc">-</span>DNDEBUG   <span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>local<span class="sc">/</span>include    <span class="sc">-</span>fpic  <span class="sc">-</span>g <span class="sc">-</span>O2  <span class="sc">-</span>c init.c <span class="sc">-</span>o init.o                                                                                          </span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>gcc <span class="sc">-</span>std<span class="ot">=</span>gnu2x <span class="sc">-</span>I<span class="st">"{{ r_path }}/lib64/R/include"</span> <span class="sc">-</span>DNDEBUG   <span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>local<span class="sc">/</span>include    <span class="sc">-</span>fpic  <span class="sc">-</span>g <span class="sc">-</span>O2  <span class="sc">-</span>c normexp.c <span class="sc">-</span>o normexp.o                                                                                    </span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>gcc <span class="sc">-</span>std<span class="ot">=</span>gnu2x <span class="sc">-</span>I<span class="st">"{{ r_path }}/lib64/R/include"</span> <span class="sc">-</span>DNDEBUG   <span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>local<span class="sc">/</span>include    <span class="sc">-</span>fpic  <span class="sc">-</span>g <span class="sc">-</span>O2  <span class="sc">-</span>c weighted_lowess.c <span class="sc">-</span>o weighted_lowess.o                                                                    </span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>gcc <span class="sc">-</span>std<span class="ot">=</span>gnu2x <span class="sc">-</span>shared <span class="sc">-</span>L{{ r_path }}<span class="sc">/</span>lib64<span class="sc">/</span>R<span class="sc">/</span>lib <span class="sc">-</span>L<span class="sc">/</span>usr<span class="sc">/</span>local<span class="sc">/</span>lib64 <span class="sc">-</span>o limma.so init.o normexp.o weighted_lowess.o <span class="sc">-</span>L{{ r_path }}<span class="sc">/</span>lib64<span class="sc">/</span>R<span class="sc">/</span>lib <span class="sc">-</span>lR               </span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>installing to {{ r_libs_user_path }}<span class="sc">/</span><span class="dv">00</span>LOCK<span class="sc">-</span>limma<span class="sc">/</span><span class="dv">00</span>new<span class="sc">/</span>limma<span class="sc">/</span>libs</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span> R</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span> inst</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span> byte<span class="sc">-</span>compile and prepare package <span class="cf">for</span> lazy loading</span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span> help</span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span><span class="er">*</span> installing help indices</span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span> building package indices</span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span> installing vignettes</span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span> testing <span class="cf">if</span> installed package can be loaded from temporary location</span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span> checking absolute paths <span class="cf">in</span> shared objects and dynamic libraries</span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span> testing <span class="cf">if</span> installed package can be loaded from final location</span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span> testing <span class="cf">if</span> installed package keeps a record of temporary installation path</span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span> <span class="fu">DONE</span> (limma)</span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>The downloaded source packages are <span class="cf">in</span></span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>        <span class="st">'/scratch/alice/RtmpIoJ3Np/downloaded_packages'</span></span>
+<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>There were no “error” messages, so the installation was successful. To verify that it worked, we can load the package in R as:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">library</span>(limma)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="updating-bioconductor-packages" class="level4">
+<h4 class="anchored" data-anchor-id="updating-bioconductor-packages">Updating Bioconductor packages</h4>
+<p>To install Bioconductor updates, call <code>BiocManager::install()</code> without arguments:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> BiocManager<span class="sc">::</span><span class="fu">install</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><em>Comment</em>: This will actually also update any CRAN packages.</p>
+</section>
+</section>
+</section>
+<section id="appendix" class="level2">
+<h2 class="anchored" data-anchor-id="appendix">Appendix</h2>
+<section id="parallel-processing-in-r" class="level3">
+<h3 class="anchored" data-anchor-id="parallel-processing-in-r">Parallel processing in R</h3>
+<p>If you have an R scripts, and it involves setting up a number of parallel workers in R, do <em>not</em> use <code>ncores &lt;- detectCores()</code> of the <strong>parallel</strong> package because it will result in your job hijacking <em>all</em> cores on the compute node regardless of how many cores the scheduler has given you. Taking up all CPU resources without permission is really bad practice and a common cause for problems. A much better solution is to use <code>availableCores()</code> that is available in the <strong><a href="https://cran.r-project.org/package=parallelly">parallelly</a></strong> package, e.g.&nbsp;as <code>ncores &lt;- parallelly::availableCores()</code>. This function is backward compatible with <code>detectCores()</code> while respecting what the scheduler has allocated for your job.</p>
+</section>
+<section id="packages-mass-and-matrix" class="level3">
+<h3 class="anchored" data-anchor-id="packages-mass-and-matrix">Packages MASS and Matrix</h3>
+<p>As of 2024-04-26, the “recommended” <strong><a href="https://cran.r-project.org/package=MASS">MASS</a></strong> and <strong><a href="https://cran.r-project.org/package=Matrix">Matrix</a></strong> packages require R (&gt;= 4.4.0) [2024-04-24]. If you run an older version of R, you can install older versions of them that are compatible with R (&lt; 4.4.0) using:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">install.packages</span>(<span class="st">"https://cran.r-project.org/src/contrib/Archive/MASS/MASS_7.3-60.0.1.tar.gz"</span>, <span class="at">type =</span> <span class="st">"source"</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">install.packages</span>(<span class="st">"https://cran.r-project.org/src/contrib/Archive/Matrix/Matrix_1.6-5.tar.gz"</span>, <span class="at">type =</span> <span class="st">"source"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="packages-relying-on-mpi" class="level3">
+<h3 class="anchored" data-anchor-id="packages-relying-on-mpi">Packages relying on MPI</h3>
+<p>Some R packages rely on the Message Passing Interface (MPI), e.g.&nbsp;<strong>Rmpi</strong>, <strong>pbdMPI</strong> and <strong>bigGP</strong>. To use these, but also to install them we need to load the built-in <code>mpi</code> module;</p>
+<!-- code-block label="r-openmpi" -->
+<div class="sourceCode" id="cb17"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">[alice@dev2</span> ~]$ module load mpi/openmpi-x86_64</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="ex">[alice@dev2</span> ~]$ module list</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="ex">Currently</span> Loaded Modules:</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="ex">1</span><span class="er">)</span> <span class="ex">CBI</span>   2<span class="er">)</span> <span class="ex">scl-gcc-toolset/13</span>   3<span class="er">)</span> <span class="ex">r/4.5.2</span>   4<span class="er">)</span> <span class="ex">mpi/openmpi-x86_64</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><em>Importantly</em>, make sure to specify the exact version of the <code>mpi</code> module as well so that your code will keep working also when a newer version becomes the new default. Note that you will have to load the same <code>mpi</code> module, and version(!), also whenever you run R code that requires these MPI-dependent R packages.</p>
+<p>In addition to making OpenMPI available by loading the <code>mpi</code> module, several MPI-based R packages requires additional special care in order to install. Below sections, show how to install them.</p>
+<section id="package-rmpi" class="level4">
+<h4 class="anchored" data-anchor-id="package-rmpi">Package <strong>Rmpi</strong></h4>
+<p>After loading the <code>mpi</code> module, the <strong><a href="https://cran.r-project.org/package=Rmpi">Rmpi</a></strong> package installs out-of-the-box like other R packages. After installing it, you can verify that it works by running the following example commands:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>[alice<span class="sc">@</span>dev2 <span class="sc">~</span>]<span class="sc">$</span> module load CBI r</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>[alice<span class="sc">@</span>dev2 <span class="sc">~</span>]<span class="sc">$</span> module load mpi<span class="sc">/</span>openmpi<span class="sc">-</span>x86_64</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>[alice<span class="sc">@</span>dev2 <span class="sc">~</span>]<span class="sc">$</span> R</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">library</span>(Rmpi)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>[<span class="fl">1684426121.677063</span>] [c4<span class="sc">-</span>dev3<span class="sc">:</span><span class="dv">23125</span><span class="sc">:</span><span class="dv">0</span>]            sys.c<span class="sc">:</span><span class="dv">618</span>  UCX  ERROR <span class="fu">shmget</span>(<span class="at">size=</span><span class="dv">2097152</span> <span class="at">flags=</span><span class="dv">0xfb0</span>) <span class="cf">for</span> mm_recv_desc failed<span class="sc">:</span> Operation not permitted, please check shared memory limits by <span class="st">'ipcs -l'</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">mpi.spawn.Rslaves</span>()              <span class="do">## launch one or more MPI parallel workers</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>        <span class="dv">1</span> slaves are spawned successfully. <span class="dv">0</span> failed.</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>[<span class="fl">1684426140.976380</span>] [c4<span class="sc">-</span>dev3<span class="sc">:</span><span class="dv">23125</span><span class="sc">:</span><span class="dv">0</span>]            sys.c<span class="sc">:</span><span class="dv">618</span>  UCX  ERROR <span class="fu">shmget</span>(<span class="at">size=</span><span class="dv">2097152</span> <span class="at">flags=</span><span class="dv">0xb80</span>) <span class="cf">for</span> ucp_am_bufs failed<span class="sc">:</span> Operation not permitted, please check shared memory limits by <span class="st">'ipcs -l'</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="fu">master</span> (rank <span class="dv">0</span>, comm <span class="dv">1</span>) of size <span class="dv">2</span> is running on<span class="sc">:</span> {{ site.devel.name}} </span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="fu">slave1</span> (rank <span class="dv">1</span>, comm <span class="dv">1</span>) of size <span class="dv">2</span> is running on<span class="sc">:</span> {{ site.devel.name}}</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">mpi.remote.exec</span>(<span class="fu">Sys.getpid</span>())    <span class="do">## get the process ID for one of them</span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>     out</span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="dv">189114</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="packages-pbdmpi-and-biggp" class="level4">
+<h4 class="anchored" data-anchor-id="packages-pbdmpi-and-biggp">Packages <strong>pbdMPI</strong> and <strong>bigGP</strong></h4>
+<!--
+Rocky 8: pbdMPI, bigGP still need to be installed this way /HB 2023-09-16
+-->
+<p>Contrary to <strong>Rmpi</strong> above, packages such <strong><a href="https://cran.r-project.org/package=pbdMPI">pbdMPI</a></strong> and <strong><a href="https://cran.r-project.org/package=bigGP">bigGP</a></strong> require more hand-holding to install. For example, after having loaded the <code>mpi</code> module, we can install <strong>pbdMPI</strong> in R as:</p>
+<!-- code-block label="install-pbdMPI" -->
+<div class="sourceCode" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">install.packages</span>(<span class="st">"pbdMPI"</span>, <span class="at">configure.args=</span><span class="st">"--with-mpi-include=$MPI_INCLUDE --with-mpi-libpath=$MPI_LIB --with-mpi-type=OPENMPI"</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>Installing package into <span class="st">'{{ r_libs_user_path }}'</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>(as <span class="st">'lib'</span> is unspecified)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>trying URL <span class="st">'https://cloud.r-project.org/src/contrib/pbdMPI_0.5-4.tar.gz'</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>Content type <span class="st">'application/x-gzip'</span> length <span class="dv">423376</span> <span class="fu">bytes</span> (<span class="dv">413</span> KB)</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="sc">==</span><span class="er">================================================</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>downloaded <span class="dv">413</span> KB</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span> installing <span class="sc">*</span>source<span class="sc">*</span> package ‘pbdMPI’ ...</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span> this is package ‘pbdMPI’ version ‘<span class="fl">0.5</span><span class="dv">-4</span>’</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span> package ‘pbdMPI’ successfully unpacked and MD5 sums checked</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span> using staged installation</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>checking <span class="cf">for</span> sed... <span class="sc">/</span>usr<span class="sc">/</span>bin<span class="sc">/</span>sed</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>checking <span class="cf">for</span> mpicc... mpicc</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>checking <span class="cf">for</span> ompi_info... ompi_info</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>checking <span class="cf">for</span> pkg<span class="sc">-</span>config... <span class="sc">/</span>usr<span class="sc">/</span>bin<span class="sc">/</span>pkg<span class="sc">-</span>config</span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> TMP_FOUND <span class="ot">=</span> Nothing found from mpicc <span class="sc">--</span>show <span class="sc">&amp;</span> sed nor pkg<span class="sc">-</span>config ...</span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>checking <span class="cf">for</span> openpty <span class="cf">in</span> <span class="sc">-</span>lutil... yes</span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>checking <span class="cf">for</span> main <span class="cf">in</span> <span class="sc">-</span>lpthread... yes</span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span><span class="er">*****************</span> Results of pbdMPI package configure <span class="sc">**</span><span class="er">***************</span></span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;&gt;</span> MPIRUN <span class="ot">=</span> <span class="er">/</span>usr<span class="sc">/</span>lib64<span class="sc">/</span>openmpi<span class="sc">/</span>bin<span class="sc">/</span>mpirun</span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> MPIEXEC <span class="ot">=</span> <span class="er">/</span>usr<span class="sc">/</span>lib64<span class="sc">/</span>openmpi<span class="sc">/</span>bin<span class="sc">/</span>mpiexec</span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> ORTERUN <span class="ot">=</span> <span class="er">/</span>usr<span class="sc">/</span>lib64<span class="sc">/</span>openmpi<span class="sc">/</span>bin<span class="sc">/</span>orterun</span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> TMP_INC <span class="ot">=</span></span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;&gt;</span> TMP_LIB <span class="ot">=</span></span>
+<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;&gt;</span> TMP_LIBNAME <span class="ot">=</span></span>
+<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;&gt;</span> TMP_FOUND <span class="ot">=</span> Nothing found from mpicc <span class="sc">--</span>show <span class="sc">&amp;</span> sed nor pkg<span class="sc">-</span>config ...</span>
+<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> MPI_ROOT <span class="ot">=</span></span>
+<span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;&gt;</span> MPITYPE <span class="ot">=</span> OPENMPI</span>
+<span id="cb19-32"><a href="#cb19-32" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> MPI_INCLUDE_PATH <span class="ot">=</span> <span class="er">/</span>usr<span class="sc">/</span>include<span class="sc">/</span>openmpi<span class="sc">-</span>x86_64</span>
+<span id="cb19-33"><a href="#cb19-33" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> MPI_LIBPATH <span class="ot">=</span> <span class="er">/</span>usr<span class="sc">/</span>lib64<span class="sc">/</span>openmpi<span class="sc">/</span>lib</span>
+<span id="cb19-34"><a href="#cb19-34" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> MPI_LIBNAME <span class="ot">=</span></span>
+<span id="cb19-35"><a href="#cb19-35" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;&gt;</span> MPI_LIBS <span class="ot">=</span>  <span class="sc">-</span>lutil <span class="sc">-</span>lpthread</span>
+<span id="cb19-36"><a href="#cb19-36" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> MPI_DEFS <span class="ot">=</span> <span class="sc">-</span>DMPI2</span>
+<span id="cb19-37"><a href="#cb19-37" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> MPI_INCL2 <span class="ot">=</span></span>
+<span id="cb19-38"><a href="#cb19-38" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;&gt;</span> MPI_LDFLAGS <span class="ot">=</span></span>
+<span id="cb19-39"><a href="#cb19-39" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;&gt;</span> PKG_CPPFLAGS <span class="ot">=</span> <span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>include<span class="sc">/</span>openmpi<span class="sc">-</span>x86_64  <span class="sc">-</span>DMPI2 <span class="sc">-</span>DOPENMPI</span>
+<span id="cb19-40"><a href="#cb19-40" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> PKG_LIBS <span class="ot">=</span> <span class="sc">-</span>L<span class="sc">/</span>usr<span class="sc">/</span>lib64<span class="sc">/</span>openmpi<span class="sc">/</span>lib <span class="sc">-</span>lmpi  <span class="sc">-</span>lutil <span class="sc">-</span>lpthread</span>
+<span id="cb19-41"><a href="#cb19-41" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> PROF_LDFLAGS <span class="ot">=</span></span>
+<span id="cb19-42"><a href="#cb19-42" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;&gt;</span> ENABLE_LD_LIBRARY_PATH <span class="ot">=</span> no</span>
+<span id="cb19-43"><a href="#cb19-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-44"><a href="#cb19-44" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span><span class="er">***********************************************************************</span></span>
+<span id="cb19-45"><a href="#cb19-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-46"><a href="#cb19-46" aria-hidden="true" tabindex="-1"></a>configure<span class="sc">:</span> creating .<span class="sc">/</span>config.status</span>
+<span id="cb19-47"><a href="#cb19-47" aria-hidden="true" tabindex="-1"></a>config.status<span class="sc">:</span> creating src<span class="sc">/</span>Makevars</span>
+<span id="cb19-48"><a href="#cb19-48" aria-hidden="true" tabindex="-1"></a>configure<span class="sc">:</span> creating .<span class="sc">/</span>config.status</span>
+<span id="cb19-49"><a href="#cb19-49" aria-hidden="true" tabindex="-1"></a>config.status<span class="sc">:</span> creating src<span class="sc">/</span>Makevars</span>
+<span id="cb19-50"><a href="#cb19-50" aria-hidden="true" tabindex="-1"></a>config.status<span class="sc">:</span> creating R<span class="sc">/</span>zzz.r</span>
+<span id="cb19-51"><a href="#cb19-51" aria-hidden="true" tabindex="-1"></a>config.status<span class="sc">:</span> creating R<span class="sc">/</span>util_execmpi.r</span>
+<span id="cb19-52"><a href="#cb19-52" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span> libs</span>
+<span id="cb19-53"><a href="#cb19-53" aria-hidden="true" tabindex="-1"></a>using C compiler<span class="sc">:</span> ‘<span class="fu">gcc</span> (GCC) <span class="dv">13</span>.<span class="fl">3.1</span> <span class="dv">20240611</span> (Red Hat <span class="dv">13</span>.<span class="fl">3.1</span><span class="dv">-2</span>)’</span>
+<span id="cb19-54"><a href="#cb19-54" aria-hidden="true" tabindex="-1"></a>echo <span class="st">"MPIRUN = /usr/lib64/openmpi/bin/mpirun"</span> <span class="sc">&gt;</span> Makeconf</span>
+<span id="cb19-55"><a href="#cb19-55" aria-hidden="true" tabindex="-1"></a>echo <span class="st">"MPIEXEC = /usr/lib64/openmpi/bin/mpiexec"</span> <span class="sc">&gt;</span><span class="er">&gt;</span> Makeconf</span>
+<span id="cb19-56"><a href="#cb19-56" aria-hidden="true" tabindex="-1"></a>echo <span class="st">"ORTERUN = /usr/lib64/openmpi/bin/orterun"</span> <span class="sc">&gt;</span><span class="er">&gt;</span> Makeconf</span>
+<span id="cb19-57"><a href="#cb19-57" aria-hidden="true" tabindex="-1"></a>echo <span class="st">"TMP_INC = "</span> <span class="sc">&gt;</span><span class="er">&gt;</span> Makeconf</span>
+<span id="cb19-58"><a href="#cb19-58" aria-hidden="true" tabindex="-1"></a>echo <span class="st">"TMP_LIB = "</span> <span class="sc">&gt;</span><span class="er">&gt;</span> Makeconf</span>
+<span id="cb19-59"><a href="#cb19-59" aria-hidden="true" tabindex="-1"></a>echo <span class="st">"TMP_LIBNAME = "</span> <span class="sc">&gt;</span><span class="er">&gt;</span> Makeconf</span>
+<span id="cb19-60"><a href="#cb19-60" aria-hidden="true" tabindex="-1"></a>echo <span class="st">"TMP_FOUND = Nothing found from mpicc --show &amp; sed nor pkg-config ..."</span> <span class="sc">&gt;</span><span class="er">&gt;</span> Makeconf</span>
+<span id="cb19-61"><a href="#cb19-61" aria-hidden="true" tabindex="-1"></a>echo <span class="st">"MPI_ROOT = "</span> <span class="sc">&gt;</span><span class="er">&gt;</span> Makeconf</span>
+<span id="cb19-62"><a href="#cb19-62" aria-hidden="true" tabindex="-1"></a>echo <span class="st">"MPITYPE = OPENMPI"</span> <span class="sc">&gt;</span><span class="er">&gt;</span> Makeconf</span>
+<span id="cb19-63"><a href="#cb19-63" aria-hidden="true" tabindex="-1"></a>echo <span class="st">"MPI_INCLUDE_PATH = /usr/include/openmpi-x86_64"</span> <span class="sc">&gt;</span><span class="er">&gt;</span> Makeconf</span>
+<span id="cb19-64"><a href="#cb19-64" aria-hidden="true" tabindex="-1"></a>echo <span class="st">"MPI_LIBPATH = /usr/lib64/openmpi/lib"</span> <span class="sc">&gt;</span><span class="er">&gt;</span> Makeconf</span>
+<span id="cb19-65"><a href="#cb19-65" aria-hidden="true" tabindex="-1"></a>echo <span class="st">"MPI_LIBNAME = "</span> <span class="sc">&gt;</span><span class="er">&gt;</span> Makeconf</span>
+<span id="cb19-66"><a href="#cb19-66" aria-hidden="true" tabindex="-1"></a>echo <span class="st">"MPI_LIBS =  -lutil -lpthread"</span> <span class="sc">&gt;</span><span class="er">&gt;</span> Makeconf</span>
+<span id="cb19-67"><a href="#cb19-67" aria-hidden="true" tabindex="-1"></a>echo <span class="st">"MPI_DEFS = -DMPI2"</span> <span class="sc">&gt;</span><span class="er">&gt;</span> Makeconf</span>
+<span id="cb19-68"><a href="#cb19-68" aria-hidden="true" tabindex="-1"></a>echo <span class="st">"MPI_INCL2 = "</span> <span class="sc">&gt;</span><span class="er">&gt;</span> Makeconf</span>
+<span id="cb19-69"><a href="#cb19-69" aria-hidden="true" tabindex="-1"></a>echo <span class="st">"MPI_LDFLAGS = "</span> <span class="sc">&gt;</span><span class="er">&gt;</span> Makeconf</span>
+<span id="cb19-70"><a href="#cb19-70" aria-hidden="true" tabindex="-1"></a>echo <span class="st">"PKG_CPPFLAGS = -I/usr/include/openmpi-x86_64  -DMPI2 -DOPENMPI"</span> <span class="sc">&gt;</span><span class="er">&gt;</span> Makeconf</span>
+<span id="cb19-71"><a href="#cb19-71" aria-hidden="true" tabindex="-1"></a>echo <span class="st">"PKG_LIBS = -L/usr/lib64/openmpi/lib -lmpi  -lutil -lpthread"</span> <span class="sc">&gt;</span><span class="er">&gt;</span> Makeconf</span>
+<span id="cb19-72"><a href="#cb19-72" aria-hidden="true" tabindex="-1"></a>echo <span class="st">"PROF_LDFLAGS = "</span> <span class="sc">&gt;</span><span class="er">&gt;</span> Makeconf</span>
+<span id="cb19-73"><a href="#cb19-73" aria-hidden="true" tabindex="-1"></a>echo <span class="st">"ENABLE_LD_LIBRARY_PATH = no"</span> <span class="sc">&gt;</span><span class="er">&gt;</span> Makeconf</span>
+<span id="cb19-74"><a href="#cb19-74" aria-hidden="true" tabindex="-1"></a>gcc <span class="sc">-</span>std<span class="ot">=</span>gnu2x <span class="sc">-</span>I<span class="st">"{{ r_path }}/lib64/R/include"</span> <span class="sc">-</span>DNDEBUG <span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>include<span class="sc">/</span>openmpi<span class="sc">-</span>x86_64  <span class="sc">-</span>DMPI2 <span class="sc">-</span>DOPENMPI  <span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>local<span class="sc">/</span>include    <span class="sc">-</span>fpic  <span class="sc">-</span>g <span class="sc">-</span>O2  <span class="sc">-</span>c comm_errors.c <span class="sc">-</span>o comm_errors.o</span>
+<span id="cb19-75"><a href="#cb19-75" aria-hidden="true" tabindex="-1"></a>gcc <span class="sc">-</span>std<span class="ot">=</span>gnu2x <span class="sc">-</span>I<span class="st">"{{ r_path }}/lib64/R/include"</span> <span class="sc">-</span>DNDEBUG <span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>include<span class="sc">/</span>openmpi<span class="sc">-</span>x86_64  <span class="sc">-</span>DMPI2 <span class="sc">-</span>DOPENMPI  <span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>local<span class="sc">/</span>include    <span class="sc">-</span>fpic  <span class="sc">-</span>g <span class="sc">-</span>O2  <span class="sc">-</span>c comm_sort_double.c <span class="sc">-</span>o comm_sort_double.o</span>
+<span id="cb19-76"><a href="#cb19-76" aria-hidden="true" tabindex="-1"></a>gcc <span class="sc">-</span>std<span class="ot">=</span>gnu2x <span class="sc">-</span>I<span class="st">"{{ r_path }}/lib64/R/include"</span> <span class="sc">-</span>DNDEBUG <span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>include<span class="sc">/</span>openmpi<span class="sc">-</span>x86_64  <span class="sc">-</span>DMPI2 <span class="sc">-</span>DOPENMPI  <span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>local<span class="sc">/</span>include    <span class="sc">-</span>fpic  <span class="sc">-</span>g <span class="sc">-</span>O2  <span class="sc">-</span>c comm_sort_integer.c <span class="sc">-</span>o comm_sort_integer.o</span>
+<span id="cb19-77"><a href="#cb19-77" aria-hidden="true" tabindex="-1"></a>gcc <span class="sc">-</span>std<span class="ot">=</span>gnu2x <span class="sc">-</span>I<span class="st">"{{ r_path }}/lib64/R/include"</span> <span class="sc">-</span>DNDEBUG <span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>include<span class="sc">/</span>openmpi<span class="sc">-</span>x86_64  <span class="sc">-</span>DMPI2 <span class="sc">-</span>DOPENMPI  <span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>local<span class="sc">/</span>include    <span class="sc">-</span>fpic  <span class="sc">-</span>g <span class="sc">-</span>O2  <span class="sc">-</span>c pkg_dl.c <span class="sc">-</span>o pkg_dl.o</span>
+<span id="cb19-78"><a href="#cb19-78" aria-hidden="true" tabindex="-1"></a>gcc <span class="sc">-</span>std<span class="ot">=</span>gnu2x <span class="sc">-</span>I<span class="st">"{{ r_path }}/lib64/R/include"</span> <span class="sc">-</span>DNDEBUG <span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>include<span class="sc">/</span>openmpi<span class="sc">-</span>x86_64  <span class="sc">-</span>DMPI2 <span class="sc">-</span>DOPENMPI  <span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>local<span class="sc">/</span>include    <span class="sc">-</span>fpic  <span class="sc">-</span>g <span class="sc">-</span>O2  <span class="sc">-</span>c pkg_tools.c <span class="sc">-</span>o pkg_tools.o</span>
+<span id="cb19-79"><a href="#cb19-79" aria-hidden="true" tabindex="-1"></a>gcc <span class="sc">-</span>std<span class="ot">=</span>gnu2x <span class="sc">-</span>I<span class="st">"{{ r_path }}/lib64/R/include"</span> <span class="sc">-</span>DNDEBUG <span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>include<span class="sc">/</span>openmpi<span class="sc">-</span>x86_64  <span class="sc">-</span>DMPI2 <span class="sc">-</span>DOPENMPI  <span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>local<span class="sc">/</span>include    <span class="sc">-</span>fpic  <span class="sc">-</span>g <span class="sc">-</span>O2  <span class="sc">-</span>c spmd.c <span class="sc">-</span>o spmd.o</span>
+<span id="cb19-80"><a href="#cb19-80" aria-hidden="true" tabindex="-1"></a>gcc <span class="sc">-</span>std<span class="ot">=</span>gnu2x <span class="sc">-</span>I<span class="st">"{{ r_path }}/lib64/R/include"</span> <span class="sc">-</span>DNDEBUG <span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>include<span class="sc">/</span>openmpi<span class="sc">-</span>x86_64  <span class="sc">-</span>DMPI2 <span class="sc">-</span>DOPENMPI  <span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>local<span class="sc">/</span>include    <span class="sc">-</span>fpic  <span class="sc">-</span>g <span class="sc">-</span>O2  <span class="sc">-</span>c spmd_allgather.c <span class="sc">-</span>o spmd_allgather.o</span>
+<span id="cb19-81"><a href="#cb19-81" aria-hidden="true" tabindex="-1"></a>gcc <span class="sc">-</span>std<span class="ot">=</span>gnu2x <span class="sc">-</span>I<span class="st">"{{ r_path }}/lib64/R/include"</span> <span class="sc">-</span>DNDEBUG <span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>include<span class="sc">/</span>openmpi<span class="sc">-</span>x86_64  <span class="sc">-</span>DMPI2 <span class="sc">-</span>DOPENMPI  <span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>local<span class="sc">/</span>include    <span class="sc">-</span>fpic  <span class="sc">-</span>g <span class="sc">-</span>O2  <span class="sc">-</span>c spmd_allgatherv.c <span class="sc">-</span>o spmd_allgatherv.o</span>
+<span id="cb19-82"><a href="#cb19-82" aria-hidden="true" tabindex="-1"></a>gcc <span class="sc">-</span>std<span class="ot">=</span>gnu2x <span class="sc">-</span>I<span class="st">"{{ r_path }}/lib64/R/include"</span> <span class="sc">-</span>DNDEBUG <span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>include<span class="sc">/</span>openmpi<span class="sc">-</span>x86_64  <span class="sc">-</span>DMPI2 <span class="sc">-</span>DOPENMPI  <span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>local<span class="sc">/</span>include    <span class="sc">-</span>fpic  <span class="sc">-</span>g <span class="sc">-</span>O2  <span class="sc">-</span>c spmd_allreduce.c <span class="sc">-</span>o spmd_allreduce.o</span>
+<span id="cb19-83"><a href="#cb19-83" aria-hidden="true" tabindex="-1"></a>gcc <span class="sc">-</span>std<span class="ot">=</span>gnu2x <span class="sc">-</span>I<span class="st">"{{ r_path }}/lib64/R/include"</span> <span class="sc">-</span>DNDEBUG <span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>include<span class="sc">/</span>openmpi<span class="sc">-</span>x86_64  <span class="sc">-</span>DMPI2 <span class="sc">-</span>DOPENMPI  <span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>local<span class="sc">/</span>include    <span class="sc">-</span>fpic  <span class="sc">-</span>g <span class="sc">-</span>O2  <span class="sc">-</span>c spmd_alltoall.c <span class="sc">-</span>o spmd_alltoall.o</span>
+<span id="cb19-84"><a href="#cb19-84" aria-hidden="true" tabindex="-1"></a>gcc <span class="sc">-</span>std<span class="ot">=</span>gnu2x <span class="sc">-</span>I<span class="st">"{{ r_path }}/lib64/R/include"</span> <span class="sc">-</span>DNDEBUG <span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>include<span class="sc">/</span>openmpi<span class="sc">-</span>x86_64  <span class="sc">-</span>DMPI2 <span class="sc">-</span>DOPENMPI  <span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>local<span class="sc">/</span>include    <span class="sc">-</span>fpic  <span class="sc">-</span>g <span class="sc">-</span>O2  <span class="sc">-</span>c spmd_alltoallv.c <span class="sc">-</span>o spmd_alltoallv.o</span>
+<span id="cb19-85"><a href="#cb19-85" aria-hidden="true" tabindex="-1"></a>gcc <span class="sc">-</span>std<span class="ot">=</span>gnu2x <span class="sc">-</span>I<span class="st">"{{ r_path }}/lib64/R/include"</span> <span class="sc">-</span>DNDEBUG <span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>include<span class="sc">/</span>openmpi<span class="sc">-</span>x86_64  <span class="sc">-</span>DMPI2 <span class="sc">-</span>DOPENMPI  <span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>local<span class="sc">/</span>include    <span class="sc">-</span>fpic  <span class="sc">-</span>g <span class="sc">-</span>O2  <span class="sc">-</span>c spmd_bcast.c <span class="sc">-</span>o spmd_bcast.o</span>
+<span id="cb19-86"><a href="#cb19-86" aria-hidden="true" tabindex="-1"></a>gcc <span class="sc">-</span>std<span class="ot">=</span>gnu2x <span class="sc">-</span>I<span class="st">"{{ r_path }}/lib64/R/include"</span> <span class="sc">-</span>DNDEBUG <span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>include<span class="sc">/</span>openmpi<span class="sc">-</span>x86_64  <span class="sc">-</span>DMPI2 <span class="sc">-</span>DOPENMPI  <span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>local<span class="sc">/</span>include    <span class="sc">-</span>fpic  <span class="sc">-</span>g <span class="sc">-</span>O2  <span class="sc">-</span>c spmd_communicator.c <span class="sc">-</span>o spmd_communicator.o</span>
+<span id="cb19-87"><a href="#cb19-87" aria-hidden="true" tabindex="-1"></a>gcc <span class="sc">-</span>std<span class="ot">=</span>gnu2x <span class="sc">-</span>I<span class="st">"{{ r_path }}/lib64/R/include"</span> <span class="sc">-</span>DNDEBUG <span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>include<span class="sc">/</span>openmpi<span class="sc">-</span>x86_64  <span class="sc">-</span>DMPI2 <span class="sc">-</span>DOPENMPI  <span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>local<span class="sc">/</span>include    <span class="sc">-</span>fpic  <span class="sc">-</span>g <span class="sc">-</span>O2  <span class="sc">-</span>c spmd_communicator_spawn.c <span class="sc">-</span>o spmd_communicator_spawn.o</span>
+<span id="cb19-88"><a href="#cb19-88" aria-hidden="true" tabindex="-1"></a>gcc <span class="sc">-</span>std<span class="ot">=</span>gnu2x <span class="sc">-</span>I<span class="st">"{{ r_path }}/lib64/R/include"</span> <span class="sc">-</span>DNDEBUG <span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>include<span class="sc">/</span>openmpi<span class="sc">-</span>x86_64  <span class="sc">-</span>DMPI2 <span class="sc">-</span>DOPENMPI  <span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>local<span class="sc">/</span>include    <span class="sc">-</span>fpic  <span class="sc">-</span>g <span class="sc">-</span>O2  <span class="sc">-</span>c spmd_gather.c <span class="sc">-</span>o spmd_gather.o</span>
+<span id="cb19-89"><a href="#cb19-89" aria-hidden="true" tabindex="-1"></a>gcc <span class="sc">-</span>std<span class="ot">=</span>gnu2x <span class="sc">-</span>I<span class="st">"{{ r_path }}/lib64/R/include"</span> <span class="sc">-</span>DNDEBUG <span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>include<span class="sc">/</span>openmpi<span class="sc">-</span>x86_64  <span class="sc">-</span>DMPI2 <span class="sc">-</span>DOPENMPI  <span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>local<span class="sc">/</span>include    <span class="sc">-</span>fpic  <span class="sc">-</span>g <span class="sc">-</span>O2  <span class="sc">-</span>c spmd_gatherv.c <span class="sc">-</span>o spmd_gatherv.o</span>
+<span id="cb19-90"><a href="#cb19-90" aria-hidden="true" tabindex="-1"></a>gcc <span class="sc">-</span>std<span class="ot">=</span>gnu2x <span class="sc">-</span>I<span class="st">"{{ r_path }}/lib64/R/include"</span> <span class="sc">-</span>DNDEBUG <span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>include<span class="sc">/</span>openmpi<span class="sc">-</span>x86_64  <span class="sc">-</span>DMPI2 <span class="sc">-</span>DOPENMPI  <span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>local<span class="sc">/</span>include    <span class="sc">-</span>fpic  <span class="sc">-</span>g <span class="sc">-</span>O2  <span class="sc">-</span>c spmd_info.c <span class="sc">-</span>o spmd_info.o</span>
+<span id="cb19-91"><a href="#cb19-91" aria-hidden="true" tabindex="-1"></a>gcc <span class="sc">-</span>std<span class="ot">=</span>gnu2x <span class="sc">-</span>I<span class="st">"{{ r_path }}/lib64/R/include"</span> <span class="sc">-</span>DNDEBUG <span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>include<span class="sc">/</span>openmpi<span class="sc">-</span>x86_64  <span class="sc">-</span>DMPI2 <span class="sc">-</span>DOPENMPI  <span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>local<span class="sc">/</span>include    <span class="sc">-</span>fpic  <span class="sc">-</span>g <span class="sc">-</span>O2  <span class="sc">-</span>c spmd_recv.c <span class="sc">-</span>o spmd_recv.o</span>
+<span id="cb19-92"><a href="#cb19-92" aria-hidden="true" tabindex="-1"></a>gcc <span class="sc">-</span>std<span class="ot">=</span>gnu2x <span class="sc">-</span>I<span class="st">"{{ r_path }}/lib64/R/include"</span> <span class="sc">-</span>DNDEBUG <span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>include<span class="sc">/</span>openmpi<span class="sc">-</span>x86_64  <span class="sc">-</span>DMPI2 <span class="sc">-</span>DOPENMPI  <span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>local<span class="sc">/</span>include    <span class="sc">-</span>fpic  <span class="sc">-</span>g <span class="sc">-</span>O2  <span class="sc">-</span>c spmd_reduce.c <span class="sc">-</span>o spmd_reduce.o</span>
+<span id="cb19-93"><a href="#cb19-93" aria-hidden="true" tabindex="-1"></a>gcc <span class="sc">-</span>std<span class="ot">=</span>gnu2x <span class="sc">-</span>I<span class="st">"{{ r_path }}/lib64/R/include"</span> <span class="sc">-</span>DNDEBUG <span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>include<span class="sc">/</span>openmpi<span class="sc">-</span>x86_64  <span class="sc">-</span>DMPI2 <span class="sc">-</span>DOPENMPI  <span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>local<span class="sc">/</span>include    <span class="sc">-</span>fpic  <span class="sc">-</span>g <span class="sc">-</span>O2  <span class="sc">-</span>c spmd_scatter.c <span class="sc">-</span>o spmd_scatter.o</span>
+<span id="cb19-94"><a href="#cb19-94" aria-hidden="true" tabindex="-1"></a>gcc <span class="sc">-</span>std<span class="ot">=</span>gnu2x <span class="sc">-</span>I<span class="st">"{{ r_path }}/lib64/R/include"</span> <span class="sc">-</span>DNDEBUG <span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>include<span class="sc">/</span>openmpi<span class="sc">-</span>x86_64  <span class="sc">-</span>DMPI2 <span class="sc">-</span>DOPENMPI  <span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>local<span class="sc">/</span>include    <span class="sc">-</span>fpic  <span class="sc">-</span>g <span class="sc">-</span>O2  <span class="sc">-</span>c spmd_scatterv.c <span class="sc">-</span>o spmd_scatterv.o</span>
+<span id="cb19-95"><a href="#cb19-95" aria-hidden="true" tabindex="-1"></a>gcc <span class="sc">-</span>std<span class="ot">=</span>gnu2x <span class="sc">-</span>I<span class="st">"{{ r_path }}/lib64/R/include"</span> <span class="sc">-</span>DNDEBUG <span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>include<span class="sc">/</span>openmpi<span class="sc">-</span>x86_64  <span class="sc">-</span>DMPI2 <span class="sc">-</span>DOPENMPI  <span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>local<span class="sc">/</span>include    <span class="sc">-</span>fpic  <span class="sc">-</span>g <span class="sc">-</span>O2  <span class="sc">-</span>c spmd_send.c <span class="sc">-</span>o spmd_send.o</span>
+<span id="cb19-96"><a href="#cb19-96" aria-hidden="true" tabindex="-1"></a>gcc <span class="sc">-</span>std<span class="ot">=</span>gnu2x <span class="sc">-</span>I<span class="st">"{{ r_path }}/lib64/R/include"</span> <span class="sc">-</span>DNDEBUG <span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>include<span class="sc">/</span>openmpi<span class="sc">-</span>x86_64  <span class="sc">-</span>DMPI2 <span class="sc">-</span>DOPENMPI  <span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>local<span class="sc">/</span>include    <span class="sc">-</span>fpic  <span class="sc">-</span>g <span class="sc">-</span>O2  <span class="sc">-</span>c spmd_sendrecv.c <span class="sc">-</span>o spmd_sendrecv.o</span>
+<span id="cb19-97"><a href="#cb19-97" aria-hidden="true" tabindex="-1"></a>gcc <span class="sc">-</span>std<span class="ot">=</span>gnu2x <span class="sc">-</span>I<span class="st">"{{ r_path }}/lib64/R/include"</span> <span class="sc">-</span>DNDEBUG <span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>include<span class="sc">/</span>openmpi<span class="sc">-</span>x86_64  <span class="sc">-</span>DMPI2 <span class="sc">-</span>DOPENMPI  <span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>local<span class="sc">/</span>include    <span class="sc">-</span>fpic  <span class="sc">-</span>g <span class="sc">-</span>O2  <span class="sc">-</span>c spmd_sendrecv_replace.c <span class="sc">-</span>o spmd_sendrecv_replace.o</span>
+<span id="cb19-98"><a href="#cb19-98" aria-hidden="true" tabindex="-1"></a>gcc <span class="sc">-</span>std<span class="ot">=</span>gnu2x <span class="sc">-</span>I<span class="st">"{{ r_path }}/lib64/R/include"</span> <span class="sc">-</span>DNDEBUG <span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>include<span class="sc">/</span>openmpi<span class="sc">-</span>x86_64  <span class="sc">-</span>DMPI2 <span class="sc">-</span>DOPENMPI  <span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>local<span class="sc">/</span>include    <span class="sc">-</span>fpic  <span class="sc">-</span>g <span class="sc">-</span>O2  <span class="sc">-</span>c spmd_tool.c <span class="sc">-</span>o spmd_tool.o</span>
+<span id="cb19-99"><a href="#cb19-99" aria-hidden="true" tabindex="-1"></a>gcc <span class="sc">-</span>std<span class="ot">=</span>gnu2x <span class="sc">-</span>I<span class="st">"{{ r_path }}/lib64/R/include"</span> <span class="sc">-</span>DNDEBUG <span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>include<span class="sc">/</span>openmpi<span class="sc">-</span>x86_64  <span class="sc">-</span>DMPI2 <span class="sc">-</span>DOPENMPI  <span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>local<span class="sc">/</span>include    <span class="sc">-</span>fpic  <span class="sc">-</span>g <span class="sc">-</span>O2  <span class="sc">-</span>c spmd_utility.c <span class="sc">-</span>o spmd_utility.o</span>
+<span id="cb19-100"><a href="#cb19-100" aria-hidden="true" tabindex="-1"></a>gcc <span class="sc">-</span>std<span class="ot">=</span>gnu2x <span class="sc">-</span>I<span class="st">"{{ r_path }}/lib64/R/include"</span> <span class="sc">-</span>DNDEBUG <span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>include<span class="sc">/</span>openmpi<span class="sc">-</span>x86_64  <span class="sc">-</span>DMPI2 <span class="sc">-</span>DOPENMPI  <span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>local<span class="sc">/</span>include    <span class="sc">-</span>fpic  <span class="sc">-</span>g <span class="sc">-</span>O2  <span class="sc">-</span>c spmd_wait.c <span class="sc">-</span>o spmd_wait.o</span>
+<span id="cb19-101"><a href="#cb19-101" aria-hidden="true" tabindex="-1"></a>gcc <span class="sc">-</span>std<span class="ot">=</span>gnu2x <span class="sc">-</span>I<span class="st">"{{ r_path }}/lib64/R/include"</span> <span class="sc">-</span>DNDEBUG <span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>include<span class="sc">/</span>openmpi<span class="sc">-</span>x86_64  <span class="sc">-</span>DMPI2 <span class="sc">-</span>DOPENMPI  <span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>local<span class="sc">/</span>include    <span class="sc">-</span>fpic  <span class="sc">-</span>g <span class="sc">-</span>O2  <span class="sc">-</span>c zzz.c <span class="sc">-</span>o zzz.o</span>
+<span id="cb19-102"><a href="#cb19-102" aria-hidden="true" tabindex="-1"></a>gcc <span class="sc">-</span>std<span class="ot">=</span>gnu2x <span class="sc">-</span>shared <span class="sc">-</span>L{{ r_path }}<span class="sc">/</span>lib64<span class="sc">/</span>R<span class="sc">/</span>lib <span class="sc">-</span>L<span class="sc">/</span>usr<span class="sc">/</span>local<span class="sc">/</span>lib64 <span class="sc">-</span>o pbdMPI.so comm_errors.o comm_sort_double.o comm_sort_integer.o pkg_dl.o pkg_tools.o spmd.o spmd_allgather.o spmd_allgatherv.o spmd_allreduce.o spmd_alltoall.o spmd_alltoallv.o spmd_bcast.o spmd_communicator.o spmd_communicator_spawn.o spmd_gather.o spmd_gatherv.o spmd_info.o spmd_recv.o spmd_reduce.o spmd_scatter.o spmd_scatterv.o spmd_send.o spmd_sendrecv.o spmd_sendrecv_replace.o spmd_tool.o spmd_utility.o spmd_wait.o zzz.o <span class="sc">-</span>L<span class="sc">/</span>usr<span class="sc">/</span>lib64<span class="sc">/</span>openmpi<span class="sc">/</span>lib <span class="sc">-</span>lmpi <span class="sc">-</span>lutil <span class="sc">-</span>lpthread <span class="sc">-</span>L{{ r_path }}<span class="sc">/</span>lib64<span class="sc">/</span>R<span class="sc">/</span>lib <span class="sc">-</span>lR</span>
+<span id="cb19-103"><a href="#cb19-103" aria-hidden="true" tabindex="-1"></a>installing via <span class="st">'install.libs.R'</span> to {{ r_libs_user_path }}<span class="sc">/</span><span class="dv">00</span>LOCK<span class="sc">-</span>pbdMPI<span class="sc">/</span><span class="dv">00</span>new<span class="sc">/</span>pbdMPI</span>
+<span id="cb19-104"><a href="#cb19-104" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span> R</span>
+<span id="cb19-105"><a href="#cb19-105" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span> demo</span>
+<span id="cb19-106"><a href="#cb19-106" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span> inst</span>
+<span id="cb19-107"><a href="#cb19-107" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span> byte<span class="sc">-</span>compile and prepare package <span class="cf">for</span> lazy loading</span>
+<span id="cb19-108"><a href="#cb19-108" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span> help</span>
+<span id="cb19-109"><a href="#cb19-109" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span><span class="er">*</span> installing help indices</span>
+<span id="cb19-110"><a href="#cb19-110" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span> building package indices</span>
+<span id="cb19-111"><a href="#cb19-111" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span> installing vignettes</span>
+<span id="cb19-112"><a href="#cb19-112" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span> testing <span class="cf">if</span> installed package can be loaded from temporary location</span>
+<span id="cb19-113"><a href="#cb19-113" aria-hidden="true" tabindex="-1"></a><span class="sc">--------------------------------------------------------------------------</span></span>
+<span id="cb19-114"><a href="#cb19-114" aria-hidden="true" tabindex="-1"></a>No OpenFabrics connection schemes reported that they were able to be</span>
+<span id="cb19-115"><a href="#cb19-115" aria-hidden="true" tabindex="-1"></a>used on a specific port.  As such, the openib <span class="fu">BTL</span> (OpenFabrics</span>
+<span id="cb19-116"><a href="#cb19-116" aria-hidden="true" tabindex="-1"></a>support) will be disabled <span class="cf">for</span> this port.</span>
+<span id="cb19-117"><a href="#cb19-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-118"><a href="#cb19-118" aria-hidden="true" tabindex="-1"></a>  Local host<span class="sc">:</span>           dev2</span>
+<span id="cb19-119"><a href="#cb19-119" aria-hidden="true" tabindex="-1"></a>  Local device<span class="sc">:</span>         mlx5_0</span>
+<span id="cb19-120"><a href="#cb19-120" aria-hidden="true" tabindex="-1"></a>  Local port<span class="sc">:</span>           <span class="dv">1</span></span>
+<span id="cb19-121"><a href="#cb19-121" aria-hidden="true" tabindex="-1"></a>  CPCs attempted<span class="sc">:</span>       rdmacm, udcm</span>
+<span id="cb19-122"><a href="#cb19-122" aria-hidden="true" tabindex="-1"></a><span class="sc">--------------------------------------------------------------------------</span></span>
+<span id="cb19-123"><a href="#cb19-123" aria-hidden="true" tabindex="-1"></a>[<span class="fl">1684168833.604597</span>] [dev2<span class="sc">:</span><span class="dv">227206</span><span class="sc">:</span><span class="dv">0</span>]       ib_iface.c<span class="sc">:</span><span class="dv">700</span>  UCX  ERROR <span class="fu">ibv_create_cq</span>(<span class="at">cqe=</span><span class="dv">4096</span>) failed<span class="sc">:</span> Cannot allocate memory</span>
+<span id="cb19-124"><a href="#cb19-124" aria-hidden="true" tabindex="-1"></a>[dev2.wynton.ucsf.edu<span class="sc">:</span><span class="dv">227206</span>] pml_ucx.c<span class="sc">:</span><span class="dv">208</span> Error<span class="sc">:</span> Failed to create UCP worker</span>
+<span id="cb19-125"><a href="#cb19-125" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span> checking absolute paths <span class="cf">in</span> shared objects and dynamic libraries</span>
+<span id="cb19-126"><a href="#cb19-126" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span> testing <span class="cf">if</span> installed package can be loaded from final location</span>
+<span id="cb19-127"><a href="#cb19-127" aria-hidden="true" tabindex="-1"></a><span class="sc">--------------------------------------------------------------------------</span></span>
+<span id="cb19-128"><a href="#cb19-128" aria-hidden="true" tabindex="-1"></a>No OpenFabrics connection schemes reported that they were able to be</span>
+<span id="cb19-129"><a href="#cb19-129" aria-hidden="true" tabindex="-1"></a>used on a specific port.  As such, the openib <span class="fu">BTL</span> (OpenFabrics</span>
+<span id="cb19-130"><a href="#cb19-130" aria-hidden="true" tabindex="-1"></a>support) will be disabled <span class="cf">for</span> this port.</span>
+<span id="cb19-131"><a href="#cb19-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-132"><a href="#cb19-132" aria-hidden="true" tabindex="-1"></a>  Local host<span class="sc">:</span>           dev2</span>
+<span id="cb19-133"><a href="#cb19-133" aria-hidden="true" tabindex="-1"></a>  Local device<span class="sc">:</span>         mlx5_0</span>
+<span id="cb19-134"><a href="#cb19-134" aria-hidden="true" tabindex="-1"></a>  Local port<span class="sc">:</span>           <span class="dv">1</span></span>
+<span id="cb19-135"><a href="#cb19-135" aria-hidden="true" tabindex="-1"></a>  CPCs attempted<span class="sc">:</span>       rdmacm, udcm</span>
+<span id="cb19-136"><a href="#cb19-136" aria-hidden="true" tabindex="-1"></a><span class="sc">--------------------------------------------------------------------------</span></span>
+<span id="cb19-137"><a href="#cb19-137" aria-hidden="true" tabindex="-1"></a>[<span class="fl">1684168836.256287</span>] [dev2<span class="sc">:</span><span class="dv">227248</span><span class="sc">:</span><span class="dv">0</span>]       ib_iface.c<span class="sc">:</span><span class="dv">700</span>  UCX  ERROR <span class="fu">ibv_create_cq</span>(<span class="at">cqe=</span><span class="dv">4096</span>) failed<span class="sc">:</span> Cannot allocate memory</span>
+<span id="cb19-138"><a href="#cb19-138" aria-hidden="true" tabindex="-1"></a>[dev2.wynton.ucsf.edu<span class="sc">:</span><span class="dv">227248</span>] pml_ucx.c<span class="sc">:</span><span class="dv">208</span> Error<span class="sc">:</span> Failed to create UCP worker</span>
+<span id="cb19-139"><a href="#cb19-139" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span> testing <span class="cf">if</span> installed package keeps a record of temporary installation path</span>
+<span id="cb19-140"><a href="#cb19-140" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span> <span class="fu">DONE</span> (pbdMPI)</span>
+<span id="cb19-141"><a href="#cb19-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-142"><a href="#cb19-142" aria-hidden="true" tabindex="-1"></a>The downloaded source packages are <span class="cf">in</span></span>
+<span id="cb19-143"><a href="#cb19-143" aria-hidden="true" tabindex="-1"></a>        <span class="st">'/scratch/alice/RtmpKNz5KF/downloaded_packages'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The <strong>bigGP</strong> installs the same way.</p>
+</section>
+</section>
+<section id="packages-relying-on-jags" class="level3">
+<h3 class="anchored" data-anchor-id="packages-relying-on-jags">Packages relying on JAGS</h3>
+<section id="package-rjags" class="level4">
+<h4 class="anchored" data-anchor-id="package-rjags">Package <strong>rjags</strong></h4>
+<!--
+Rocky 8: rjags still requires JAGS; keep. ALSO: Troubleshoot why rjags
+fails to load on Rocky 8 although the compile goes well /HB 2023-09-16
+-->
+<p>If we try to install the <strong><a href="https://cran.r-project.org/package=rjags">rjags</a></strong> package, we’ll get the following installation error in R:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">install.packages</span>(<span class="st">"rjags"</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span> installing <span class="sc">*</span>source<span class="sc">*</span> package <span class="st">'rjags'</span> ...</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span> package <span class="st">'rjags'</span> successfully unpacked and MD5 sums checked</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span> using staged installation</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>checking <span class="cf">for</span> pkg<span class="sc">-</span>config... <span class="sc">/</span>usr<span class="sc">/</span>bin<span class="sc">/</span>pkg<span class="sc">-</span>config</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>configure<span class="sc">:</span> WARNING<span class="sc">:</span> pkg<span class="sc">-</span>config file <span class="cf">for</span> jags <span class="dv">4</span> unavailable</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>configure<span class="sc">:</span> WARNING<span class="sc">:</span> Consider adding the directory containing <span class="st">`</span><span class="at">jags.pc</span><span class="st">`</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>configure<span class="sc">:</span> WARNING<span class="sc">:</span> to the PKG_CONFIG_PATH environment variable</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>configure<span class="sc">:</span> Attempting legacy configuration of rjags</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>checking <span class="cf">for</span> jags... no</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>configure<span class="sc">:</span> error<span class="sc">:</span> <span class="st">"automatic detection of JAGS failed. Please use pkg-config to locate the JAGS library. See the INSTALL file for details."</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>ERROR<span class="sc">:</span> configuration failed <span class="cf">for</span> package <span class="st">'rjags'</span></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span> removing <span class="st">'{{ r_libs_user_path }}/rjags'</span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>ERROR<span class="sc">:</span> dependency <span class="st">'rjags'</span> is not available <span class="cf">for</span> package <span class="st">'infercnv'</span></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span> removing <span class="st">'{{ r_libs_user_path }}/infercnv'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The error says that the “JAGS library” is missing. It’s available via the CBI software stack. Load it before starting R:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> module load CBI jags</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>and you’ll find that <code>install.packages("rjags")</code> will complete successfully.</p>
+<p>Importantly, you need to load the <code>jags</code> CBI module any time you run R where the <strong>rjags</strong> R package needs to be loaded.</p>
+</section>
+</section>
+<section id="packages-relying-on-jq" class="level3">
+<h3 class="anchored" data-anchor-id="packages-relying-on-jq">Packages relying on JQ</h3>
+<section id="package-jqr" class="level4">
+<h4 class="anchored" data-anchor-id="package-jqr">Package <strong>jqr</strong></h4>
+<p>If we try to install the <strong><a href="https://cran.r-project.org/package=jqr">jqr</a></strong> package, it fails to compile;</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">install.packages</span>(<span class="st">"jqr"</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span> installing <span class="sc">*</span>source<span class="sc">*</span> package <span class="st">'jqr'</span> ...</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span> package <span class="st">'jqr'</span> successfully unpacked and MD5 sums checked</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span> using staged installation</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>Using PKG_CFLAGS<span class="ot">=</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>Using PKG_LIBS<span class="ot">=</span><span class="sc">-</span>ljq</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="sc">---------------------------</span> [ANTICONF] <span class="sc">--------------------------------</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>Configuration failed because libjq was not found. Try installing<span class="sc">:</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a> <span class="er">*</span> deb<span class="sc">:</span> libjq<span class="sc">-</span><span class="fu">dev</span> (Debian, Ubuntu).</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a> <span class="sc">*</span> rpm<span class="sc">:</span> jq<span class="sc">-</span><span class="fu">devel</span> (Fedora, EPEL)</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a> <span class="sc">*</span> csw<span class="sc">:</span> <span class="fu">libjq_dev</span> (Solaris)</span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a> <span class="sc">*</span> brew<span class="sc">:</span> <span class="fu">jq</span> (OSX)</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>If  is already installed set INCLUDE_DIR and LIB_DIR manually via<span class="sc">:</span></span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>R CMD INSTALL <span class="sc">--</span>configure<span class="sc">-</span>vars<span class="ot">=</span><span class="st">'INCLUDE_DIR=... LIB_DIR=...'</span></span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a><span class="sc">--------------------------</span> [ERROR MESSAGE] <span class="sc">---------------------------</span></span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a><span class="er">&lt;</span>stdin<span class="sc">&gt;</span><span class="er">:</span><span class="dv">1</span><span class="sc">:</span><span class="dv">10</span><span class="sc">:</span> fatal error<span class="sc">:</span> jq.h<span class="sc">:</span> No such file or directory</span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>compilation terminated.</span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a><span class="sc">--------------------------------------------------------------------</span></span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>ERROR<span class="sc">:</span> configuration failed <span class="cf">for</span> package <span class="st">'jqr'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>To fix this, load the <code>jq</code> module from the CBI stack before launching R, i.e.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span> module load CBI r</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span> module load CBI jq</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span> R</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>after this, the <strong>jqr</strong> package will install out of the box.</p>
+<p>Importantly, you need to load the <code>jq</code> CBI module any time you run R where the <strong>jqr</strong> R package needs to be loaded.</p>
+</section>
+</section>
+<section id="packages-requiring-extra-care" class="level3">
+<h3 class="anchored" data-anchor-id="packages-requiring-extra-care">Packages requiring extra care</h3>
+<section id="package-udunits2" class="level4">
+<h4 class="anchored" data-anchor-id="package-udunits2">Package <strong>udunits2</strong></h4>
+<!--
+Rocky 8: udunits2 still requires special care; keep as-is /HB 2023-09-16
+-->
+<p>The <strong><a href="https://cran.r-project.org/package=udunits2">udunits2</a></strong> package does not install out of the box. It seems to be due to a problem with the package itself, and the suggested instructions that the package gives on setting environment variable <code>UDUNITS2_INCLUDE</code> do not work. A workaround to install the package is to do:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"udunits2"</span>, <span class="at">configure.args=</span><span class="st">"--with-udunits2-include=/usr/include/udunits2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>[contributed environment module]: {{ ‘/hpc/software/software-repositories.html’ | relative_url }} [CBI software stack]: {{ ‘/hpc/software/software-repositories.html’ | relative_url }}</p>
+
+
+</section>
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/wynton\.ucsf\.edu\/hpc\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p><a href="https://www.ucsf.edu/">UCSF</a> :: <a href="https://wynton.ucsf.edu/">Wynton</a> :: <a href="../../hpc/">Wynton HPC</a></p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ucsf-wynton/wynton-website-hpc/edit/main/hpc/howto/r.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ucsf-wynton/wynton-website-hpc/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>&lt;a href=“<strong>?meta:repo-url</strong>/commits/master/docs/<strong>?meta:source-file</strong>”&gt;Change log :: &lt;a href=“<strong>?meta:repo-url</strong>/tree/master/docs/<strong>?meta:source-file</strong>”&gt;Contribute</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
