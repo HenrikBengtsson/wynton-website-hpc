@@ -14,6 +14,7 @@ shares:
   pu_1: 22.7              # pu_0 + pu_delta = 16.3 + 6.4
   pu_1_share: 0.001125    # pu_1 / pu_total_0 = 22.7 / 20179.6
   slots_1: 7.85           # pu_1_share * slots_total_0 = 0.001125 * 6975
+format: html
 ---
 
 {{< include warning-hold-on-compute-requests.qmd >}}

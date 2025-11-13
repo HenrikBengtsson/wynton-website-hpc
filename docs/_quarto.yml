@@ -176,6 +176,10 @@ format:
     toc-depth: 3
     code-copy: true
     code-overflow: wrap
+    resources:
+      - "hpc/assets/data/*"
+      - "hpc/assets/img/*"
+      - "hpc/assets/js/*"
     
 metadata:
   cluster:

@@ -5,6 +5,7 @@ r:
   libs_user: "4.5-CBI-gcc13"
   path: "/wynton/home/cbi/shared/software/_rocky8/R-4.5.2-gcc13"
   libs_user_path: "/wynton/home/boblab/alice/R/rocky8-x86_64-pc-linux-gnu-library/4.5-CBI-gcc13"
+format: html
 ---
 
 # Work with R
