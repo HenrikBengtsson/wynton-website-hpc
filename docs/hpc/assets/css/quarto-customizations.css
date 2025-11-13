@@ -11,12 +11,24 @@
     z-index: 1031;
 }
 
-/* Adjust navbar position to be below UCSF banner */
+/* Adjust navbar position to be below UCSF banner and make it full width */
 .navbar {
     position: fixed;
     top: 40px;
+    left: 0;
+    right: 0;
+    width: 100%;
     background-color: #ffdd00 !important;
     border-color: #dec000 !important;
+}
+
+/* Ensure navbar container spans full width */
+.navbar .container-fluid,
+.navbar .navbar-container {
+    max-width: 100%;
+    width: 100%;
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
 /* Add proper spacing for body content */
@@ -54,4 +66,24 @@ body {
 /* Hide the banner from body content area */
 main .top-banner {
     display: none;
+}
+
+/* Style the footer with yellow background */
+.nav-footer {
+    background-color: #ffdd00;
+    border-top: 1px solid #dec000;
+    padding: 1.5em 0;
+}
+
+.nav-footer .nav-footer-center {
+    color: #555;
+}
+
+.nav-footer a {
+    color: #2d6da3;
+    text-decoration: underline;
+}
+
+.nav-footer a:hover {
+    color: #000;
 }
