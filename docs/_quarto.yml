@@ -11,7 +11,7 @@ website:
   
   navbar:
     background: "#ffdd00"
-    logo: assets/ico/favicon.ico
+    logo: /hpc/assets/ico/favicon.ico
     left:
       - text: "Status"
         href: hpc/status/index.qmd
