@@ -269,6 +269,10 @@ metadata:
   organization:
     name: "Wynton"
     url: "https://wynton.ucsf.edu/"
+  
+  specs:
+    pu_total: 20186
+    member_q_total: 7023
 
 filters:
   - quarto
