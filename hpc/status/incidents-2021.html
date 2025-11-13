@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>incidents-2021 – UCSF Wynton HPC Cluster</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-98e2a9b0d4696fd01dd9970aef6a652a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Create UCSF banner element
+  var banner = document.createElement('div');
+  banner.className = 'top-banner logo';
+  banner.innerHTML = `
+    <div class="inner">
+      <div>
+        <div class="logo"></div>
+        <a class="logotype" href="https://www.ucsf.edu/">
+          <span>University of California San Francisco</span>
+        </a>
+      </div>
+      <div class="nav">
+        <ul class="top-banner-menu">
+          <li><a href="https://www.ucsf.edu/about">About UCSF</a></li>
+          <li><a href="https://www.ucsf.edu/search">Search UCSF</a></li>
+        </ul>
+      </div>
+    </div>
+  `;
+  
+  // Insert banner before navbar
+  var body = document.body;
+  var navbar = document.querySelector('.navbar');
+  if (navbar && navbar.parentNode) {
+    navbar.parentNode.insertBefore(banner, navbar);
+  } else {
+    body.insertBefore(banner, body.firstChild);
+  }
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Get the current page path
+  var path = window.location.pathname;
+  
+  // Convert from .html to .md and adjust path
+  // Remove /hpc/ from start if present for GitHub path
+  var githubPath = path.replace(/\.html$/, '.md');
+  if (githubPath.endsWith('/')) {
+    githubPath += 'index.md';
+  }
+  
+  // Create the edit link
+  var repoUrl = 'https://github.com/ucsf-wynton/wynton-website-hpc';
+  var editUrl = repoUrl + '/tree/master/docs' + githubPath;
+  
+  // Find the footer and add our custom links
+  var footer = document.querySelector('.nav-footer');
+  if (footer) {
+    var rightDiv = footer.querySelector('.nav-footer-right');
+    if (!rightDiv) {
+      rightDiv = document.createElement('div');
+      rightDiv.className = 'nav-footer-right';
+      footer.appendChild(rightDiv);
+    }
+    
+    rightDiv.innerHTML = '<ul class="footer-items list-unstyled">' +
+      '<li class="nav-item">' +
+      '<a class="nav-link" href="' + editUrl + '">' +
+      '<i class="bi bi-pencil-square"></i> Edit this page' +
+      '</a></li>' +
+      '<li class="nav-item">' +
+      '<a class="nav-link" href="' + repoUrl + '/issues/new">' +
+      'Report an issue' +
+      '</a></li>' +
+      '</ul>';
+  }
+});
+</script>
+
+
+<link rel="stylesheet" href="../../hpc/assets/css/ucsf-banners.css">
+<link rel="stylesheet" href="../../hpc/assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="../../hpc/assets/css/this_site.css">
+<link rel="stylesheet" href="../../hpc/assets/css/broadcast.css">
+<link rel="stylesheet" href="../../hpc/assets/css/checkbox-toggle.css">
+<link rel="stylesheet" href="../../hpc/assets/css/docsearch.css">
+<link rel="stylesheet" href="../../hpc/assets/css/quarto-customizations.css">
+</head>
+
+<body class="nav-fixed fullcontent quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../hpc/assets/ico/favicon.ico" alt="" class="navbar-logo light-content">
+    <img src="../../hpc/assets/ico/favicon.ico" alt="" class="navbar-logo dark-content">
+    </a>
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">UCSF Wynton HPC Cluster</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../hpc/status/index.html"> 
+<span class="menu-text">Status</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-get-started" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Get Started</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-get-started">    
+        <li>
+    <a class="dropdown-item" href="../../hpc/get-started/access-cluster.html">
+ <span class="dropdown-text">1. Login &amp; Logout</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/get-started/development-prototyping.html">
+ <span class="dropdown-text">2. Development / Prototyping</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/get-started/hello-world-job.html">
+ <span class="dropdown-text">3. ‘Hello World’ Job</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/get-started/good-practices.html">
+ <span class="dropdown-text">4. Good Practices</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/get-started/duo-signup.html">
+ <span class="dropdown-text">5. 2FA Registration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/get-started/protected-quickstart.html">
+ <span class="dropdown-text">6. Wynton Protected Quickstart</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-software" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Software</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-software">    
+        <li>
+    <a class="dropdown-item" href="../../hpc/software/core-software.html">
+ <span class="dropdown-text">Core Software</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/software/scl.html">
+ <span class="dropdown-text">Software Collections (SCL)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/software/software-modules.html">
+ <span class="dropdown-text">Software Modules</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/software/software-repositories.html">
+ <span class="dropdown-text">Software Repositories</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/software/apptainer.html">
+ <span class="dropdown-text">Linux Containers (Apptainer/Singularity)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/software/sbgrid.html">
+ <span class="dropdown-text">SBGrid Software (restricted access)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/software/missing-software.html">
+ <span class="dropdown-text">Missing Software?</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/software/rocky-8-linux.html">
+ <span class="dropdown-text">Migration to Rocky 8 Linux (Nov 2023)</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-sge" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">SGE</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-sge">    
+        <li>
+    <a class="dropdown-item" href="../../hpc/scheduler/submit-jobs.html">
+ <span class="dropdown-text">Submit Jobs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/scheduler/list-jobs.html">
+ <span class="dropdown-text">List Jobs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/scheduler/kill-jobs.html">
+ <span class="dropdown-text">Kill Jobs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/scheduler/job-summary.html">
+ <span class="dropdown-text">Job Summary</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/scheduler/envvars.html">
+ <span class="dropdown-text">Useful Env. Variables</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/scheduler/using-local-scratch.html">
+ <span class="dropdown-text">Use Local Scratch</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/scheduler/queues.html">
+ <span class="dropdown-text">Available Queues</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/scheduler/email-notifications.html">
+ <span class="dropdown-text">Job Email Notifications</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/scheduler/gpu.html">
+ <span class="dropdown-text">GPU Scheduling</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/scheduler/advanced-usage.html">
+ <span class="dropdown-text">Advanced Usage</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-file-transfers" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">File Transfers</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-file-transfers">    
+        <li>
+    <a class="dropdown-item" href="../../hpc/transfers/files-and-directories.html">
+ <span class="dropdown-text">Secure Copy File Transfers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/transfers/globus.html">
+ <span class="dropdown-text">Globus File Transfers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/transfers/globus-sharing.html">
+ <span class="dropdown-text">Globus File Sharing</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/transfers/ucsf-box.html">
+ <span class="dropdown-text">UCSF Box</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/transfers/dos2unix.html">
+ <span class="dropdown-text">Windows-Unix File Transfers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/transfers/rclone.html">
+ <span class="dropdown-text">rclone (mount Wynton file system locally)</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-how-to" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">How To</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-how-to">    
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/matlab.html">
+ <span class="dropdown-text">Work with MATLAB</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/python.html">
+ <span class="dropdown-text">Work with Python</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/jupyter.html">
+ <span class="dropdown-text">Work with Jupyter Notebook</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/r.html">
+ <span class="dropdown-text">Work with R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/rstudio.html">
+ <span class="dropdown-text">Work with RStudio</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/conda.html">
+ <span class="dropdown-text">Work with Conda</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/conda-stage.html">
+ <span class="dropdown-text">Stage Conda Environment to Local Disk</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/install-from-source.html">
+ <span class="dropdown-text">Install Software from Source</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/storage-size.html">
+ <span class="dropdown-text">File Sizes and Disk Quotas</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/group-quota.html">
+ <span class="dropdown-text">Adjust Group Disk Quota</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/find-files.html">
+ <span class="dropdown-text">Find Files</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/log-in-without-pwd.html">
+ <span class="dropdown-text">Log in without Password</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/change-pwd.html">
+ <span class="dropdown-text">Change &amp; Verify Password</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/gui-x11fwd.html">
+ <span class="dropdown-text">GUIs (X2Go &amp; X11)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/jupyterhub.html">
+ <span class="dropdown-text">JupyterHub Server (DISCONTINUED)</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-support" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Support</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-support">    
+        <li>
+    <a class="dropdown-item" href="../../hpc/support/index.html">
+ <span class="dropdown-text">Support Channels</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/support/faq.html">
+ <span class="dropdown-text">Frequently Asked Questions</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-about" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">About</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-about">    
+        <li>
+    <a class="dropdown-item" href="../../hpc/about/specs.html">
+ <span class="dropdown-text">Specifications</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/about/gpus.html">
+ <span class="dropdown-text">Available GPUs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/about/news.html">
+ <span class="dropdown-text">News</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/about/pricing-storage.html">
+ <span class="dropdown-text">Pricing: Extra Storage</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/about/pricing-compute.html">
+ <span class="dropdown-text">Pricing: Extra Compute (CPU &amp; GPU)</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="../../hpc/about/wynton-protected.html">
+ <span class="dropdown-text">Wynton Protected (P3 Data)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/about/join.html">
+ <span class="dropdown-text">Join ♡</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/about/shares.html">
+ <span class="dropdown-text">Contributing Member Shares</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="../../hpc/about/governance.html">
+ <span class="dropdown-text">Governance</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/about/user-agreement.html">
+ <span class="dropdown-text">User Agreement</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/about/citation.html">
+ <span class="dropdown-text">How to Cite</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="../../hpc/about/contact.html">
+ <span class="dropdown-text">Contact</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+
+
+<section id="operational-summary-for-2021" class="level3">
+<h3 class="anchored" data-anchor-id="operational-summary-for-2021">Operational Summary for 2021</h3>
+<ul>
+<li><p>Full downtime:</p>
+<ul>
+<li>Scheduled: 64 hours = 2.7 days = 0.73%</li>
+<li>Unscheduled: 58 hours = 2.4 days = 0.66%</li>
+<li>Total: 122 hours = 5.1 days = 1.4%</li>
+<li>External factors: 39% of the above downtime, corresponding to 47 hours (=2.0 days), were due to external factors</li>
+</ul></li>
+</ul>
+<section id="scheduled-maintenance-downtimes" class="level4">
+<h4 class="anchored" data-anchor-id="scheduled-maintenance-downtimes">Scheduled maintenance downtimes</h4>
+<ul>
+<li>Impact: No file access, no compute resources available</li>
+<li>Damage: None</li>
+<li>Occurrences:
+<ol type="1">
+<li>2021-05-25 (64 hours)</li>
+</ol></li>
+<li>Total downtime: 64 hours</li>
+</ul>
+</section>
+<section id="scheduled-kernel-maintenance" class="level4">
+<h4 class="anchored" data-anchor-id="scheduled-kernel-maintenance">Scheduled kernel maintenance</h4>
+<ul>
+<li>Impact: Fewer compute nodes than usual until rebooted</li>
+<li>Damage: None</li>
+<li>Occurrences:
+<ol type="1">
+<li>2021-01-29 (up to 14 days)</li>
+<li>2021-07-23 (up to 14 days)</li>
+<li>2021-12-08 (up to 14 days)</li>
+</ol></li>
+</ul>
+</section>
+<section id="unscheduled-downtimes-due-to-power-outage" class="level4">
+<h4 class="anchored" data-anchor-id="unscheduled-downtimes-due-to-power-outage">Unscheduled downtimes due to power outage</h4>
+<ul>
+<li>Impact: No file access, no compute resources available</li>
+<li>Damage: Running jobs (&lt;= 14 days) failed, file-transfers failed, possible file corruptions</li>
+<li>Occurrences:
+<ul>
+<li>2021-08-26 (28 hours) - Planned Byers Hall power shutdown failed</li>
+<li>2021-11-09 (10 hours) - Unplanned PG&amp;E power outage</li>
+</ul></li>
+<li>Total downtime: 38 hours of which 38 hours were due to external factors</li>
+</ul>
+</section>
+<section id="unscheduled-downtimes-due-to-file-system-failures" class="level4">
+<h4 class="anchored" data-anchor-id="unscheduled-downtimes-due-to-file-system-failures">Unscheduled downtimes due to file-system failures</h4>
+<ul>
+<li>Impact: No file access</li>
+<li>Damage: Running jobs (&lt;= 14 days) may have failed, file-transfers may have failed, cluster not accessible</li>
+<li>Occurrences:
+<ol type="1">
+<li>2021-03-26 (9 hours) - Campus networks issues causing significant BeeGFS slowness</li>
+<li>2021-07-23 (8 hours) - BeeGFS silently failed disks</li>
+<li>2021-11-05 (3 hours) - BeeGFS non-responsive</li>
+</ol></li>
+<li>Total downtime: 20 hours of which 9 hours were due to external factors</li>
+</ul>
+</section>
+<section id="unscheduled-downtimes-due-to-other-reasons" class="level4">
+<h4 class="anchored" data-anchor-id="unscheduled-downtimes-due-to-other-reasons">Unscheduled downtimes due to other reasons</h4>
+<ul>
+<li>Impact: Less compute resources</li>
+<li>Damage: Running jobs (&lt;= 14 days) may have failed, file-transfers may have failed, cluster not accessible</li>
+<li>Occurrences:
+<ol type="1">
+<li>2021-04-28 (210 hours) - GPU taken down due to server room cooling issues</li>
+</ol></li>
+<li>Total downtime: 0 hours</li>
+</ul>
+</section>
+<section id="accounts" class="level4">
+<h4 class="anchored" data-anchor-id="accounts">Accounts</h4>
+<ul>
+<li>Number of user account: 1,274 (change: +410 during the year)</li>
+</ul>
+</section>
+</section>
+<section id="december-8-december-23-2021" class="level3">
+<h3 class="anchored" data-anchor-id="december-8-december-23-2021">December 8-December 23, 2021</h3>
+<section id="kernel-maintenance" class="level4">
+<h4 class="anchored" data-anchor-id="kernel-maintenance"><span style="color: orange;">Kernel maintenance</span></h4>
+<p><strong>Resolved</strong>: All compute nodes have been rebooted. <br><span class="timestamp">Dec 23, 12:00 PT</span></p>
+<p><strong>Notice</strong>: New operating-system kernels are deployed. Login, data-transfer, and development nodes will be rebooted tomorrow Thursday December 9 at 11:00. Compute nodes will no longer accept new jobs until they have been rebooted. A node will be rebooted as soon as any existing jobs have completed, which may take up to two weeks (maximum runtime). During this update period, there will be fewer than usual slots available on the queues. To follow the progress, see the green ‘Available CPU cores’ curve (target ~12,500 cores) in the graph above.<br>
+<br><span class="timestamp">Dec 8, 16:30 PT</span></p>
+</section>
+</section>
+<section id="december-19-21-2021" class="level3">
+<h3 class="anchored" data-anchor-id="december-19-21-2021">December 19-21, 2021</h3>
+<section id="globus-and-data-transfer-node-issue" class="level4">
+<h4 class="anchored" data-anchor-id="globus-and-data-transfer-node-issue"><span style="color: orange;">Globus and data-transfer node issue</span></h4>
+<p><strong>Resolved</strong>: Data-transfer node <code>dt1</code> and Globus file transfers are working again. <br><span class="timestamp">Dec 21, 13:20 PT</span></p>
+<p><strong>Update</strong>: Globus file transfers to and from Wynton are not working. This is because Globus relies on the data-transfer node <code>dt1</code>, which is currently down. <br><span class="timestamp">Dec 20, 15:30 PT</span></p>
+<p><strong>Notice</strong>: Data-transfer node <code>dt1</code> has issues. Please use <code>dt2</code> until resolved. The first report on this problem came yesterday at 21:30. <br><span class="timestamp">Dec 20, 09:30 PT</span></p>
+</section>
+</section>
+<section id="november-9-2021" class="level3">
+<h3 class="anchored" data-anchor-id="november-9-2021">November 9, 2021</h3>
+<section id="partial-outage-due-to-campus-power-glitch" class="level4">
+<h4 class="anchored" data-anchor-id="partial-outage-due-to-campus-power-glitch"><span style="color: orange;">Partial outage due to campus power glitch</span></h4>
+<p><strong>Resolved</strong>: All hosts have been rebooted and are now up and running. <br><span class="timestamp">November 9, 11:00 PT</span></p>
+<p><strong>Notice</strong>: There was a brief PG&amp;E power outage early Tuesday November 9 around 01:20. This affected the power on the Mission Bay campus, including the data center housing Wynton. The parts of our system with redundant power were fine, but many of the compute nodes are on PG&amp;E-power only and, therefore, went down. As a result, lots of jobs crashed. We will restart the nodes that crashed manually during the day today. <br><span class="timestamp">November 9, 09:10 PT</span></p>
+<!--
+start: 2021-11-09T01:20:00
+stop: 2021-11-09T11:00:00
+length: 10 hours
+severity: partial-outage
+affected: jobs, compute
+reason: external
+ -->
+</section>
+</section>
+<section id="october-25-26-2021" class="level3">
+<h3 class="anchored" data-anchor-id="october-25-26-2021">October 25-26, 2021</h3>
+<section id="file-system-maintenance" class="level4">
+<h4 class="anchored" data-anchor-id="file-system-maintenance"><span style="color: orange;">File-system maintenance</span></h4>
+<p><strong>Resolved</strong>: Resynchronization of all file-system meta servers is complete, which concludes the maintenance. <br><span class="timestamp">October 26, 09:45 PT</span></p>
+<p><strong>Update</strong>: The maintenance work has started. <br><span class="timestamp">October 25, 14:00 PT</span></p>
+<p><strong>Notice</strong>: We will perform BeeGFS maintenance work starting Monday October 25 at 2:00 pm. During this work, the filesystem might be less performant. We don’t anticipate any downtime. <br><span class="timestamp">October 21, 12:10 PT</span></p>
+</section>
+</section>
+<section id="august-26-september-10-2021" class="level3">
+<h3 class="anchored" data-anchor-id="august-26-september-10-2021">August 26-September 10, 2021</h3>
+<section id="byers-hall-power-outage-file-system-corruption" class="level4">
+<h4 class="anchored" data-anchor-id="byers-hall-power-outage-file-system-corruption"><span style="color: orange;">Byers Hall power outage &amp; file-system corruption</span></h4>
+<p><strong>Resolved</strong>: The corrupted filesystem has been recovered. <br><span class="timestamp">September 10, 17:20 PT</span></p>
+<p><strong>Update</strong>: Wynton is back online but the problematic BeeGFS filesystem is kept offline, which affects access to some of the folders and files hosted on <code>/wynton/group/</code>. The file recovery tools are still running. <br><span class="timestamp">August 27, 13:05 PT</span></p>
+<p><strong>Partially resolved</strong>: Wynton is back online but the problematic BeeGFS filesystem is kept offline, which affects access to some of the folders and files hosted on <code>/wynton/group/</code>. The file recovery tools are still running. <br><span class="timestamp">August 27, 13:05 PT</span></p>
+<p><strong>Update</strong>: The BeeGFS filesystem recovering attempt keeps running. The current plan is to bring Wynton back online while keeping the problematic BeeGFS filesystem offline. <br><span class="timestamp">August 26, 23:05 PT</span></p>
+<p><strong>Update</strong>: All of the BeeGFS servers are up and running, but one of the 108 filesystems that make up BeeGFS was corrupted by the sudden power outage. The bad filesystem is part of <code>/wynton/group/</code>. We estimate that 70 TB of data is affected. We are making every possible effort to restore this filesystem, which will take time. While we do so, Wynton will remain down. <br><span class="timestamp">August 26, 14:05 PT</span></p>
+<p><strong>Notice</strong>: The cluster is down after an unplanned power outage in the main data center. The power is back online but several of our systems, including BeeGFS servers, did not come back up automatically and will require on-site, manual actions. <br><span class="timestamp">August 26, 09:15 PT</span></p>
+<!--
+start: 2021-08-26T09:15:00
+stop: 2021-08-27T13:15:00
+length: 28.0 hours
+severity: major-outage
+affected: jobs, beegfs, compute
+reason: external
+ -->
+</section>
+</section>
+<section id="july-23-july-28-2021" class="level3">
+<h3 class="anchored" data-anchor-id="july-23-july-28-2021">July 23-July 28, 2021</h3>
+<section id="kernel-maintenance-1" class="level4">
+<h4 class="anchored" data-anchor-id="kernel-maintenance-1"><span style="color: orange;">Kernel maintenance</span></h4>
+<p><strong>Resolved</strong>: The majority of the compute nodes have been rebooted after only four days, which was quicker than the maximum of 14 days. <br><span class="timestamp">July 28, 08:00 PT</span></p>
+<p><strong>Notice</strong>: New operating-system kernels are deployed. Login, data-transfer, and development nodes will be rebooted at 13:00 on Friday July 23 at 1:00 pm. Compute nodes will no longer accept new jobs until they have been rebooted. A node will be rebooted as soon as any existing jobs have completed, which may take up to two weeks (maximum runtime). During this update period, there will be fewer than usual slots available on the queues. To follow the progress, see the green ‘Available CPU cores’ curve (target ~10,400 cores) in the graph above.<br>
+<br><span class="timestamp">July 23, 07:40 PT</span></p>
+</section>
+</section>
+<section id="june-24-2021" class="level3">
+<h3 class="anchored" data-anchor-id="june-24-2021">June 24, 2021</h3>
+<section id="cluster-not-accessible-due-to-beegfs-issues" class="level4">
+<h4 class="anchored" data-anchor-id="cluster-not-accessible-due-to-beegfs-issues"><span style="color: orange;">Cluster not accessible (due to BeeGFS issues)</span></h4>
+<p><strong>Resolved</strong>: Wynton and BeeGFS is back online. The problem was due to failed disks. Unfortunately, about 10% of the space in <code>/wynton/scratch/</code> went bad, meaning some files are missing or corrupted. It is neither possible to recover them nor identify which files or folders are affected. In other words, expect some oddness if you had data under <code>/wynton/scratch/</code>. There will also be some hiccups over the next several days as we get everything in ZFS and BeeGFS back into an as stable state as possible. <br><span class="timestamp">June 24, 14:55 PT</span></p>
+<p><strong>Update</strong>: We’re working hard on getting BeeGFS back up. We were not able to recover the bad storage target, so it looks like there will be some data loss on <code>/wynton/scratch/</code>. More updates soon. <br><span class="timestamp">June 24, 13:45 PT</span></p>
+<p><strong>Notification</strong>: The Wynton environment cannot be accessed at the moment. This is because the global file system, BeeGFS, is experiencing issues since early this morning. The problem is being investigated. <br><span class="timestamp">June 24, 07:00 PT</span></p>
+<!--
+start: 2021-06-24T07:00:00
+stop: 2021-06-24T14:55:00
+length: 8.0 hours
+severity: major-outage
+affected: jobs, beegfs, compute
+reason: external
+ -->
+</section>
+</section>
+<section id="may-25-june-7-2021" class="level3">
+<h3 class="anchored" data-anchor-id="may-25-june-7-2021">May 25-June 7, 2021</h3>
+<section id="full-downtime-major-maintenance" class="level4">
+<h4 class="anchored" data-anchor-id="full-downtime-major-maintenance"><span style="color: orange;">Full downtime (major maintenance)</span></h4>
+<p><strong>Resolved</strong>: All remaining issues from the downtime have been resolved. <br> <span class="timestamp">June 7, 17:00 PT</span></p>
+<p><strong>Update</strong>: Login node log2 can now be reached from the UCSF Housing WiFi network. <br> <span class="timestamp">June 7, 17:00 PT</span></p>
+<p><strong>Update</strong>: dt2 can now be reached from outside the Wynton cluster. <br> <span class="timestamp">June 7, 13:15 PT</span></p>
+<p><strong>Update</strong>: Login node log2 cannot be reached from the UCSF Housing WiFi network. If you are on that network, use log1 until this has been resolved. <br> <span class="timestamp">June 2, 07:00 PT</span></p>
+<p><strong>Update</strong>: Both data transfer nodes are back online since a while, but dt2 can only be reached from within the Wynton cluster. <br> <span class="timestamp">June 1, 13:45 PT</span></p>
+<p><strong>Update</strong>: A large number of of the remaining compute nodes have been booted up. There are now ~8,600 cores serving jobs. <br> <span class="timestamp">June 1, 10:15 PT</span></p>
+<p><strong>Update</strong>: The development nodes are now back too. For the PHI pilot project, development node pgpudev1 is back up, but pdev1 is still down. <br> <span class="timestamp">May 28, 10:00 PT</span></p>
+<p><strong>Update</strong>: Wynton is partially back up and running. Both login hosts are up (log1 and log2). The job scheduler, SGE, accepts new jobs and and launches queued jobs. Two thirds of the compute node slots are back up serving jobs. Work is done to bring up the the development nodes and the data transfer hosts (dt1 and dt2). <br> <span class="timestamp">May 27, 10:30 PT</span></p>
+<p><strong>Update</strong>: We hit more than a few snags today. Our filesystem, BeeGFS, is up and running, but it still needs some work. The login hosts are up, but SGE is not and neither are the dev nodes. We will continue the work early tomorrow Thursday. <br> <span class="timestamp">May 26, 21:40 PT</span></p>
+<p><strong>Notice</strong>: The Wynton HPC environment will be shut down late afternoon on Tuesday May 25, 2021, for maintenance. We expect the cluster to be back online late Wednesday May 26. To allow for an orderly shutdown of Wynton, the queues have been disabled starting at 3:30 pm on May 25. Between now and then, only jobs whose runtimes end before that time will be able to start. Jobs whose runtimes would run into the maintenance window will remain in the queue. <br> <span class="timestamp">May 10, 16:40 PT</span></p>
+<p><strong>Preliminary notice</strong>: The Wynton HPC cluster will be undergoing a major upgrade on Wednesday May 26, 2021. As usual, starting 15 days prior to this day, on May 11, the maximum job run-time will be decreased on a daily basis so that all jobs finishes in time, e.g.&nbsp;if you submit a job on May 16 with a run-time longer than nine days, it will not be able to scheduled and it will be queued until after the downtime. <br> <span class="timestamp">May 3, 11:00 PT</span></p>
+<!--
+start: 2021-05-25T16:00:00
+stop: 2021-06-28T10:00:00
+length: 64 hours
+severity: under-maintenance
+affected: jobs, beegfs, compute
+reason: scheduled
+ -->
+</section>
+</section>
+<section id="june-1-2-2021" class="level3">
+<h3 class="anchored" data-anchor-id="june-1-2-2021">June 1-2, 2021</h3>
+<section id="password-management-outage" class="level4">
+<h4 class="anchored" data-anchor-id="password-management-outage"><span style="color: orange;">Password management outage</span></h4>
+<p><strong>Resolved</strong>: Password updates works again. <br> <span class="timestamp">June 2, 10:30 PT</span></p>
+<p><strong>Notice</strong>: Due to technical issues, it is currently not possible to change your Wynton password. If attempted from the web interface, you will get an error on “Password change not successful! (kadmin: Communication failure with server while initializing kadmin interface )”. If attempted using ‘passwd’, you will get “passwd: Authentication token manipulation error”. <br> <span class="timestamp">June 1, 10:30 PT</span></p>
+</section>
+</section>
+<section id="april-28---may-7-2021" class="level3">
+<h3 class="anchored" data-anchor-id="april-28---may-7-2021">April 28 - May 7, 2021</h3>
+<section id="many-gpu-nodes-down-due-to-cooling-issues" class="level4">
+<h4 class="anchored" data-anchor-id="many-gpu-nodes-down-due-to-cooling-issues"><span style="color: orange;">Many GPU nodes down (due to cooling issues)</span></h4>
+<p><strong>Resolved</strong>: Cooling has been restored and all GPU nodes are back online again. <br> <span class="timestamp">May 7, 11:10 PT</span></p>
+<p><strong>Update</strong>: Half of the GPU nodes that was taken down are back online. Hopefully, the remaining ones can be brought back up tomorrow when the cooling in the server room should be fully functioning again. <br> <span class="timestamp">May 6, 14:30 PT</span></p>
+<p><strong>Notification</strong>: One of Wynton’s ancillary server rooms is having cooling issues. To reduce the heat load in the room, we had to turn off all the Wynton nodes in the room around 09:45 this morning. This affects GPU nodes named msg*gpu* and a few other regular nodes. We estimate that the UCSF Facilities to fix the cooling problem by early next week. <br> <span class="timestamp">April 28, 16:30 PT</span></p>
+<!--
+start: 2021-04-28T16:30:00
+stop: 2021-05-07T11:10:00
+length: 210 hours
+severity: partial-outage
+affected: jobs-gpu, compute-gpu
+reason: external
+ -->
+</section>
+</section>
+<section id="march-26-2021" class="level3">
+<h3 class="anchored" data-anchor-id="march-26-2021">March 26, 2021</h3>
+<section id="cluster-not-accessible-due-to-network-outage" class="level4">
+<h4 class="anchored" data-anchor-id="cluster-not-accessible-due-to-network-outage"><span style="color: orange;">Cluster not accessible (due to network outage)</span></h4>
+<p><strong>Resolved</strong>: The malfunctioning network link between two of Wynton’s data centers, which affected our BeeGFS file system and Wynton HPC as a whole, has been restored. <br><span class="timestamp">March 26, 21:30 PT</span></p>
+<p><strong>Notification</strong>: Campus network issues causing major Wynton HPC issues including extremely slow access to our BeeGFS file system. This was first reported around 11:30 today. A ticket has been filed with the UCSF Network. ETA is unknown. <br><span class="timestamp">March 26, 12:30 PT</span></p>
+<!--
+start: 2021-03-26T12:30:00
+stop: 2021-03-26T21:30:00
+length: 9 hours
+severity: major-outage
+affected: beegfs, compute
+reason: external
+ -->
+</section>
+</section>
+<section id="january-29-february-12-2021" class="level3">
+<h3 class="anchored" data-anchor-id="january-29-february-12-2021">January 29-February 12, 2021</h3>
+<section id="kernel-maintenance-2" class="level4">
+<h4 class="anchored" data-anchor-id="kernel-maintenance-2"><span style="color: orange;">Kernel maintenance</span></h4>
+<p><strong>Resolved</strong>: All compute nodes have been rebooted. A few compute nodes remain offline that has to be rebooted manually, which will be done as opportunity is given. <br><span class="timestamp">February 13, 09:00 PT</span></p>
+<p><strong>Notice</strong>: New operating-system kernels are deployed. Compute nodes will no longer accept new jobs until they have been rebooted. A node will be rebooted as soon as any existing jobs have completed, which may take up to two weeks (maximum runtime). During this update period, there will be fewer than usual slots available on the queues. To follow the progress, see the green ‘Available CPU cores’ curve (target ~10,400 cores) in the graph above. Login, data-transfer, and development nodes will be rebooted at 13:00 on Monday February 1. <br><span class="timestamp">January 31, 17:00 PT</span></p>
+</section>
+</section>
+<section id="february-1-3-2021" class="level3">
+<h3 class="anchored" data-anchor-id="february-1-3-2021">February 1-3, 2021</h3>
+<section id="development-node-not-available" class="level4">
+<h4 class="anchored" data-anchor-id="development-node-not-available"><span style="color: orange;">Development node not available</span></h4>
+<p><strong>Resolved</strong>: Development node <code>dev2</code> is available again. <br><span class="timestamp">February 3, 15:00 PT</span></p>
+<p><strong>Notice</strong>: Development node <code>dev2</code> is down. It failed to come back up after the kernel upgrade on 2021-02-01. An on-site reboot is planned for Wednesday February 3. <br><span class="timestamp">February 2, 11:45 PT</span></p>
+</section>
+</section>
+<section id="january-28-2021" class="level3">
+<h3 class="anchored" data-anchor-id="january-28-2021">January 28, 2021</h3>
+<section id="server-room-maintenance" class="level4">
+<h4 class="anchored" data-anchor-id="server-room-maintenance"><span style="color: orange;">Server room maintenance</span></h4>
+<p><strong>Notice</strong>: The air conditioning system in one of our server rooms will be upgraded on January 28. The compute nodes in this room will be powered down during the upgrade resulting in fewer compute nodes being available on the cluster. Starting 14 days prior to this date, compute nodes in this room will only accept jobs that will finish in time. <br><span class="timestamp">January 13, 10:00 PT</span></p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/wynton\.ucsf\.edu\/hpc\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p><a href="https://www.ucsf.edu/">UCSF</a> :: <a href="https://wynton.ucsf.edu/">Wynton</a> :: <a href="../../hpc/">Wynton HPC</a></p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

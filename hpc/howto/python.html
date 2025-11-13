@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>python – UCSF Wynton HPC Cluster</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-98e2a9b0d4696fd01dd9970aef6a652a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Create UCSF banner element
+  var banner = document.createElement('div');
+  banner.className = 'top-banner logo';
+  banner.innerHTML = `
+    <div class="inner">
+      <div>
+        <div class="logo"></div>
+        <a class="logotype" href="https://www.ucsf.edu/">
+          <span>University of California San Francisco</span>
+        </a>
+      </div>
+      <div class="nav">
+        <ul class="top-banner-menu">
+          <li><a href="https://www.ucsf.edu/about">About UCSF</a></li>
+          <li><a href="https://www.ucsf.edu/search">Search UCSF</a></li>
+        </ul>
+      </div>
+    </div>
+  `;
+  
+  // Insert banner before navbar
+  var body = document.body;
+  var navbar = document.querySelector('.navbar');
+  if (navbar && navbar.parentNode) {
+    navbar.parentNode.insertBefore(banner, navbar);
+  } else {
+    body.insertBefore(banner, body.firstChild);
+  }
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Get the current page path
+  var path = window.location.pathname;
+  
+  // Convert from .html to .md and adjust path
+  // Remove /hpc/ from start if present for GitHub path
+  var githubPath = path.replace(/\.html$/, '.md');
+  if (githubPath.endsWith('/')) {
+    githubPath += 'index.md';
+  }
+  
+  // Create the edit link
+  var repoUrl = 'https://github.com/ucsf-wynton/wynton-website-hpc';
+  var editUrl = repoUrl + '/tree/master/docs' + githubPath;
+  
+  // Find the footer and add our custom links
+  var footer = document.querySelector('.nav-footer');
+  if (footer) {
+    var rightDiv = footer.querySelector('.nav-footer-right');
+    if (!rightDiv) {
+      rightDiv = document.createElement('div');
+      rightDiv.className = 'nav-footer-right';
+      footer.appendChild(rightDiv);
+    }
+    
+    rightDiv.innerHTML = '<ul class="footer-items list-unstyled">' +
+      '<li class="nav-item">' +
+      '<a class="nav-link" href="' + editUrl + '">' +
+      '<i class="bi bi-pencil-square"></i> Edit this page' +
+      '</a></li>' +
+      '<li class="nav-item">' +
+      '<a class="nav-link" href="' + repoUrl + '/issues/new">' +
+      'Report an issue' +
+      '</a></li>' +
+      '</ul>';
+  }
+});
+</script>
+
+
+<link rel="stylesheet" href="../../hpc/assets/css/ucsf-banners.css">
+<link rel="stylesheet" href="../../hpc/assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="../../hpc/assets/css/this_site.css">
+<link rel="stylesheet" href="../../hpc/assets/css/broadcast.css">
+<link rel="stylesheet" href="../../hpc/assets/css/checkbox-toggle.css">
+<link rel="stylesheet" href="../../hpc/assets/css/docsearch.css">
+<link rel="stylesheet" href="../../hpc/assets/css/quarto-customizations.css">
+</head>
+
+<body class="nav-fixed fullcontent quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../hpc/assets/ico/favicon.ico" alt="" class="navbar-logo light-content">
+    <img src="../../hpc/assets/ico/favicon.ico" alt="" class="navbar-logo dark-content">
+    </a>
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">UCSF Wynton HPC Cluster</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../hpc/status/index.html"> 
+<span class="menu-text">Status</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-get-started" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Get Started</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-get-started">    
+        <li>
+    <a class="dropdown-item" href="../../hpc/get-started/access-cluster.html">
+ <span class="dropdown-text">1. Login &amp; Logout</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/get-started/development-prototyping.html">
+ <span class="dropdown-text">2. Development / Prototyping</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/get-started/hello-world-job.html">
+ <span class="dropdown-text">3. ‘Hello World’ Job</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/get-started/good-practices.html">
+ <span class="dropdown-text">4. Good Practices</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/get-started/duo-signup.html">
+ <span class="dropdown-text">5. 2FA Registration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/get-started/protected-quickstart.html">
+ <span class="dropdown-text">6. Wynton Protected Quickstart</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-software" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Software</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-software">    
+        <li>
+    <a class="dropdown-item" href="../../hpc/software/core-software.html">
+ <span class="dropdown-text">Core Software</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/software/scl.html">
+ <span class="dropdown-text">Software Collections (SCL)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/software/software-modules.html">
+ <span class="dropdown-text">Software Modules</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/software/software-repositories.html">
+ <span class="dropdown-text">Software Repositories</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/software/apptainer.html">
+ <span class="dropdown-text">Linux Containers (Apptainer/Singularity)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/software/sbgrid.html">
+ <span class="dropdown-text">SBGrid Software (restricted access)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/software/missing-software.html">
+ <span class="dropdown-text">Missing Software?</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/software/rocky-8-linux.html">
+ <span class="dropdown-text">Migration to Rocky 8 Linux (Nov 2023)</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-sge" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">SGE</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-sge">    
+        <li>
+    <a class="dropdown-item" href="../../hpc/scheduler/submit-jobs.html">
+ <span class="dropdown-text">Submit Jobs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/scheduler/list-jobs.html">
+ <span class="dropdown-text">List Jobs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/scheduler/kill-jobs.html">
+ <span class="dropdown-text">Kill Jobs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/scheduler/job-summary.html">
+ <span class="dropdown-text">Job Summary</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/scheduler/envvars.html">
+ <span class="dropdown-text">Useful Env. Variables</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/scheduler/using-local-scratch.html">
+ <span class="dropdown-text">Use Local Scratch</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/scheduler/queues.html">
+ <span class="dropdown-text">Available Queues</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/scheduler/email-notifications.html">
+ <span class="dropdown-text">Job Email Notifications</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/scheduler/gpu.html">
+ <span class="dropdown-text">GPU Scheduling</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/scheduler/advanced-usage.html">
+ <span class="dropdown-text">Advanced Usage</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-file-transfers" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">File Transfers</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-file-transfers">    
+        <li>
+    <a class="dropdown-item" href="../../hpc/transfers/files-and-directories.html">
+ <span class="dropdown-text">Secure Copy File Transfers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/transfers/globus.html">
+ <span class="dropdown-text">Globus File Transfers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/transfers/globus-sharing.html">
+ <span class="dropdown-text">Globus File Sharing</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/transfers/ucsf-box.html">
+ <span class="dropdown-text">UCSF Box</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/transfers/dos2unix.html">
+ <span class="dropdown-text">Windows-Unix File Transfers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/transfers/rclone.html">
+ <span class="dropdown-text">rclone (mount Wynton file system locally)</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-how-to" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">How To</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-how-to">    
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/matlab.html">
+ <span class="dropdown-text">Work with MATLAB</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/python.html">
+ <span class="dropdown-text">Work with Python</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/jupyter.html">
+ <span class="dropdown-text">Work with Jupyter Notebook</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/r.html">
+ <span class="dropdown-text">Work with R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/rstudio.html">
+ <span class="dropdown-text">Work with RStudio</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/conda.html">
+ <span class="dropdown-text">Work with Conda</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/conda-stage.html">
+ <span class="dropdown-text">Stage Conda Environment to Local Disk</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/install-from-source.html">
+ <span class="dropdown-text">Install Software from Source</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/storage-size.html">
+ <span class="dropdown-text">File Sizes and Disk Quotas</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/group-quota.html">
+ <span class="dropdown-text">Adjust Group Disk Quota</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/find-files.html">
+ <span class="dropdown-text">Find Files</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/log-in-without-pwd.html">
+ <span class="dropdown-text">Log in without Password</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/change-pwd.html">
+ <span class="dropdown-text">Change &amp; Verify Password</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/gui-x11fwd.html">
+ <span class="dropdown-text">GUIs (X2Go &amp; X11)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/jupyterhub.html">
+ <span class="dropdown-text">JupyterHub Server (DISCONTINUED)</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-support" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Support</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-support">    
+        <li>
+    <a class="dropdown-item" href="../../hpc/support/index.html">
+ <span class="dropdown-text">Support Channels</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/support/faq.html">
+ <span class="dropdown-text">Frequently Asked Questions</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-about" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">About</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-about">    
+        <li>
+    <a class="dropdown-item" href="../../hpc/about/specs.html">
+ <span class="dropdown-text">Specifications</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/about/gpus.html">
+ <span class="dropdown-text">Available GPUs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/about/news.html">
+ <span class="dropdown-text">News</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/about/pricing-storage.html">
+ <span class="dropdown-text">Pricing: Extra Storage</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/about/pricing-compute.html">
+ <span class="dropdown-text">Pricing: Extra Compute (CPU &amp; GPU)</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="../../hpc/about/wynton-protected.html">
+ <span class="dropdown-text">Wynton Protected (P3 Data)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/about/join.html">
+ <span class="dropdown-text">Join ♡</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/about/shares.html">
+ <span class="dropdown-text">Contributing Member Shares</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="../../hpc/about/governance.html">
+ <span class="dropdown-text">Governance</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/about/user-agreement.html">
+ <span class="dropdown-text">User Agreement</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/about/citation.html">
+ <span class="dropdown-text">How to Cite</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="../../hpc/about/contact.html">
+ <span class="dropdown-text">Contact</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+
+
+<section id="work-with-python" class="level1">
+<h1>Work with Python</h1>
+<p>Python 2 and Python 3 are both available via <code>python2</code> and <code>python3</code>. There is no command <code>python</code> on Rocky 8; you have to specify either <code>python2</code> or <code>python3</code>.</p>
+<section id="installing-python-packages" class="level2">
+<h2 class="anchored" data-anchor-id="installing-python-packages">Installing Python packages</h2>
+<p>The standard way to install Python packages is by using the <a href="https://packaging.python.org/tutorials/installing-packages/"><em>pip</em></a> package management system. You often find installation instructions online such as:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> pip install pandas</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>It will <em>not</em> work. If you attempt to run this as-is on the cluster, you get lots of errors complaining about lack of write permissions etc., which is because it tries to install the package in the system-wide Python package folder (to which only sysadms have write permission). You might also see instructions saying you should use <code>sudo ...</code> - that will also not work for the same reason.</p>
+<p>There are <strong>two ways for non-privileged users to install Python packages using the ‘pip’ module</strong>:</p>
+<ol type="1">
+<li><p>Install globally to your home directory (typically <code>~/.local/lib/python3.11/site-packages/</code>) using <code>python3 -m pip install --user ...</code></p></li>
+<li><p>Install locally to a project-specific folder (e.g.&nbsp;<code>~/my_project/</code>) using <code>python3 -m pip install ...</code> in a self-contained Python virtual environment</p></li>
+</ol>
+<p>Both are done from the terminal. Which one you choose depends on your needs; for some projects you may want to use the virtual environment approach whereas for your everyday work you might want to work toward your global Python package stack. Installing globally is the easiest, because you don’t have to remember to <em>activate</em> a virtual environment and if you need the Python package in different places, you only have to install it once. However, if you are concerned about reproducibility, or being able to coming back to an old project of yours, you most likely want to use a virtual environment for that project so that its Python packages are <em>not</em> updated when you update or install Python packages globally. This is also true if you collaborate with others in a shared project folder.</p>
+<section id="installing-globally-aka-user-site" class="level3">
+<h3 class="anchored" data-anchor-id="installing-globally-aka-user-site">1. Installing globally (aka “user-site”)</h3>
+<p>First of all, if an online installation instructions says <code>pip install ...</code>, replace that with <code>python3 -m pip install ...</code>. Second, to install globally to your home directory, remember to always specify the <code>--user</code> option. For example,</p>
+<!-- code-block label="pip-install-ex" -->
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">[alice@dev2</span> ~]$ python3 <span class="at">-m</span> pip install <span class="at">--user</span> pandas</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Collecting</span> pandas</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="ex">Downloading</span> pandas-2.2.3-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl <span class="er">(</span><span class="ex">13.1</span> MB<span class="kw">)</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>     <span class="ex">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> 13.1/13.1 MB 93.7 MB/s eta 0:00:00</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="ex">Requirement</span> already satisfied: numpy<span class="op">&gt;</span>=1.23.2 in /usr/lib64/python3.11/site-packages <span class="er">(</span><span class="ex">from</span> pandas<span class="kw">)</span> <span class="kw">(</span><span class="ex">1.23.5</span><span class="kw">)</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="ex">Collecting</span> python-dateutil<span class="op">&gt;</span>=2.8.2</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="ex">Downloading</span> python_dateutil-2.9.0.post0-py2.py3-none-any.whl <span class="er">(</span><span class="ex">229</span> kB<span class="kw">)</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>     <span class="ex">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> 229.9/229.9 kB 62.8 MB/s eta 0:00:00</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="ex">Collecting</span> pytz<span class="op">&gt;</span>=2020.1</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="ex">Downloading</span> pytz-2024.2-py2.py3-none-any.whl <span class="er">(</span><span class="ex">508</span> kB<span class="kw">)</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>     <span class="ex">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> 508.0/508.0 kB 89.5 MB/s eta 0:00:00</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="ex">Collecting</span> tzdata<span class="op">&gt;</span>=2022.7</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="ex">Downloading</span> tzdata-2024.2-py2.py3-none-any.whl <span class="er">(</span><span class="ex">346</span> kB<span class="kw">)</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>     <span class="ex">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> 346.6/346.6 kB 77.3 MB/s eta 0:00:00</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="ex">Collecting</span> six<span class="op">&gt;</span>=1.5</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  <span class="ex">Downloading</span> six-1.17.0-py2.py3-none-any.whl <span class="er">(</span><span class="ex">11</span> kB<span class="kw">)</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="ex">Installing</span> collected packages: pytz, tzdata, six, python-dateutil, pandas</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="ex">Successfully</span> installed pandas-2.2.3 python-dateutil-2.9.0.post0 pytz-2024.2 six-1.17.0 tzdata-2024.2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>To see all Python packages that you have installed globally, use <code>python3 -m pip list --user</code>. To also see packages installed site wide on the cluster, use <code>python3 -m pip list</code>. Packages installed with <code>python3 -m pip list --user</code> are typically installed to your <code>~/.local/lib/python3.11/site-packages/</code> folder. If CLI executables are installed with one of those packages, they are often installed to <code>~/.local/bin/</code>.</p>
+</section>
+<section id="installing-to-a-virtual-environment-aka-virtualenv" class="level3">
+<h3 class="anchored" data-anchor-id="installing-to-a-virtual-environment-aka-virtualenv">2. Installing to a virtual environment (aka “virtualenv”)</h3>
+<div class="alert alert-info" role="alert">
+<p>Virtual environment are not used just on computer clusters - many Python users and developers choose to use virtual environment on their local computers whenever they work in Python.</p>
+</div>
+<p>An alternative to install globally to your home directory, is to install to a local folder using a, so called, Python <em>virtual environment</em>. A virtual environment is a self-contained folder that contains the Python executable and any Python packages you install. When you <em>activate</em> a virtual environment, environment variables like <code>PATH</code> is updated such that you will use the Python executable and the packages in the virtual environment and not the globally installed ones.</p>
+<p>Below is an example on how to set up a virtual environment and install the <a href="https://pandas.pydata.org/docs/">pandas</a> package and all of its dependencies into it.</p>
+<section id="install-required-tools-once-per-account" class="level4">
+<h4 class="anchored" data-anchor-id="install-required-tools-once-per-account">2.1 Install required tools (once per account)</h4>
+<p>In order to use virtual environments, we need the <code>virtualenv</code> tool. Following the above instructions, you can install it to your <em>global stack</em> as:</p>
+<!-- code-block label="pip-install-virtualenv" -->
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">[alice@dev2</span> ~]$ python3 <span class="at">-m</span> pip install <span class="at">--user</span> virtualenv</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Collecting</span> virtualenv</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="ex">Downloading</span> virtualenv-20.28.0-py3-none-any.whl <span class="er">(</span><span class="ex">4.3</span> MB<span class="kw">)</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>     <span class="ex">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> 4.3/4.3 MB 82.7 MB/s eta 0:00:00</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="ex">Collecting</span> distlib<span class="op">&lt;</span>1,<span class="op">&gt;</span>=0.3.7</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="ex">Downloading</span> distlib-0.3.9-py2.py3-none-any.whl <span class="er">(</span><span class="ex">468</span> kB<span class="kw">)</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>     <span class="ex">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> 469.0/469.0 kB 85.1 MB/s eta 0:00:00</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="ex">Collecting</span> filelock<span class="op">&lt;</span>4,<span class="op">&gt;</span>=3.12.2</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="ex">Downloading</span> filelock-3.16.1-py3-none-any.whl <span class="er">(</span><span class="ex">16</span> kB<span class="kw">)</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="ex">Collecting</span> platformdirs<span class="op">&lt;</span>5,<span class="op">&gt;</span>=3.9.1</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="ex">Downloading</span> platformdirs-4.3.6-py3-none-any.whl <span class="er">(</span><span class="ex">18</span> kB<span class="kw">)</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="ex">Installing</span> collected packages: distlib, platformdirs, filelock, virtualenv</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="ex">Successfully</span> installed distlib-0.3.9 filelock-3.16.1 platformdirs-4.3.6 virtualenv-20.28.0</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="ex">[alice@dev2</span> ~]$ which virtualenv</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="ex">~/.local/bin/virtualenv</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="ex">[alice@dev2</span> ~]$ virtualenv <span class="at">--version</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="ex">virtualenv</span> 20.28.0 from ~/.local/lib/python3.11/site-packages/virtualenv/__init__.py</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="create-a-virtual-environment-once-per-project" class="level4">
+<h4 class="anchored" data-anchor-id="create-a-virtual-environment-once-per-project">2.2 Create a virtual environment (once per project)</h4>
+<p>Start by creating a folder specific to the project you are currently working on. Each project folder will have its own unique set of installed packages. For a project that requires Python 3, do the following (once):</p>
+<!-- code-block label="virtualenv-init" -->
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">[alice@dev2</span> ~]$ virtualenv <span class="at">-p</span> python3 my_project</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">created</span> virtual environment CPython3.11.10.final.0-64 in 7825ms</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="ex">creator</span> CPython3Posix<span class="er">(</span><span class="va">dest</span><span class="op">=</span>~/my_project, <span class="va">clear</span><span class="op">=</span>False, <span class="va">no_vcs_ignore</span><span class="op">=</span>False, <span class="va">global</span><span class="op">=</span>False<span class="kw">)</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="ex">seeder</span> FromAppData<span class="er">(</span><span class="va">download</span><span class="op">=</span>False, <span class="va">pip</span><span class="op">=</span>bundle, <span class="va">setuptools</span><span class="op">=</span>bundle, <span class="va">wheel</span><span class="op">=</span>bundle, <span class="va">via</span><span class="op">=</span>copy, <span class="va">app_data_dir</span><span class="op">=</span>~/.local/share/virtualenv<span class="kw">)</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="ex">added</span> seed packages: pip==24.3.1, python_dateutil==2.9.0.post0, pytz==2024.2, setuptools==75.6.0, six==1.17.0, tzdata==2024.2, wheel==0.45.1</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="ex">activators</span> BashActivator,CShellActivator,FishActivator,NushellActivator,PowerShellActivator,PythonActivator</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="alert alert-warning" role="alert">
+<p>Always remember to specify option <code>-p python3</code> or <code>-p python2</code> when you call <code>virtualenv</code>. It makes sure that the intended version of Python is used in the virtual environment when <code>python</code> is called.</p>
+</div>
+</section>
+<section id="activate-virtual-environment-each-time-you-use-project" class="level4">
+<h4 class="anchored" data-anchor-id="activate-virtual-environment-each-time-you-use-project">2.3 Activate virtual environment (each time you use project)</h4>
+<p>Now, each time you want to work on your project, go to its folder and <em>active the virtual environment</em>:</p>
+<!-- code-block label="virtualenv-activate" -->
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">[alice@dev2</span> ~]$ cd my_project</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">[alice@dev2</span> my_project]$ . bin/activate   <span class="co">## IMPORTANT! Note period in front</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">my_project</span><span class="kw">)</span> <span class="ex">[alice@dev2</span> my_project]$ </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Note how <code>(my_project)</code> is prepended to the shell prompt when the virtual environment <code>my_project</code> is <em>activate</em>. This tells you that you run in a customized Python environment. Specifically, <code>python3</code> now points to a local, frozen version:</p>
+<!-- code-block label="virtualenv-which-python3" -->
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">my_project</span><span class="kw">)</span> <span class="ex">[alice@dev2</span> my_project]$ which python3</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">~/my_project/bin/python3</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Similarly, <code>python</code> points to:</p>
+<!-- code-block label="virtualenv-which-python" -->
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">my_project</span><span class="kw">)</span> <span class="ex">[alice@dev2</span> my_project]$ which python</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">~/my_project/bin/python</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">my_project</span><span class="kw">)</span> <span class="ex">[alice@dev2</span> my_project]$ python <span class="at">--version</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="ex">Python</span> 3.11.10</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Note how this local <code>python</code> command points to the local <code>python3</code> command. What is interesting, and important to notice, is that <em>if we set up a Python 3 virtual environment, then the local <code>python</code> command will point to the local <code>python3</code> command</em>. In other words, when we use virtual environments, the <code>python</code> command will be using either Python 2 or Python3 at our choice.</p>
+<p>To see what Python packages are installed <em>in the virtual environment</em>, use:</p>
+<!-- code-block label="virtualenv-pip-list" -->
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">my_project</span><span class="kw">)</span> <span class="ex">[alice@dev2</span> my_project]$ python3 <span class="at">-m</span> pip list</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Package</span>         Version</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="ex">---------------</span> <span class="at">-----------</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="ex">numpy</span>           2.2.0</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="ex">pandas</span>          2.2.3</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span>             24.3.1</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="ex">python-dateutil</span> 2.9.0.post0</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="ex">pytz</span>            2024.2</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="ex">setuptools</span>      75.6.0</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="ex">six</span>             1.17.0</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="ex">tzdata</span>          2024.2</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="ex">wheel</span>           0.45.1</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">my_project</span><span class="kw">)</span> <span class="ex">[alice@dev2</span> my_project]$ </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="installing-packages-once-per-package" class="level4">
+<h4 class="anchored" data-anchor-id="installing-packages-once-per-package">2.4 Installing packages (once per package)</h4>
+<p>With a virtual environment enabled, you can install Python packages to the project folder using <code>python3 -m pip install ...</code> without specifying <code>--user</code>. For instance,</p>
+<!-- code-block label="virtualenv-pip-install-ex" -->
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">my_project</span><span class="kw">)</span> <span class="ex">[alice@dev2</span> ~]$ python3 <span class="at">-m</span> pip install pandas</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Requirement</span> already satisfied: pandas in ./my_project/lib64/python3.11/site-packages <span class="er">(</span><span class="ex">2.2.3</span><span class="kw">)</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Requirement</span> already satisfied: numpy<span class="op">&gt;</span>=1.23.2 in ./my_project/lib64/python3.11/site-packages <span class="er">(</span><span class="ex">from</span> pandas<span class="kw">)</span> <span class="kw">(</span><span class="ex">2.2.0</span><span class="kw">)</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="ex">Requirement</span> already satisfied: python-dateutil<span class="op">&gt;</span>=2.8.2 in ./my_project/lib/python3.11/site-packages <span class="er">(</span><span class="ex">from</span> pandas<span class="kw">)</span> <span class="kw">(</span><span class="ex">2.9.0.post0</span><span class="kw">)</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="ex">Requirement</span> already satisfied: pytz<span class="op">&gt;</span>=2020.1 in ./my_project/lib/python3.11/site-packages <span class="er">(</span><span class="ex">from</span> pandas<span class="kw">)</span> <span class="kw">(</span><span class="ex">2024.2</span><span class="kw">)</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="ex">Requirement</span> already satisfied: tzdata<span class="op">&gt;</span>=2022.7 in ./my_project/lib/python3.11/site-packages <span class="er">(</span><span class="ex">from</span> pandas<span class="kw">)</span> <span class="kw">(</span><span class="ex">2024.2</span><span class="kw">)</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="ex">Requirement</span> already satisfied: six<span class="op">&gt;</span>=1.5 in ./my_project/lib/python3.11/site-packages <span class="er">(</span><span class="ex">from</span> python-dateutil<span class="op">&gt;</span>=2.8.2-<span class="op">&gt;</span>pandas<span class="kw">)</span> <span class="kw">(</span><span class="ex">1.17.0</span><span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>To see which packages are now installed <em>in the virtual environment</em> (the “project folder”) and what their versions are, do:</p>
+<!-- code-block label="virtualenv-pip-list-2" -->
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">my_project</span><span class="kw">)</span> <span class="ex">[alice@dev2</span> my_project]$ python3 <span class="at">-m</span> pip list</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Package</span>         Version</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="ex">---------------</span> <span class="at">-----------</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="ex">numpy</span>           2.2.0</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="ex">pandas</span>          2.2.3</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span>             24.3.1</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="ex">python-dateutil</span> 2.9.0.post0</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="ex">pytz</span>            2024.2</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="ex">setuptools</span>      75.6.0</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="ex">six</span>             1.17.0</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="ex">tzdata</span>          2024.2</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="ex">wheel</span>           0.45.1</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">my_project</span><span class="kw">)</span> <span class="ex">[alice@dev2</span> my_project]$ </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="returning-to-a-project" class="level4">
+<h4 class="anchored" data-anchor-id="returning-to-a-project">2.5 Returning to a project</h4>
+<p>Whenever you open a new terminal, make sure to <em>activate</em> the virtual environment (“project folder”), otherwise it will not find the packages you’ve installed. Pay attention to the shell prompt:</p>
+<!-- code-block label="virtualenv-activate-2" -->
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">[alice@dev2</span> ~]$ cd my_project </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="ex">[alice@dev2</span> my_project]$ . bin/activate   <span class="co">## ACTIVATE</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">my_project</span><span class="kw">)</span> <span class="ex">[alice@dev2</span> my_project]$ pip3 show pandas</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="ex">Name:</span> pandas</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="ex">Version:</span> 2.2.3</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="ex">Summary:</span> Powerful data structures for data analysis, time series, and statistics</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="ex">Home-page:</span> https://pandas.pydata.org</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="ex">Author:</span> </span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="ex">Author-email:</span> The Pandas Development Team <span class="op">&lt;</span>pandas-dev@python.org<span class="op">&gt;</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="ex">License:</span> BSD 3-Clause License</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="ex">Location:</span> ~/my_project/lib64/python3.11/site-packages</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="ex">Requires:</span> numpy, python-dateutil, pytz, tzdata</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="ex">Required-by:</span> </span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">my_project</span><span class="kw">)</span> <span class="ex">[alice@dev2</span> my_project]$ </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="alert alert-warning" role="alert" style="margin-top: 3ex">
+<p>When submitting a job to the scheduler, make sure the job script loads all required modules and activates the virtual environment.</p>
+</div>
+<p>To <em>deactivate</em> a Python virtual environment, either open a fresh terminal (e.g.&nbsp;log out and back in), or use:</p>
+<!-- code-block label="virtualenv-deactivate" -->
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">my_project</span><span class="kw">)</span> <span class="ex">[alice@dev2</span> ~]$ deactivate</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="ex">[alice@dev2</span> ~]$ </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Note how prefix <code>(my_project)</code> was dropped from the shell prompt and <code>python3</code> now points to the system-wide installation;</p>
+<!-- code-block label="virtualenv-deactivate-which-python3" -->
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">[alice@dev2</span> ~]$ which python3</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="ex">/usr/bin/python3</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+</section>
+<section id="appendix" class="level2">
+<h2 class="anchored" data-anchor-id="appendix">Appendix</h2>
+<section id="upgrading-pip" class="level3">
+<h3 class="anchored" data-anchor-id="upgrading-pip">Upgrading pip</h3>
+<p>You will at times get a warning that you are running an old version of ‘pip’:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">You</span> are using pip version 8.1.2, however version 20.3.3 is available.</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="ex">You</span> should consider upgrading via the <span class="st">'pip install --upgrade pip'</span> command.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Don’t use the suggested command call in that message. Instead, use:</p>
+<!-- code-block label="pip-upgrade" -->
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">[alice@dev2</span> ~]$ python3 <span class="at">-m</span> pip install <span class="at">--user</span> <span class="at">--upgrade</span> pip</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Requirement</span> already satisfied: pip in /usr/lib/python3.11/site-packages <span class="er">(</span><span class="ex">22.3.1</span><span class="kw">)</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Collecting</span> pip</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="ex">Downloading</span> pip-24.3.1-py3-none-any.whl <span class="er">(</span><span class="ex">1.8</span> MB<span class="kw">)</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>     <span class="ex">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> 1.8/1.8 MB 31.7 MB/s eta 0:00:00</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="ex">Installing</span> collected packages: pip</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="ex">Successfully</span> installed pip-24.3.1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Note</em>, if you’re using a virtual environment, drop <code>--user</code>, i.e.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">[alice@dev2</span> ~]$ python3 <span class="at">-m</span> pip install <span class="at">--upgrade</span> pip</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>To check the installed version of the ‘pip’ module, use:</p>
+<!-- code-block label="pip-version-2" -->
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">[alice@dev2</span> ~]$ python3 <span class="at">-m</span> pip <span class="at">--version</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> 24.3.1 from ~/.local/lib/python3.11/site-packages/pip <span class="er">(</span><span class="ex">python</span> 3.11<span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="python-2-only-pip-21-is-supported" class="level4">
+<h4 class="anchored" data-anchor-id="python-2-only-pip-21-is-supported">Python 2: Only pip (&lt; 21) is supported</h4>
+<p>Python 2 reached the end of its life on 2020-01-01 in favor of Python 3. At this point, the pip maintainers decided to stop making newer versions backward compatible with Python 2. Because of this, Python 2 only supports pip (&lt; 21). To upgrade to the latest supported pip version for Python 2, we can use:</p>
+<!-- code-block label="pip2-upgrade" -->
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">[alice@dev2</span> ~]$ python2 <span class="at">-m</span> pip install <span class="at">--user</span> <span class="at">--upgrade</span> <span class="st">"pip&lt;21"</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="ex">DEPRECATION:</span> Python 2.7 reached the end of its life on January 1st, 2020. Please upgrade your Python as Python 2.7 is no longer maintained. pip 21.0 will drop support for Python 2.7 in January 2021. More details about Python 2 support in pip can be found at https://pip.pypa.io/en/latest/development/release-process/#python-2-support pip 21.0 will remove support for this functionality.</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Collecting</span> pip<span class="op">&lt;</span>21</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="ex">Downloading</span> pip-20.3.4-py2.py3-none-any.whl <span class="er">(</span><span class="ex">1.5</span> MB<span class="kw">)</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="ex">Installing</span> collected packages: pip</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="ex">Attempting</span> uninstall: pip</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    <span class="ex">Found</span> existing installation: pip 20.3</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    <span class="ex">Uninstalling</span> pip-20.3:</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>      <span class="ex">Successfully</span> uninstalled pip-20.3</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="ex">Successfully</span> installed pip-20.3.4</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+
+</section>
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/wynton\.ucsf\.edu\/hpc\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p><a href="https://www.ucsf.edu/">UCSF</a> :: <a href="https://wynton.ucsf.edu/">Wynton</a> :: <a href="../../hpc/">Wynton HPC</a></p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

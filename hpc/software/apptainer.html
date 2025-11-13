@@ -1,0 +1,1278 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>apptainer – UCSF Wynton HPC Cluster</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-98e2a9b0d4696fd01dd9970aef6a652a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Create UCSF banner element
+  var banner = document.createElement('div');
+  banner.className = 'top-banner logo';
+  banner.innerHTML = `
+    <div class="inner">
+      <div>
+        <div class="logo"></div>
+        <a class="logotype" href="https://www.ucsf.edu/">
+          <span>University of California San Francisco</span>
+        </a>
+      </div>
+      <div class="nav">
+        <ul class="top-banner-menu">
+          <li><a href="https://www.ucsf.edu/about">About UCSF</a></li>
+          <li><a href="https://www.ucsf.edu/search">Search UCSF</a></li>
+        </ul>
+      </div>
+    </div>
+  `;
+  
+  // Insert banner before navbar
+  var body = document.body;
+  var navbar = document.querySelector('.navbar');
+  if (navbar && navbar.parentNode) {
+    navbar.parentNode.insertBefore(banner, navbar);
+  } else {
+    body.insertBefore(banner, body.firstChild);
+  }
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Get the current page path
+  var path = window.location.pathname;
+  
+  // Convert from .html to .md and adjust path
+  // Remove /hpc/ from start if present for GitHub path
+  var githubPath = path.replace(/\.html$/, '.md');
+  if (githubPath.endsWith('/')) {
+    githubPath += 'index.md';
+  }
+  
+  // Create the edit link
+  var repoUrl = 'https://github.com/ucsf-wynton/wynton-website-hpc';
+  var editUrl = repoUrl + '/tree/master/docs' + githubPath;
+  
+  // Find the footer and add our custom links
+  var footer = document.querySelector('.nav-footer');
+  if (footer) {
+    var rightDiv = footer.querySelector('.nav-footer-right');
+    if (!rightDiv) {
+      rightDiv = document.createElement('div');
+      rightDiv.className = 'nav-footer-right';
+      footer.appendChild(rightDiv);
+    }
+    
+    rightDiv.innerHTML = '<ul class="footer-items list-unstyled">' +
+      '<li class="nav-item">' +
+      '<a class="nav-link" href="' + editUrl + '">' +
+      '<i class="bi bi-pencil-square"></i> Edit this page' +
+      '</a></li>' +
+      '<li class="nav-item">' +
+      '<a class="nav-link" href="' + repoUrl + '/issues/new">' +
+      'Report an issue' +
+      '</a></li>' +
+      '</ul>';
+  }
+});
+</script>
+
+
+<link rel="stylesheet" href="../../hpc/assets/css/ucsf-banners.css">
+<link rel="stylesheet" href="../../hpc/assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="../../hpc/assets/css/this_site.css">
+<link rel="stylesheet" href="../../hpc/assets/css/broadcast.css">
+<link rel="stylesheet" href="../../hpc/assets/css/checkbox-toggle.css">
+<link rel="stylesheet" href="../../hpc/assets/css/docsearch.css">
+<link rel="stylesheet" href="../../hpc/assets/css/quarto-customizations.css">
+</head>
+
+<body class="nav-fixed fullcontent quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../hpc/assets/ico/favicon.ico" alt="" class="navbar-logo light-content">
+    <img src="../../hpc/assets/ico/favicon.ico" alt="" class="navbar-logo dark-content">
+    </a>
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">UCSF Wynton HPC Cluster</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../hpc/status/index.html"> 
+<span class="menu-text">Status</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-get-started" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Get Started</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-get-started">    
+        <li>
+    <a class="dropdown-item" href="../../hpc/get-started/access-cluster.html">
+ <span class="dropdown-text">1. Login &amp; Logout</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/get-started/development-prototyping.html">
+ <span class="dropdown-text">2. Development / Prototyping</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/get-started/hello-world-job.html">
+ <span class="dropdown-text">3. ‘Hello World’ Job</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/get-started/good-practices.html">
+ <span class="dropdown-text">4. Good Practices</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/get-started/duo-signup.html">
+ <span class="dropdown-text">5. 2FA Registration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/get-started/protected-quickstart.html">
+ <span class="dropdown-text">6. Wynton Protected Quickstart</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-software" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Software</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-software">    
+        <li>
+    <a class="dropdown-item" href="../../hpc/software/core-software.html">
+ <span class="dropdown-text">Core Software</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/software/scl.html">
+ <span class="dropdown-text">Software Collections (SCL)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/software/software-modules.html">
+ <span class="dropdown-text">Software Modules</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/software/software-repositories.html">
+ <span class="dropdown-text">Software Repositories</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/software/apptainer.html">
+ <span class="dropdown-text">Linux Containers (Apptainer/Singularity)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/software/sbgrid.html">
+ <span class="dropdown-text">SBGrid Software (restricted access)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/software/missing-software.html">
+ <span class="dropdown-text">Missing Software?</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/software/rocky-8-linux.html">
+ <span class="dropdown-text">Migration to Rocky 8 Linux (Nov 2023)</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-sge" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">SGE</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-sge">    
+        <li>
+    <a class="dropdown-item" href="../../hpc/scheduler/submit-jobs.html">
+ <span class="dropdown-text">Submit Jobs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/scheduler/list-jobs.html">
+ <span class="dropdown-text">List Jobs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/scheduler/kill-jobs.html">
+ <span class="dropdown-text">Kill Jobs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/scheduler/job-summary.html">
+ <span class="dropdown-text">Job Summary</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/scheduler/envvars.html">
+ <span class="dropdown-text">Useful Env. Variables</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/scheduler/using-local-scratch.html">
+ <span class="dropdown-text">Use Local Scratch</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/scheduler/queues.html">
+ <span class="dropdown-text">Available Queues</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/scheduler/email-notifications.html">
+ <span class="dropdown-text">Job Email Notifications</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/scheduler/gpu.html">
+ <span class="dropdown-text">GPU Scheduling</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/scheduler/advanced-usage.html">
+ <span class="dropdown-text">Advanced Usage</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-file-transfers" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">File Transfers</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-file-transfers">    
+        <li>
+    <a class="dropdown-item" href="../../hpc/transfers/files-and-directories.html">
+ <span class="dropdown-text">Secure Copy File Transfers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/transfers/globus.html">
+ <span class="dropdown-text">Globus File Transfers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/transfers/globus-sharing.html">
+ <span class="dropdown-text">Globus File Sharing</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/transfers/ucsf-box.html">
+ <span class="dropdown-text">UCSF Box</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/transfers/dos2unix.html">
+ <span class="dropdown-text">Windows-Unix File Transfers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/transfers/rclone.html">
+ <span class="dropdown-text">rclone (mount Wynton file system locally)</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-how-to" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">How To</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-how-to">    
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/matlab.html">
+ <span class="dropdown-text">Work with MATLAB</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/python.html">
+ <span class="dropdown-text">Work with Python</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/jupyter.html">
+ <span class="dropdown-text">Work with Jupyter Notebook</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/r.html">
+ <span class="dropdown-text">Work with R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/rstudio.html">
+ <span class="dropdown-text">Work with RStudio</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/conda.html">
+ <span class="dropdown-text">Work with Conda</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/conda-stage.html">
+ <span class="dropdown-text">Stage Conda Environment to Local Disk</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/install-from-source.html">
+ <span class="dropdown-text">Install Software from Source</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/storage-size.html">
+ <span class="dropdown-text">File Sizes and Disk Quotas</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/group-quota.html">
+ <span class="dropdown-text">Adjust Group Disk Quota</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/find-files.html">
+ <span class="dropdown-text">Find Files</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/log-in-without-pwd.html">
+ <span class="dropdown-text">Log in without Password</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/change-pwd.html">
+ <span class="dropdown-text">Change &amp; Verify Password</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/gui-x11fwd.html">
+ <span class="dropdown-text">GUIs (X2Go &amp; X11)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/howto/jupyterhub.html">
+ <span class="dropdown-text">JupyterHub Server (DISCONTINUED)</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-support" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Support</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-support">    
+        <li>
+    <a class="dropdown-item" href="../../hpc/support/index.html">
+ <span class="dropdown-text">Support Channels</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/support/faq.html">
+ <span class="dropdown-text">Frequently Asked Questions</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-about" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">About</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-about">    
+        <li>
+    <a class="dropdown-item" href="../../hpc/about/specs.html">
+ <span class="dropdown-text">Specifications</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/about/gpus.html">
+ <span class="dropdown-text">Available GPUs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/about/news.html">
+ <span class="dropdown-text">News</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/about/pricing-storage.html">
+ <span class="dropdown-text">Pricing: Extra Storage</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/about/pricing-compute.html">
+ <span class="dropdown-text">Pricing: Extra Compute (CPU &amp; GPU)</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="../../hpc/about/wynton-protected.html">
+ <span class="dropdown-text">Wynton Protected (P3 Data)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/about/join.html">
+ <span class="dropdown-text">Join ♡</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/about/shares.html">
+ <span class="dropdown-text">Contributing Member Shares</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="../../hpc/about/governance.html">
+ <span class="dropdown-text">Governance</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/about/user-agreement.html">
+ <span class="dropdown-text">User Agreement</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hpc/about/citation.html">
+ <span class="dropdown-text">How to Cite</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="../../hpc/about/contact.html">
+ <span class="dropdown-text">Contact</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+
+
+<div class="alert alert-warning" role="alert">
+<p>2023-04-02: The Singularity software was migrated to Apptainer in November 2021. We will suggest using the <code>apptainer</code> command, but the alias <code>singularity</code> will continue to work for the time being.</p>
+</div>
+<section id="apptainer---linux-containers" class="level1">
+<h1>Apptainer - Linux Containers</h1>
+<p>The Wynton HPC cluster supports <a href="https://www.wikipedia.org/wiki/Linux_containers">Linux containers</a> via the <a href="https://apptainer.org/">Apptainer</a> software (formerly known as <a href="https://sylabs.io/docs/">Singularity</a>). A Linux container is an efficient and powerful virtualization method for running isolated Linux systems (“containers”) on any Linux system including the one used by our cluster.</p>
+<p>Apptainer, and Linux containers in general, provides solutions to common problems and hurdles that HPC users often face, e.g.</p>
+<ul>
+<li>using software that is not installed on the system</li>
+<li>using software that is hard for user to install</li>
+<li>using software that only runs on a specific Linux distribution or version</li>
+<li>sharing scientific pipeline in a reproducible way</li>
+<li>using full scientific pipelines shared by others</li>
+</ul>
+<p>Because you can create and customize your own containers, and because Apptainer also supports <a href="https://www.docker.com/">Docker</a> containers, you have immediate access to a very large number of Apptainer and Docker containers available via repositories such as:</p>
+<ul>
+<li><a href="https://hub.docker.com/explore/">Docker Hub</a> - the official repository for Docker-based containers (100,000’s of containers)</li>
+<li><a href="https://biocontainers.pro/">Biocontainers</a> - “community-driven framework which provides system-agnostic executable environments for bioinformatics software” (Docker-based containers)</li>
+<li><a href="https://cloud.sylabs.io/library">Singularity Library</a> by Sylabs - the official repository for Singularity-specific containers (compatible with Apptainer) <!-- * [Singularity Hub](https://singularity-hub.org/) by Vanessa Sochat at Stanford - requires GitHub login (as of July 2019) --></li>
+</ul>
+<section id="instructions" class="level2">
+<h2 class="anchored" data-anchor-id="instructions">Instructions</h2>
+<p>All tasks for using Linux containers, such as downloading, building, and running containers, is done via the <code>apptainer</code> client and supported on Wynton HPC. The most common command calls are:</p>
+<ul>
+<li>Use an existing container:
+<ul>
+<li><code>apptainer run &lt;image&gt;</code> - run predefined script within container</li>
+<li><code>apptainer exec &lt;image&gt;</code> - execute any command within container</li>
+<li><code>apptainer shell &lt;image&gt;</code> - run bash shell within container</li>
+</ul></li>
+<li>Build a container:
+<ul>
+<li><code>apptainer build &lt;url&gt;</code> - import an existing Apptainer or Docker container available online</li>
+<li><code>apptainer build --remote &lt;image&gt; &lt;def file&gt;</code> - build a Apptainer from local specifications in definition file</li>
+</ul></li>
+</ul>
+<p>For full details, see <code>apptainer --help</code>, <code>man apptainer</code>, and the <a href="https://apptainer.org/">Apptainer</a> website.</p>
+<ul>
+<li>Install Apptainer or Docker on your own machine:
+<ul>
+<li>Create a Apptainer image on your own workstation and transfer the image to Wynton HPC</li>
+<li>Create a Docker image on your own workstation and transfer the image to Wynton HPC</li>
+</ul></li>
+</ul>
+</section>
+<section id="example" class="level2">
+<h2 class="anchored" data-anchor-id="example">Example</h2>
+<section id="building-a-apptainer-container-from-an-existing-docker-hub-image" class="level3">
+<h3 class="anchored" data-anchor-id="building-a-apptainer-container-from-an-existing-docker-hub-image">Building a Apptainer container from an existing Docker Hub image</h3>
+<p>As an illustration on how to use Linux containers with Apptainer, we will use the Docker container <a href="https://hub.docker.com/r/rocker/r-base/">rocker/r-base</a> available on Docker Hub. This particular container provides the latest release of the <a href="https://www.r-project.org/">R</a> software in an Ubuntu OS environment. Containers available from Docker Hub, Biocontainers, and elsewhere, can be downloaded and used analogously.</p>
+<p>To use this rocker/r-base container, we first pull it down to a Apptainer image file <code>~/lxc/rocker_r-base.sif</code> as:</p>
+<!-- code-block label="build" -->
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">[alice@dev2</span> ~]$ mkdir lxc</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">mkdir:</span> cannot create directory ‘lxc’: File exists</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">[alice@dev2</span> ~]$ cd lxc/</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ex">[alice@dev2</span> lxc]$ apptainer build rocker_r-base.sif docker://rocker/r-base</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">INFO:</span>    Starting build...</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="ex">Getting</span> image source signatures</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="ex">Copying</span> blob sha256:bd556fe2886dac2a22b5e02cf43558766730e3423978522b24f2457ff2d489d0</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="ex">Copying</span> blob sha256:4ade4cbe0c7e776cd60102751e29ec82271b08f5a086da6ccfef0574f6a040db</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="ex">Copying</span> blob sha256:5fe7cbdf1a7c13b846f5fa6e716cf72a115b877f48d2693b9a1fbe7788d36b1d</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="ex">Copying</span> blob sha256:ebbe46658ae1eddd748e3222cbc9dd7109f9fd7f279a4b2f9d6a32d0a58b4c16</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="ex">Copying</span> blob sha256:4be550b6d67c5ef8b2ae801804eabe3acefc327f4abfa62a3e364f311a1e25b4</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="ex">Copying</span> blob sha256:5790fe4db759efadbc15af34fc7b9ae6f5ebadf8ce05baec4309b73b79cec810</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="ex">Copying</span> config sha256:6de003fbdce5b64853257f2e3d540251123c25006977d544680b6c38c21942b9</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="ex">Writing</span> manifest to image destination</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="ex">Storing</span> signatures</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="ex">2023/11/15</span> 12:34:02  info unpack layer: sha256:ebbe46658ae1eddd748e3222cbc9dd7109f9fd7f279a4b2f9d6a32d0a58b4c16</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="ex">2023/11/15</span> 12:34:04  info unpack layer: sha256:4ade4cbe0c7e776cd60102751e29ec82271b08f5a086da6ccfef0574f6a040db</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="ex">2023/11/15</span> 12:34:04  info unpack layer: sha256:4be550b6d67c5ef8b2ae801804eabe3acefc327f4abfa62a3e364f311a1e25b4</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="ex">2023/11/15</span> 12:34:05  info unpack layer: sha256:5fe7cbdf1a7c13b846f5fa6e716cf72a115b877f48d2693b9a1fbe7788d36b1d</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="ex">2023/11/15</span> 12:34:05  info unpack layer: sha256:5790fe4db759efadbc15af34fc7b9ae6f5ebadf8ce05baec4309b73b79cec810</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="ex">2023/11/15</span> 12:34:05  info unpack layer: sha256:bd556fe2886dac2a22b5e02cf43558766730e3423978522b24f2457ff2d489d0</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="ex">INFO:</span>    Creating SIF file...</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="ex">INFO:</span>    Build complete: rocker_r-base.sif</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="ex">[alice@dev2</span> lxc]$ ls <span class="at">-l</span> rocker_r-base.sif</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="ex">-rwxr-xr-x.</span> 1 alice boblab 325574656 Nov 15 12:34 rocker_r-base.sif</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The above may take a minute or two to complete.</p>
+</section>
+<section id="running-a-container" class="level3">
+<h3 class="anchored" data-anchor-id="running-a-container">Running a container</h3>
+<p>After this, we can run R within this container using:</p>
+<!-- code-block label="run" -->
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">[alice@dev2</span> lxc]$ apptainer run rocker_r-base.sif</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">R</span> version 4.3.1 <span class="er">(</span><span class="ex">2023-06-16</span><span class="kw">)</span> <span class="ex">--</span> <span class="st">"Beagle Scouts"</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="ex">Copyright</span> <span class="er">(</span><span class="ex">C</span><span class="kw">)</span> <span class="ex">2023</span> The R Foundation for Statistical Computing</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="ex">Platform:</span> x86_64-pc-linux-gnu <span class="er">(</span><span class="ex">64-bit</span><span class="kw">)</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="ex">R</span> is free software and comes with ABSOLUTELY NO WARRANTY.</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="ex">You</span> are welcome to redistribute it under certain conditions.</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="ex">Type</span> <span class="st">'license()'</span> or <span class="st">'licence()'</span> for distribution details.</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="ex">Natural</span> language support but running in an English locale</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="ex">R</span> is a collaborative project with many contributors.</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="ex">Type</span> <span class="st">'contributors()'</span> for more information and</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="st">'citation()'</span> on how to cite R or R packages in publications.</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="ex">Type</span> <span class="st">'demo()'</span> for some demos, <span class="st">'help()'</span> for on-line help, or</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="st">'help.start()'</span> for an HTML browser interface to help.</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="ex">Type</span> <span class="st">'q()'</span> to quit R.</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> sum<span class="kw">(</span><span class="ex">1:10</span><span class="kw">)</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="ex">[1]</span> 55</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> q<span class="kw">()</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="ex">Save</span> workspace image<span class="pp">?</span> <span class="pp">[</span><span class="ss">y/n/c</span><span class="pp">]</span>: n</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="ex">[alice@dev2</span> lxc]$</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Exactly what is “run” is defined by the so called <a href="https://apptainer.org/docs/user/latest/definition_files.html"><code>%runscript</code></a> of the Apptainer container, or the <a href="https://hub.docker.com/r/rocker/r-base/~/dockerfile/"><code>CMD</code></a> entry if imported from a Docker container. An alternative way to launch R within this container is by explicitly executing R, e.g.</p>
+<!-- code-block label="exec" -->
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">[alice@dev2</span> lxc]$ apptainer exec rocker_r-base.sif R <span class="at">--quiet</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> sum<span class="kw">(</span><span class="ex">1:10</span><span class="kw">)</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">[1]</span> 55</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> q<span class="kw">(</span><span class="st">"no"</span><span class="kw">)</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="ex">[alice@dev2</span> lxc]$ </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Note that, the Apptainer image is marked as an <em>executable</em>, which means you can run it as any other executable, e.g.</p>
+<!-- code-block label="command" -->
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">[alice@dev2</span> lxc]$ ./rocker_r-base.sif</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">R</span> version 4.3.1 <span class="er">(</span><span class="ex">2023-06-16</span><span class="kw">)</span> <span class="ex">--</span> <span class="st">"Beagle Scouts"</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="ex">Copyright</span> <span class="er">(</span><span class="ex">C</span><span class="kw">)</span> <span class="ex">2023</span> The R Foundation for Statistical Computing</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="ex">Platform:</span> x86_64-pc-linux-gnu <span class="er">(</span><span class="ex">64-bit</span><span class="kw">)</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="ex">R</span> is free software and comes with ABSOLUTELY NO WARRANTY.</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="ex">You</span> are welcome to redistribute it under certain conditions.</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="ex">Type</span> <span class="st">'license()'</span> or <span class="st">'licence()'</span> for distribution details.</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="ex">Natural</span> language support but running in an English locale</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="ex">R</span> is a collaborative project with many contributors.</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="ex">Type</span> <span class="st">'contributors()'</span> for more information and</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="st">'citation()'</span> on how to cite R or R packages in publications.</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="ex">Type</span> <span class="st">'demo()'</span> for some demos, <span class="st">'help()'</span> for on-line help, or</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="st">'help.start()'</span> for an HTML browser interface to help.</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="ex">Type</span> <span class="st">'q()'</span> to quit R.</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> sum<span class="kw">(</span><span class="ex">1:10</span><span class="kw">)</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="ex">[1]</span> 55</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> q<span class="kw">(</span><span class="st">"no"</span><span class="kw">)</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="ex">[alice@dev2</span> lxc]$</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>To launch a shell within this container, and to also convince yourselves that the container runs Ubuntu (and not Rocky 8 as on the Wynton HPC host system), do:</p>
+<!-- code-block label="shell" -->
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">[alice@dev2</span> lxc]$ apptainer shell rocker_r-base.sif</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Apptainer</span><span class="op">&gt;</span> head <span class="at">-3</span> /etc/os-release</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="va">PRETTY_NAME</span><span class="op">=</span><span class="st">"Debian GNU/Linux bookworm/sid"</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="va">NAME</span><span class="op">=</span><span class="st">"Debian GNU/Linux"</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="va">VERSION_CODENAME</span><span class="op">=</span>bookworm</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="ex">Apptainer</span><span class="op">&gt;</span> Rscript <span class="at">--version</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> <span class="er">(</span><span class="ex">R</span><span class="kw">)</span> <span class="ex">version</span> 4.3.1 <span class="er">(</span><span class="ex">2023-06-16</span><span class="kw">)</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="ex">Apptainer</span><span class="op">&gt;</span> exit</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="ex">[alice@dev2</span> lxc]$ head <span class="at">-3</span> /etc/os-release</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="va">NAME</span><span class="op">=</span><span class="st">"Rocky Linux"</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="va">VERSION</span><span class="op">=</span><span class="st">"8.8 (Green Obsidian)"</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="va">ID</span><span class="op">=</span><span class="st">"rocky"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="access-other-cluster-folders-than-your-home-folder" class="level3">
+<h3 class="anchored" data-anchor-id="access-other-cluster-folders-than-your-home-folder">Access other cluster folders than your home folder</h3>
+<p>When running a container, only a few of the folders available “outside” are available “inside” the container. By default, you have access to the current working directory (= <code>$PWD</code>) and your home folder (= <code>$HOME</code>). In contrast, without further specifications, you will not have access to standard folders such as local <code>/scratch</code> and global <code>/wynton/scratch</code>. Similarly, lab folders such as <code>/wynton/group/boblab</code> are not available from inside the container.</p>
+<!-- code-block label="shell-nobind" -->
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">[alice@dev2</span> lxc]$ apptainer shell rocker_r-base.sif</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Apptainer</span><span class="op">&gt;</span> ls /scratch</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="ex">ls:</span> cannot access <span class="st">'/scratch'</span>: No such file or directory</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="ex">Apptainer</span><span class="op">&gt;</span> ls /wynton/scratch</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="ex">ls:</span> cannot access <span class="st">'/wynton/scratch'</span>: No such file or directory</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="ex">Apptainer</span><span class="op">&gt;</span> ls /wynton/group/boblab</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="ex">ls:</span> cannot access <span class="st">'/wynton/group/boblab'</span>: No such file or directory</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="ex">Apptainer</span><span class="op">&gt;</span> echo <span class="st">"</span><span class="va">$TMPDIR</span><span class="st">"</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="ex">/scratch/alice</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="ex">Apptainer</span><span class="op">&gt;</span> ls <span class="at">-dF</span> <span class="st">"</span><span class="va">$TMPDIR</span><span class="st">"</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="ex">ls:</span> cannot access <span class="st">'/scratch/alice'</span>: No such file or directory</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="ex">Apptainer</span><span class="op">&gt;</span> mktemp</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="ex">mktemp:</span> failed to create file via template ‘/scratch/alice/tmp.XXXXXXXXXX’: No such file or directory</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>To make also these folders available within the container, we can use <code>apptainer</code> option <code>--bind</code>. In its simplest form, we can just list the folders we want to make available, e.g.</p>
+<!-- code-block label="shell-bind" -->
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">[alice@dev2</span> lxc]$ apptainer shell <span class="at">--bind</span> /scratch,/wynton/scratch,/wynton/group/boblab rocker_r-base.sif</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Apptainer</span><span class="op">&gt;</span> echo <span class="st">"</span><span class="va">$TMPDIR</span><span class="st">"</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="ex">/scratch/alice</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="ex">Apptainer</span><span class="op">&gt;</span> ls <span class="at">-dF</span> <span class="st">"</span><span class="va">$TMPDIR</span><span class="st">"</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="ex">/scratch/alice/</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="ex">Apptainer</span><span class="op">&gt;</span> mktemp</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="ex">/scratch/alice/tmp.UfD7e9LlxV</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="ex">Apptainer</span><span class="op">&gt;</span> ls <span class="at">-dF</span> /wynton/scratch/alice</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="ex">/wynton/scratch/alice/</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="ex">Apptainer</span><span class="op">&gt;</span> ls /wynton/group/boblab</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="ex">data1</span>  data2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>One can also use <code>--bind</code> to bind a folder inside the container to a folder at another location with a different name outside the container. For example, if a tool writes to <code>/var/log</code>, you can access those log files outside of the container afterward by using:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">[alice@dev2</span> lxc]$ mkdir <span class="at">-p</span> extra/logs</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">[alice@dev2</span> lxc]$ echo <span class="st">"Hello world"</span> <span class="op">&gt;</span> extra/logs/hello.txt</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="ex">[alice@dev2</span> lxc]$ apptainer shell <span class="at">--bind</span> extra/logs:/var/log rocker_r-base.sif</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="ex">Apptainer</span><span class="op">&gt;</span> date <span class="op">&gt;</span> /var/log/timestamp</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="ex">Apptainer</span><span class="op">&gt;</span> ls /var/log</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="ex">hello.txt</span>  timestamp</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="ex">Apptainer</span><span class="op">&gt;</span> exit</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="bu">exit</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="ex">[alice@dev2</span> lxc]$ ls extra/logs</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="ex">hello.txt</span>  timestamp</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>See <code>apptainer help instance start</code> for more details and other ways to mount and rename folders within the container.</p>
+</section>
+<section id="running-a-container-as-a-job" class="level3">
+<h3 class="anchored" data-anchor-id="running-a-container-as-a-job">Running a container as a job</h3>
+<p>When it comes to the scheduler, there is nothing special about Apptainer per se - the Apptainer software can be used as any other software on the cluster. As a proof of concept, here is how to calculate the sum of one to ten using R within the above Linux container at the command line:</p>
+<!-- code-block label="rscript-sum" -->
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">[alice@dev2</span> lxc]$ apptainer exec <span class="st">"rocker_r-base.sif"</span> Rscript <span class="at">-e</span> <span class="st">"sum(1:10)"</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">[1]</span> 55</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="ex">[alice@dev2</span> lxc]$ </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>To run this as a batch job, we need to create a job script.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">[alice@dev2</span> lxc]$ cat demo-apptainer.sh</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co">#!/usr/bin/bash</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">#$ -S /bin/bash</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co">#$ -cwd</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co">#$ -j y</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co">#$ -N demo-apptainer</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co">#$ -l mem_free=100M</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co">#$ -l h_rt=00:05:00</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co">## Remember to bind TMPDIR</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> exec <span class="at">--bind</span> <span class="st">"</span><span class="va">$TMPDIR</span><span class="st">"</span> rocker_r-base.sif Rscript <span class="at">-e</span> <span class="st">"sum(1:10)"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>And now submit with <code>qsub</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">[alice@dev2</span> lxc]$ qsub demo-apptainer.sh</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Your</span> job 1657 <span class="er">(</span><span class="st">"hello_world"</span><span class="kw">)</span> <span class="ex">has</span> been submitted</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Check results:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">[alice@dev2</span> lxc]$ cat demo-apptainer.o5987</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="ex">[1]</span> 55</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="building-a-container-from-scratch" class="level3">
+<h3 class="anchored" data-anchor-id="building-a-container-from-scratch">Building a container from scratch</h3>
+<p>Sometimes you need to build custom Linux container from a <code>*.def</code> definition file. In the past, when Singularity was used, this required administrative (“sudo”) privileges. However, with the introduction of Apptainer, any user can now build container images also from scratch from one of the Wynton HPC development nodes.</p>
+<p>For example, consider the following <code>isoseq3.def</code> file, which builds upon a Docker Miniconda3 image (available at <a href="https://hub.docker.com/r/continuumio/miniconda3" class="uri">https://hub.docker.com/r/continuumio/miniconda3</a>) and extends it by installing <code>isoseq3</code> from the Bioconda channel (available at <a href="https://anaconda.org/bioconda/isoseq3" class="uri">https://anaconda.org/bioconda/isoseq3</a>):</p>
+<!-- code-block label="isoseq3-def" -->
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Bootstrap:</span> docker</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="ex">From:</span> continuumio/miniconda3</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="ex">%post</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="ex">/opt/conda/bin/conda</span> config <span class="at">--set</span> notify_outdated_conda false</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="ex">/opt/conda/bin/conda</span> config <span class="at">--add</span> channels bioconda</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="ex">/opt/conda/bin/conda</span> install isoseq3</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="ex">%runscript</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  <span class="ex">isoseq3</span> <span class="st">"</span><span class="va">$@</span><span class="st">"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>To build a container image from this definition file, use <code>apptainer build</code> as in:</p>
+<!-- code-block label="isoseq3-build" -->
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">[alice@dev2</span> ~]$ mkdir lxc</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="ex">mkdir:</span> cannot create directory ‘lxc’: File exists</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="ex">[alice@dev2</span> ~]$ cd lxc/</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="ex">[alice@dev2</span> lxc]$ apptainer build isoseq3.sif isoseq3.def</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="ex">INFO:</span>    User not listed in /etc/subuid, trying root-mapped namespace</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="ex">INFO:</span>    The %post section will be run under fakeroot</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="ex">INFO:</span>    Starting build...</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="ex">Getting</span> image source signatures</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="ex">Copying</span> blob sha256:129bc9a4304fe3a6ef0435e6698ab6bc2728b6f92078718fb28cb4b54ac59e96</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="ex">Copying</span> blob sha256:e67fdae3559346105027c63e7fb032bba57e62b1fe9f2da23e6fdfb56384e00b</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="ex">Copying</span> blob sha256:62aa66a9c405da603a06d242539b8f0dd178ae4179bf52584bbcce7a0471795f</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="ex">Copying</span> config sha256:6fbaadd54391b461351b02c0ddaf2bf284a2dcc9817f5685e07b2602e30f2b5c</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="ex">Writing</span> manifest to image destination</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="ex">Storing</span> signatures</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="ex">2023/11/15</span> 13:18:59  info unpack layer: sha256:e67fdae3559346105027c63e7fb032bba57e62b1fe9f2da23e6fdfb56384e00b</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="ex">2023/11/15</span> 13:19:01  info unpack layer: sha256:62aa66a9c405da603a06d242539b8f0dd178ae4179bf52584bbcce7a0471795f</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a><span class="ex">2023/11/15</span> 13:19:03  info unpack layer: sha256:129bc9a4304fe3a6ef0435e6698ab6bc2728b6f92078718fb28cb4b54ac59e96</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a><span class="ex">INFO:</span>    Running post scriptlet</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a><span class="ex">+</span> /opt/conda/bin/conda config <span class="at">--set</span> notify_outdated_conda false</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a><span class="ex">+</span> /opt/conda/bin/conda config <span class="at">--add</span> channels bioconda</span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a><span class="ex">+</span> /opt/conda/bin/conda install isoseq3</span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a><span class="ex">Collecting</span> package metadata <span class="er">(</span><span class="ex">current_repodata.json</span><span class="kw">)</span><span class="bu">:</span> ...working... done</span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a><span class="ex">Solving</span> environment: ...working... done</span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a><span class="co">## Package Plan ##</span></span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>  <span class="ex">environment</span> location: /opt/conda</span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a>  <span class="ex">added</span> / updated specs:</span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a>    <span class="ex">-</span> isoseq3</span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a><span class="ex">The</span> following packages will be downloaded:</span>
+<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a>    <span class="ex">package</span>                    <span class="kw">|</span>            <span class="ex">build</span></span>
+<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a>    <span class="ex">---------------------------</span><span class="kw">|</span><span class="ex">-----------------</span></span>
+<span id="cb14-37"><a href="#cb14-37" aria-hidden="true" tabindex="-1"></a>    <span class="ex">isoseq-4.0.0</span>               <span class="kw">|</span>       <span class="ex">h9ee0642_0</span>         2.9 MB  bioconda</span>
+<span id="cb14-38"><a href="#cb14-38" aria-hidden="true" tabindex="-1"></a>    <span class="ex">isoseq3-4.0.0</span>              <span class="kw">|</span>       <span class="ex">h9ee0642_0</span>           7 KB  bioconda</span>
+<span id="cb14-39"><a href="#cb14-39" aria-hidden="true" tabindex="-1"></a>    <span class="ex">openssl-3.0.12</span>             <span class="kw">|</span>       <span class="ex">h7f8727e_0</span>         5.2 MB</span>
+<span id="cb14-40"><a href="#cb14-40" aria-hidden="true" tabindex="-1"></a>    <span class="ex">------------------------------------------------------------</span></span>
+<span id="cb14-41"><a href="#cb14-41" aria-hidden="true" tabindex="-1"></a>                                           <span class="ex">Total:</span>         8.1 MB</span>
+<span id="cb14-42"><a href="#cb14-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-43"><a href="#cb14-43" aria-hidden="true" tabindex="-1"></a><span class="ex">The</span> following NEW packages will be INSTALLED:</span>
+<span id="cb14-44"><a href="#cb14-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-45"><a href="#cb14-45" aria-hidden="true" tabindex="-1"></a>  <span class="ex">isoseq</span>             bioconda/linux-64::isoseq-4.0.0-h9ee0642_0 </span>
+<span id="cb14-46"><a href="#cb14-46" aria-hidden="true" tabindex="-1"></a>  <span class="ex">isoseq3</span>            bioconda/linux-64::isoseq3-4.0.0-h9ee0642_0 </span>
+<span id="cb14-47"><a href="#cb14-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-48"><a href="#cb14-48" aria-hidden="true" tabindex="-1"></a><span class="ex">The</span> following packages will be UPDATED:</span>
+<span id="cb14-49"><a href="#cb14-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-50"><a href="#cb14-50" aria-hidden="true" tabindex="-1"></a>  <span class="ex">openssl</span>                                 3.0.11-h7f8727e_2 <span class="at">--</span><span class="op">&gt;</span> 3.0.12-h7f8727e_0 </span>
+<span id="cb14-51"><a href="#cb14-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-52"><a href="#cb14-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-53"><a href="#cb14-53" aria-hidden="true" tabindex="-1"></a><span class="ex">Proceed</span> <span class="er">(</span><span class="ex">[y]/n</span><span class="kw">)</span><span class="ex">?</span> </span>
+<span id="cb14-54"><a href="#cb14-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-55"><a href="#cb14-55" aria-hidden="true" tabindex="-1"></a><span class="ex">Downloading</span> and Extracting Packages: ...working... done</span>
+<span id="cb14-56"><a href="#cb14-56" aria-hidden="true" tabindex="-1"></a><span class="ex">Preparing</span> transaction: ...working... done</span>
+<span id="cb14-57"><a href="#cb14-57" aria-hidden="true" tabindex="-1"></a><span class="ex">Verifying</span> transaction: ...working... done</span>
+<span id="cb14-58"><a href="#cb14-58" aria-hidden="true" tabindex="-1"></a><span class="ex">Executing</span> transaction: ...working... done</span>
+<span id="cb14-59"><a href="#cb14-59" aria-hidden="true" tabindex="-1"></a><span class="ex">INFO:</span>    Adding runscript</span>
+<span id="cb14-60"><a href="#cb14-60" aria-hidden="true" tabindex="-1"></a><span class="ex">INFO:</span>    Creating SIF file...</span>
+<span id="cb14-61"><a href="#cb14-61" aria-hidden="true" tabindex="-1"></a><span class="ex">INFO:</span>    Build complete: isoseq3.sif</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The results is a container image file named <code>isoseq3.sif</code>:</p>
+<!-- code-block label="isoseq3-ls" -->
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">[alice@dev2</span> lxc]$ ls <span class="at">-l</span> isoseq3.sif</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="ex">-rwxr-xr-x.</span> 1 alice boblab 214814720 Nov 15  2023 isoseq3.sif</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="ex">[alice@dev2</span> lxc]$ </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Because the definition file has a <a href="https://apptainer.org/docs/user/latest/definition_files.html"><code>%runscript</code></a> entry, we can call this image directly as-is, e.g.</p>
+<!-- code-block label="isoseq3-version" -->
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">[alice@dev2</span> lxc]$ ./isoseq3.sif <span class="at">--version</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="ex">isoseq</span> 4.0.0 <span class="er">(</span><span class="ex">commit</span> v4.0.0<span class="kw">)</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="ex">Using:</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="ex">pbbam</span>     : 2.4.99 <span class="er">(</span><span class="ex">commit</span> v2.4.0-16-g5cc6e4b<span class="kw">)</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="ex">pbcopper</span>  : 2.3.99 <span class="er">(</span><span class="ex">commit</span> v2.3.0-14-g5ac5693<span class="kw">)</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="ex">pbmm2</span>     : 1.11.99 <span class="er">(</span><span class="ex">commit</span> v1.11.0-1-g1b5a417<span class="kw">)</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="ex">minimap2</span>  : 2.15</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>  <span class="ex">parasail</span>  : 2.1.3</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  <span class="ex">boost</span>     : 1.77</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  <span class="ex">htslib</span>    : 1.17</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>  <span class="ex">zlib</span>      : 1.2.13</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="ex">[alice@dev2</span> lxc]$ </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="frequently-asked-questions-faq" class="level2">
+<h2 class="anchored" data-anchor-id="frequently-asked-questions-faq">Frequently asked questions (FAQ)</h2>
+<p>Q. <em>Why not Docker?</em><br>
+A. Docker is one of the most popular and well-known software solutions for using Linux Containers. However, contrary to Apptainer, it turns out that it is hard to get Docker to play well with multi-tenant HPC environments.</p>
+<p>Q. <em>What happened to Singularity?</em><br>
+A. The Apptainer software is a fork of the Singularity software from 2021. For backward compatibility, the <code>singularity</code> command is an alias to the <code>apptainer</code> command. We suggest that you update your script to use <code>apptainer</code>.</p>
+<p>Q. <em>What’s the filename extension <code>*.sif</code>?</em><br>
+A. First of all, the filename extension is optional, and some prefer to drop them, e.g.&nbsp;<code>rocker_r-base</code> instead of <code>rocker_r-base.sif</code>. SIF, which is short for the <a href="https://github.com/apptainer/sif">Singularity Container Image Format</a>, is a file format that can hold a Linux container environments in a single file. You might also run into old Singularity images named <code>*.img</code> and <code>*.simg</code>, which are legacy file formats that Singularity used in the past, where <a href="https://groups.google.com/a/lbl.gov/d/msg/singularity/Cq7kIbN_L68/2mOdkwx2BAAJ"><code>*.img</code> indicates a <em>writable</em> (ext3) images whereas <code>*.simg</code> indicates a read-only (squashfs) image.</a></p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/wynton\.ucsf\.edu\/hpc\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p><a href="https://www.ucsf.edu/">UCSF</a> :: <a href="https://wynton.ucsf.edu/">Wynton</a> :: <a href="../../hpc/">Wynton HPC</a></p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

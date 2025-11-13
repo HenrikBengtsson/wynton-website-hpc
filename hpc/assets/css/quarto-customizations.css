@@ -1,0 +1,104 @@
+/* Add UCSF banner above navbar */
+.navbar::before {
+    content: '';
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 40px;
+    background: #052049;
+    z-index: 1031;
+}
+
+/* Adjust navbar position to be below UCSF banner and make it full width */
+.navbar {
+    position: fixed;
+    top: 40px;
+    left: 0;
+    right: 0;
+    width: 100%;
+    background-color: #ffdd00 !important;
+    border-color: #dec000 !important;
+}
+
+/* Ensure navbar container spans full width */
+.navbar .container-fluid,
+.navbar .navbar-container {
+    max-width: 100%;
+    width: 100%;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Add proper spacing for body content */
+body {
+    padding-top: 100px; /* 40px UCSF banner + 60px navbar */
+}
+
+/* Style navbar text */
+.navbar-nav .nav-link {
+    color: #555 !important;
+    text-decoration: none !important;
+}
+
+.navbar-nav .nav-link:hover {
+    background-color: #e6c700 !important;
+    color: #000 !important;
+}
+
+.navbar-title {
+    color: #555 !important;
+    text-decoration: none !important;
+}
+
+/* Position the UCSF banner content */
+.top-banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1032;
+    background: #052049;
+    height: 40px;
+}
+
+/* Hide the banner from body content area */
+main .top-banner {
+    display: none;
+}
+
+/* Decrease left and right margins to at most 5% */
+.page-columns {
+    max-width: 100%;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+main.content {
+    max-width: 100%;
+}
+
+.page-layout-article .page-columns {
+    max-width: 100%;
+}
+
+/* Style the footer (no yellow background per original Jekyll site) */
+.nav-footer {
+    background-color: #ffffff;
+    border-top: 1px solid #e5e5e5;
+    padding: 1.5em 0;
+}
+
+.nav-footer .nav-footer-center {
+    color: #555;
+}
+
+.nav-footer a {
+    color: #2d6da3;
+    text-decoration: underline;
+}
+
+.nav-footer a:hover {
+    color: #000;
+}
